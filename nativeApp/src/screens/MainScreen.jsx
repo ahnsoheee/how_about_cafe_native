@@ -9,6 +9,7 @@ const Tab = createBottomTabNavigator();
 
 const MainScreen = ({ navigation }) => {
     const [auth, setAuth] = useState(true);
+    const [user_id, setUserId] = useState('test');
 
     return auth ? (
         <Tab.Navigator
@@ -17,7 +18,9 @@ const MainScreen = ({ navigation }) => {
                 tabBarShowLabel: false
             }}>
             <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }} />
-            <Tab.Screen name="Settings" component={SettingScreen} options={{ tabBarIcon: ({ focused }) => <SettingIcon focused={focused} /> }} />
+            <Tab.Screen name="Settings" options={{ tabBarIcon: ({ focused }) => <SettingIcon focused={focused} /> }} >
+                {() => <SettingScreen user_id={user_id} />}
+            </Tab.Screen>
         </Tab.Navigator>
     ) : (
         <InitScreen navigation={navigation} />
