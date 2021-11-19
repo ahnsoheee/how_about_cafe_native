@@ -3,5 +3,6 @@ module.exports = {
   "plugins": [
     ["import", { libraryName: "@ant-design/react-native" }],
     ['babel-plugin-styled-components'],
+    ['react-native-paper/babel'],
   ]
 };
