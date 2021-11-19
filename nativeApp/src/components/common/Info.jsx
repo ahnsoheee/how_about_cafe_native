@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 import { Text } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-const Info = ({ name, addr, star, review, onPress }) => {
+const Info = ({ id, name, addr, star, review, onPress }) => {
     return (
-        <Wrapper onPress={onPress} activeOpacity={1}>
+        <Wrapper onPress={onPress} activeOpacity={1} key={id}>
             <StyledView>
                 <Name>{name}</Name>
                 <ValueView>

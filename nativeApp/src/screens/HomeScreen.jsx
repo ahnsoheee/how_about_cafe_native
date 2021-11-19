@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
-import Info from '../components/common/Info';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native'
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
+import List from '../components/common/List';
 
 const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
+
+    const [TopList, setTopList] = useState([])
+    const [SearchedList, setSearchedList] = useState([])
+
+    useEffect(() => {
+        // Top 4 가져오는 로직
+        setTopList(infoList);
+    }, [])
 
     const onPress = () => {
         // 상세 정보 로직
@@ -23,10 +31,9 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
                 AlertIOS.alert('검색어를 입력해주세요');
             }
         } else {
-            // 검색 로직
             setSearch(true);
-            ToastAndroid.show(searchValue, ToastAndroid.SHORT, ToastAndroid.CENTER)
-
+            // 검색 로직
+            setSearchedList(list)
         }
     };
 
@@ -36,13 +43,17 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
                 <Search placeholder='검색' value={searchValue} onChangeText={onChangeText} onIconPress={onSearch} />
                 {search ? <></> : <Title>카페어때</Title>}
             </Header>
-            <Content>
-                {/* top4-list */}
-                <Info name="하이엔드라이" star="4.93" addr="서울 성동구 광나루로 302" review="37" onPress={onPress} />
-                <Info name="하이엔드라이" star="4.93" addr="서울 성동구 광나루로 302" review="37" onPress={onPress} />
-                <Info name="하이엔드라이" star="4.93" addr="서울 성동구 광나루로 302" review="37" onPress={onPress} />
-                <Info name="하이엔드라이" star="4.93" addr="서울 성동구 광나루로 302" review="37" onPress={onPress} />
-            </Content>
+            {search ?
+                <Content>
+                    {/* 검색 목록 */}
+                    <List infos={SearchedList} />
+                </Content>
+                :
+                <Content>
+                    {/* top4-list */}
+                    <List infos={TopList} />
+                </Content>
+            }
         </>
     )
 }
@@ -69,6 +80,7 @@ const Header = styled.View`
 
 const Content = styled.View`
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     width: 100%;
     padding-top: 3%;
