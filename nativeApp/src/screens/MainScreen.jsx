@@ -9,7 +9,11 @@ const Tab = createBottomTabNavigator();
 
 const MainScreen = ({ navigation }) => {
     const [auth, setAuth] = useState(true);
-    const [user_id, setUserId] = useState('test');
+    const [user_id, setUserId] = useState('');
+    const [home, setHome] = useState(true);
+    const [setting, setSetting] = useState(false);
+    const [search, setSearch] = useState(false);
+    const [searchValue, setSearchValue] = useState('');
 
     return auth ? (
         <Tab.Navigator
@@ -17,8 +21,36 @@ const MainScreen = ({ navigation }) => {
                 headerShown: false,
                 tabBarShowLabel: false
             }}>
-            <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }} />
-            <Tab.Screen name="Settings" options={{ tabBarIcon: ({ focused }) => <SettingIcon focused={focused} /> }} >
+            <Tab.Screen
+                name="Home"
+                options={{ tabBarIcon: ({ focused }) => <HomeIcon focused={focused} /> }}
+                listeners={{
+                    tabPress: (e) => {
+                        setHome(true);
+                        setSetting(false);
+                        setSearchValue('');
+                        setSearch(false);
+                    }
+                }}
+            >
+                {() => <HomeScreen
+                    search={search}
+                    setSearch={setSearch}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue} />}
+            </Tab.Screen>
+            <Tab.Screen
+                name="Settings"
+                options={{ tabBarIcon: ({ focused }) => <SettingIcon focused={focused} /> }}
+                listeners={{
+                    tabPress: (e) => {
+                        setHome(false);
+                        setSetting(true);
+                        setSearchValue('');
+                        setSearch(false);
+                    }
+                }}
+            >
                 {() => <SettingScreen user_id={user_id} />}
             </Tab.Screen>
         </Tab.Navigator>
