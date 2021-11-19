@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native'
-import UserIcon from '../components/common/Icon/UserIcon';
+import UserIcon from '../components/icon/UserIcon';
 import { Text } from 'react-native'
 import SettingList from '../components/common/SettingList';
 

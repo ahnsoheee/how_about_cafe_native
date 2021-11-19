@@ -3,8 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import InitScreen from './InitScreen';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen'
-import HomeIcon from '../components/common/Icon/HomeIcon';
-import SettingIcon from '../components/common/Icon/SettingIcon';
+import HomeIcon from '../components/icon/HomeIcon';
+import SettingIcon from '../components/icon/SettingIcon';
+
 const Tab = createBottomTabNavigator();
 
 const MainScreen = ({ navigation }) => {
