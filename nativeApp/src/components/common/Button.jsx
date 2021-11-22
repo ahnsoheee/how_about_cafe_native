@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const SignButton = ({ name, onPress }) => {
+const Button = ({ name, onPress }) => {
     return (
         <ButtonWrapper onPress={onPress}>{name}</ButtonWrapper>
     )
@@ -22,4 +22,4 @@ const ButtonWrapper = styled.Text`
     font-weight: bold;
 `
 
-export default SignButton;
+export default Button;
