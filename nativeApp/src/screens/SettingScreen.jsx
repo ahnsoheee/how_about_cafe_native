@@ -4,13 +4,14 @@ import UserIcon from '../components/icon/UserIcon';
 import { Text } from 'react-native'
 import SettingList from '../components/common/SettingList';
 
-const SettingScreen = ({ user_id }) => {
+const SettingScreen = ({ user_id, navigation }) => {
     const manageMyReview = () => {
         // 내가 작성한 리뷰 로직 
     }
 
     const registerCafe = () => {
         // 카페 등록 로직
+        navigation.navigate('Cafe', { navigation: navigation });
     }
 
     const logout = () => {
@@ -25,7 +26,7 @@ const SettingScreen = ({ user_id }) => {
             </Header>
             <Text>{"\n"}</Text>
             <SettingList title="내가 작성한 리뷰" onPress={manageMyReview} />
-            <SettingList title="카페 등록하기" onPress={registerCafe} />
+            <SettingList title="카페 등록하기" onPress={registerCafe} navigation={navigation} />
             <SettingList title="로그아웃" onPress={logout} />
         </>
     )

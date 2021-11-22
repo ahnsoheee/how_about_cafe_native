@@ -53,7 +53,9 @@ const MainScreen = ({ navigation }) => {
                     }
                 }}
             >
-                {() => <SettingScreen user_id={user_id} />}
+                {() => <SettingScreen
+                    user_id={user_id}
+                    navigation={navigation} />}
             </Tab.Screen>
         </Tab.Navigator>
     ) : (
