@@ -18,8 +18,12 @@ const ButtonWrapper = styled.Text`
     justify-content: center;
     align-items: center;
     padding: 15px;
-    border-radius: 10px;
     font-weight: bold;
+    shadow-color: #000000;
+    shadow-offset: { width: 0; height: 1 };
+    shadow-opacity: 0.8;
+    shadow-radius: 10px;
+    elevation: 3;
 `
 
 export default Button;
