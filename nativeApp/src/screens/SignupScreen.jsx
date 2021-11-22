@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../components/sign/Button';
+import Button from '../components/common/Button';
 import Input from '../components/sign/Input';
 import Wrapper from '../components/sign/Wrapper';
 import { Text } from 'react-native';
