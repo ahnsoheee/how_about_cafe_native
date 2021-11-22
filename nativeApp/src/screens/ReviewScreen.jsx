@@ -9,7 +9,7 @@ const ReviewScreen = ({ navigation, route }) => {
     const [text, onChangeText] = React.useState('')
 
 
-    const onPress = () => {
+    const createReview = () => {
         // 리뷰 저장 로직
 
         // cafe_id: route.params.id
@@ -39,7 +39,7 @@ const ReviewScreen = ({ navigation, route }) => {
                     <Icon name="camera" size={40} />
                 </Camera>
             </CameraWrapper>
-            <Button name="저장하기" onPress={onPress} />
+            <Button name="저장하기" onPress={createReview} />
         </Wrapper>
     )
 }
