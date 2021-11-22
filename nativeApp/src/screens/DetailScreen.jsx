@@ -28,14 +28,14 @@ const DetailScreen = ({ navigation, route }) => {
         setPhotoList(images);
     }, [])
 
-    const createReview = () => {
+    const RegisterReview = () => {
         // 리뷰생성화면으로 이동
         navigation.navigate('Review', { id: route.params.id, navigation: navigation });
     }
 
     return (
         <Wrapper>
-            <Button onPress={createReview}>
+            <Button onPress={RegisterReview}>
                 <Icon name="plus" size={25} color="#FF8E26" />
             </Button>
             <Title>{route.params.name}</Title>

@@ -4,12 +4,12 @@ import StarRating from 'react-native-star-rating';
 import Button from '../components/common/Button';
 import Icon from 'react-native-vector-icons/Entypo'
 
-const ReviewScreen = ({ navigation, route }) => {
+const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0)
     const [text, onChangeText] = React.useState('')
 
 
-    const createReview = () => {
+    const registerReview = () => {
         // 리뷰 저장 로직
 
         // cafe_id: route.params.id
@@ -39,7 +39,7 @@ const ReviewScreen = ({ navigation, route }) => {
                     <Icon name="camera" size={40} />
                 </Camera>
             </CameraWrapper>
-            <Button name="저장하기" onPress={createReview} />
+            <Button name="저장하기" onPress={registerReview} />
         </Wrapper>
     )
 }
@@ -72,7 +72,6 @@ const Input = styled.TextInput`
     border-radius: 10px;
     padding: 10px;
     text-align-vertical: top;
-
 `;
 
 const CameraWrapper = styled.View`
@@ -89,4 +88,4 @@ const Camera = styled.View`
 `;
 
 
-export default ReviewScreen;
+export default RegisterReviewScreen;
