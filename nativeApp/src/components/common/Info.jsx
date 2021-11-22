@@ -1,19 +1,30 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Text } from 'react-native';
-import Icon from 'react-native-vector-icons/EvilIcons';
+import Star from './Star';
+import Pencil from './Pencil';
 
-const Info = ({ id, name, addr, star, review, onPress }) => {
+const Info = ({ id, name, addr, star, review, navigation }) => {
+
+    const onPress = () => {
+        // 상세 정보 로직
+        navigation.navigate('Detail', {
+            id: id,
+            name: name,
+            addr: addr,
+            star: star,
+            review: review
+        })
+    }
+
     return (
         <Wrapper onPress={onPress} activeOpacity={1} key={id}>
             <StyledView>
                 <Name>{name}</Name>
                 <ValueView>
-                    <Icon name="star" color="red" size={30} />
-                    <Value>&nbsp;{star}</Value>
+                    <Star star={star} />
                     <Text>&nbsp;&nbsp;</Text>
-                    <Icon name="pencil" size={30} />
-                    <Value>{review}</Value>
+                    <Pencil review={review} />
                 </ValueView>
             </StyledView>
             <Addr>{addr}</Addr>
@@ -22,12 +33,11 @@ const Info = ({ id, name, addr, star, review, onPress }) => {
 }
 
 const Wrapper = styled.TouchableOpacity`
+    height: 95px;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
-    width: 87%;
-    height: 18%;
     background-color: #ffffff;
-    margin: 2.5%;
+    margin-bottom: 20px;
     padding: 3%;
     shadow-color: #000000;
     shadow-offset: { width: 0; height: 1 };
@@ -51,10 +61,6 @@ const ValueView = styled.View`
     flex-grow: 1;
     flex-direction: row;
     text-align: right;
-`;
-
-const Value = styled.Text`
-    font-size: 17px;
 `;
 
 const Addr = styled.Text`
