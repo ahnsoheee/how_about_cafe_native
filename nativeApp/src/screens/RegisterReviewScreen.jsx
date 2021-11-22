@@ -67,7 +67,7 @@ const StarWrapper = styled.View`
 const Input = styled.TextInput`
     width: 100%;
     height: 45%;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #d9d9d9;
     border-radius: 10px;
     padding: 10px;
