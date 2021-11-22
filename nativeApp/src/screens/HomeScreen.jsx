@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native'
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
-import List from '../components/common/List';
+import InfoList from '../components/common/InfoList';
 
-const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
+const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation }) => {
 
     const [TopList, setTopList] = useState([])
     const [SearchedList, setSearchedList] = useState([])
@@ -13,10 +13,6 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
         // Top 4 가져오는 로직
         setTopList(infoList);
     }, [])
-
-    const onPress = () => {
-        // 상세 정보 로직
-    }
 
     const onChangeText = (value) => {
         setSearchValue(value);
@@ -46,17 +42,23 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue }) => {
             {search ?
                 <Content>
                     {/* 검색 목록 */}
-                    <List infos={SearchedList} />
+                    <InfoList infos={SearchedList} navigation={navigation} />
                 </Content>
                 :
                 <Content>
                     {/* top4-list */}
-                    <List infos={TopList} />
+                    <InfoList infos={TopList} navigation={navigation} />
                 </Content>
             }
         </>
     )
 }
+
+const Header = styled.View`
+    align-items: center;
+    padding-top: 15px;
+    background-color: ${(props) => (props.search ? "#FFFFFF" : "#FF8E26")}; 
+`;
 
 const Search = styled(Searchbar)`
     width: 90%;
@@ -72,18 +74,23 @@ const Title = styled.Text`
     padding-bottom: 20px;
 `;
 
-const Header = styled.View`
-    align-items: center;
-    padding-top: 15px;
-    background-color: ${(props) => (props.search ? "#FFFFFF" : "#FF8E26")}; 
-`;
+// const Content = styled.View`
+//     flex-direction: column;
+//     flex-grow: 1;
+//     align-items: center;
+//     width: 100%;
+//     padding-top: 3%;
+//     background-color: #ffffff;
+// `;
 
-const Content = styled.View`
-    flex-direction: column;
+const Content = styled.ScrollView`
     flex-grow: 1;
-    align-items: center;
     width: 100%;
-    padding-top: 3%;
+    padding-top: 20px;
+    padding: 20px;
     background-color: #ffffff;
 `;
+
+
+
 export default HomeScreen
