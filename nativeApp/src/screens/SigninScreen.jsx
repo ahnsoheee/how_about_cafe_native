@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../components/sign/Button'
 import Input from '../components/sign/Input';
-import Wrapper from '../components/common/Wrapper';
+import Wrapper from '../components/sign/Wrapper';
 import { Text } from 'react-native';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
 
