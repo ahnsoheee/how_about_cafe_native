@@ -7,7 +7,7 @@ import Pencil from '../components/common/Pencil';
 import ReviewList from '../components/common/ReviewList';
 import PhotoList from '../components/common/PhotoList'
 
-const DetailScreen = ({ route }) => {
+const DetailScreen = ({ navigation, route }) => {
 
     const [reviewList, setReviewList] = useState([])
     const [photoList, setPhotoList] = useState([])
@@ -30,6 +30,7 @@ const DetailScreen = ({ route }) => {
 
     const createReview = () => {
         // 리뷰생성화면으로 이동
+        navigation.navigate('Review', { id: route.params.id, navigation: navigation });
     }
 
     return (
