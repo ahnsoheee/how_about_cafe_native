@@ -8,11 +8,11 @@ const Button = ({ name, onPress }) => {
 }
 
 const ButtonWrapper = styled.Text`
-    background-color: #FF8E26;
     width: 100%;
+    background-color: #FF8E26;
     height: 50px;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 17px;
     margin-top: 20px;
     text-align: center;
     justify-content: center;
