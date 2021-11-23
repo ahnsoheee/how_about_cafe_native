@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native'
+import { Picker } from '@react-native-picker/picker';
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
 import InfoList from '../components/common/InfoList';
 
 const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation }) => {
 
-    const [TopList, setTopList] = useState([])
-    const [SearchedList, setSearchedList] = useState([])
+    const [topList, setTopList] = useState([])
+    const [searchedList, setSearchedList] = useState([])
+
+    const [order, setOrder] = useState("star");
 
     useEffect(() => {
+        // example
+        const infoList = [{ id: 7, cafe_name: "하이엔드라이", addr: "서울 성동구 광나루로 302", star: 4.97, review: 87 },
+        { id: 2, cafe_name: "에브리데이몬데이 카페", addr: "서울 송파구 송파대로48길 14 지하 1층", star: 4.87, review: 97 },
+        { id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
+        { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
+        ]
         // Top 4 가져오는 로직
         setTopList(infoList);
     }, [])
@@ -29,25 +38,44 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
         } else {
             setSearch(true);
             // 검색 로직
+            // order by (order)
+
+            // example
+            const list = [{ id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
+            { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
+            ]
             setSearchedList(list)
         }
     };
-
+    const onChangeOrder = (value) => {
+        setOrder(value)
+        onSearch()
+    }
     return (
         <>
             <Header search={search}>
                 <Search placeholder='검색' value={searchValue} onChangeText={onChangeText} onIconPress={onSearch} />
-                {search ? <></> : <Title>카페어때</Title>}
+                {search ?
+                    <SelectBox>
+                        <Picker style={{ width: 150, textAlign: 'left' }}
+                            selectedValue={order}
+                            onValueChange={(value) => onChangeOrder(value)}>
+                            <Picker.Item label="별점순" value="star" />
+                            <Picker.Item label="리뷰순" value="review" />
+                            <Picker.Item label="이름순" value="name" />
+                        </Picker>
+                    </SelectBox>
+                    : <Title>카페어때</Title>}
             </Header>
             {search ?
                 <Content>
                     {/* 검색 목록 */}
-                    <InfoList infos={SearchedList} navigation={navigation} />
+                    <InfoList infos={searchedList} navigation={navigation} />
                 </Content>
                 :
                 <Content>
                     {/* top4-list */}
-                    <InfoList infos={TopList} navigation={navigation} />
+                    <InfoList infos={topList} navigation={navigation} />
                 </Content>
             }
         </>
@@ -74,14 +102,10 @@ const Title = styled.Text`
     padding-bottom: 20px;
 `;
 
-// const Content = styled.View`
-//     flex-direction: column;
-//     flex-grow: 1;
-//     align-items: center;
-//     width: 100%;
-//     padding-top: 3%;
-//     background-color: #ffffff;
-// `;
+const SelectBox = styled.View`
+    width: 100%;
+    flex-direction: row-reverse;
+`;
 
 const Content = styled.ScrollView`
     flex-grow: 1;
