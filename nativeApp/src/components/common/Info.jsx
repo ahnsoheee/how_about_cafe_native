@@ -54,7 +54,7 @@ const StyledView = styled.View`
 const Name = styled.Text`
     font-weight: bold;
     font-size: 18px;
-    width: 60%;
+    width: 65%;
 `;
 
 const ValueView = styled.View`
