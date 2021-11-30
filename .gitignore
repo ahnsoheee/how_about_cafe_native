@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Spring
+*.properties
+howaboutcafe/src/main/resources/application.properties

@@ -15,8 +15,8 @@ const RegisterCafeScreen = ({ navigation }) => {
 
     return (
         <Wrapper>
-            <Input placeholder="이름을 입력해주세요" onChangeText={onChangeName} value={name} editable maxLength={100} multiline={true} />
-            <Input placeholder="주소를 입력해주세요" onChangeText={onChangeAddr} value={addr} editable maxLength={100} multiline={true} />
+            <Input placeholder="이름을 입력해주세요." onChangeText={onChangeName} value={name} editable maxLength={100} multiline={true} />
+            <Input placeholder="주소를 입력해주세요." onChangeText={onChangeAddr} value={addr} editable maxLength={100} multiline={true} />
             <Button name="등록하기" onPress={registerCafe} />
         </Wrapper>
     )
