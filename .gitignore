@@ -34,4 +34,3 @@ build/
 
 ### Spring
 *.properties
-howaboutcafe/src/main/resources/application.properties
