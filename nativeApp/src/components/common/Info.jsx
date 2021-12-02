@@ -40,8 +40,7 @@ const Wrapper = styled.TouchableOpacity`
     margin-bottom: 20px;
     padding: 3%;
     shadow-color: #000000;
-    shadow-offset: { width: 0; height: 1 };
-    shadow-opacity: 0.8;
+    shadow-opacity: 0.1;
     shadow-radius: 10px;
     elevation: 3;
 `;

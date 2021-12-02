@@ -30,8 +30,7 @@ const Wrapper = styled.View`
     padding: 15px;
     margin-bottom: 15px;
     shadow-color: #000000;
-    shadow-offset: { width: 0; height: 1 };
-    shadow-opacity: 0.8;
+    shadow-opacity: 0.1;
     shadow-radius: 10px;
     elevation: 3;
 `;
@@ -65,8 +64,8 @@ const Photo = styled.Image`
 `;
 
 const StarWrapper = styled.Text`
-    margin-top: 10px;
-    text-align: right;
+    margin-top: 20px;
+    margin-left: 30px;
     flex-grow: 1;
 `;
 

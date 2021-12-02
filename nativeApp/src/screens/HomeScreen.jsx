@@ -84,7 +84,7 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
 
 const Header = styled.View`
     align-items: center;
-    padding-top: 15px;
+    padding-top: 40px;
     background-color: ${(props) => (props.search ? "#FFFFFF" : "#FF8E26")}; 
 `;
 

@@ -59,6 +59,7 @@ const Wrapper = styled.ScrollView`
     width: 100%;
     height: 100%;
     background-color: #ffffff;
+    padding-top: 30px;
 `;
 
 const Button = styled.Text`

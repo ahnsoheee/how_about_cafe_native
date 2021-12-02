@@ -20,8 +20,7 @@ const ButtonWrapper = styled.Text`
     padding: 15px;
     font-weight: bold;
     shadow-color: #000000;
-    shadow-offset: { width: 0; height: 1 };
-    shadow-opacity: 0.8;
+    shadow-opacity: 0.1;
     shadow-radius: 10px;
     elevation: 3;
 `

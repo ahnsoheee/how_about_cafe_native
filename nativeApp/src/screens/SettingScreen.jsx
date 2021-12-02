@@ -34,7 +34,7 @@ const SettingScreen = ({ user_id, navigation }) => {
 
 const Header = styled.View`
     flex-direction: row;
-    padding: 30px;
+    padding:  60px 30px;
     background-color: #FF8E26;
 `;
 
