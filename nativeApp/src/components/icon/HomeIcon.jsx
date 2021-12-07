@@ -1,5 +1,5 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Entypo';
 
 const HomeIcon = ({ focused }) => {
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const SettingIcon = ({ focused }) => {
     return (
-        <Icon name="setting" size={20} color={focused ? "#FF8E26" : "#000000"} />
+        <Icon name="ios-settings" size={20} color={focused ? "#FF8E26" : "#000000"} />
     );
 };
 
