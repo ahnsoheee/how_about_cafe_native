@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 const Wrapper = ({ children }) => {
     return (
         <StyledView>{children}</StyledView>
-    )
-}
+    );
+};
 
 const StyledView = styled.View`
     background-color: #ffffff;

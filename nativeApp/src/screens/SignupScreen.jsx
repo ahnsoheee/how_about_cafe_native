@@ -12,27 +12,27 @@ const SignupPage = () => {
 
     const onChangeId = (text) => {
         setId(text);
-    }
+    };
 
     const onChangePw1 = (text) => {
         setPw1(text);
-    }
+    };
 
     const onChangePw2 = (text) => {
         setPw2(text);
-    }
+    };
 
     const onPress = () => {
         if (!id.length || !pw1.length || !pw2.length) {
             if (Platform.OS === 'android') {
-                ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
             } else {
                 AlertIOS.alert('아이디와 비밀번호를 모두 입력하세요');
             }
         } else {
             if (pw1 != pw2) {
                 if (Platform.OS === 'android') {
-                    ToastAndroid.show('비밀번호가 일치하지 않습니다', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                    ToastAndroid.show('비밀번호가 일치하지 않습니다', ToastAndroid.SHORT, ToastAndroid.CENTER);
                 } else {
                     AlertIOS.alert('비밀번호가 일치하지 않습니다');
                 }
@@ -40,7 +40,7 @@ const SignupPage = () => {
                 // 회원가입 로직 추가
             }
         }
-    }
+    };
     return (
 
         <Wrapper>
@@ -52,7 +52,7 @@ const SignupPage = () => {
             <Text>{"\n"}</Text>
             <Button name="회원가입" onPress={onPress} />
         </Wrapper>
-    )
-}
+    );
+};
 
 export default SignupPage;

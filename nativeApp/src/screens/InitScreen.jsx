@@ -5,12 +5,12 @@ import { Text } from 'react-native';
 const InitScreen = ({ navigation }) => {
 
     const onPressSignin = () => {
-        navigation.navigate('Signin')
-    }
+        navigation.navigate('Signin');
+    };
 
     const onPressSignup = () => {
-        navigation.navigate('Signup')
-    }
+        navigation.navigate('Signup');
+    };
     return (
         <StyledView>
             <Title>카페어때</Title>
@@ -20,8 +20,8 @@ const InitScreen = ({ navigation }) => {
             <StyledButton onPress={onPressSignup}>회원가입</StyledButton>
         </StyledView>
 
-    )
-}
+    );
+};
 
 const StyledView = styled.View`
     background-color: #FF8E26;
@@ -30,13 +30,13 @@ const StyledView = styled.View`
     width: 100%;
     height: 100%;
     padding: 10%;
-`
+`;
 
 const Title = styled.Text`
     font-size: 50px;
     color: #ffffff;    
     padding-bottom: 23%;
-`
+`;
 
 const StyledButton = styled.Text`
     background-color: #ffffff;
@@ -51,5 +51,5 @@ const StyledButton = styled.Text`
     padding: 15px;
     border-radius: 10px;
     font-weight: bold;   
-`
+`;
 export default InitScreen;

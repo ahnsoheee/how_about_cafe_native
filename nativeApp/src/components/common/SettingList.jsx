@@ -10,26 +10,25 @@ const SettingList = ({ title, onPress }) => {
                 <Icon name="right" size={16} />
             </Arrow>
         </List>
-    )
-}
+    );
+};
 
 const List = styled.TouchableOpacity`
-    flex-direction: row;
-    background-color: #ffffff;
-    padding: 15px;
-    padding-left: 20px;
+  flex-direction: row;
+  background-color: #ffffff;
+  padding: 15px;
+  padding-left: 20px;
 `;
 
 const Title = styled.Text`
-    font-size: 15px;
-    width: 95%;
-    font-weight: bold;
+  font-size: 15px;
+  width: 95%;
+  font-weight: bold;
 `;
 
 const Arrow = styled.View`
-    right: 0;    
-    padding-top: 2px;
+  right: 0;
+  padding-top: 2px;
 `;
 
-
-export default SettingList
+export default SettingList;

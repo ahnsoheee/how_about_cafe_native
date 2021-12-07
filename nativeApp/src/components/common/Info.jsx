@@ -5,7 +5,6 @@ import Star from './Star';
 import Pencil from './Pencil';
 
 const Info = ({ id, name, addr, star, review, navigation }) => {
-
     const onPress = () => {
         // 상세 정보 로직
         navigation.navigate('Detail', {
@@ -13,9 +12,9 @@ const Info = ({ id, name, addr, star, review, navigation }) => {
             name: name,
             addr: addr,
             star: star,
-            review: review
-        })
-    }
+            review: review,
+        });
+    };
 
     return (
         <Wrapper onPress={onPress} activeOpacity={1} key={id}>
@@ -29,43 +28,42 @@ const Info = ({ id, name, addr, star, review, navigation }) => {
             </StyledView>
             <Addr>{addr}</Addr>
         </Wrapper>
-    )
-}
+    );
+};
 
 const Wrapper = styled.TouchableOpacity`
-    height: 95px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    background-color: #ffffff;
-    margin-bottom: 20px;
-    padding: 3%;
-    shadow-color: #000000;
-    shadow-opacity: 0.1;
-    shadow-radius: 10px;
-    elevation: 3;
+  height: 95px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  padding: 3%;
+  shadow-color: #000000;
+  shadow-opacity: 0.1;
+  shadow-radius: 10px;
+  elevation: 3;
 `;
 
 const StyledView = styled.View`
-    flex-direction: row;
-    height: 40%;
+  flex-direction: row;
+  height: 40%;
 `;
 
 const Name = styled.Text`
-    font-weight: bold;
-    font-size: 18px;
-    width: 65%;
+  font-weight: bold;
+  font-size: 18px;
+  width: 65%;
 `;
 
 const ValueView = styled.View`
-    flex-grow: 1;
-    flex-direction: row;
-    text-align: right;
+  flex-grow: 1;
+  flex-direction: row;
+  text-align: right;
 `;
 
 const Addr = styled.Text`
-    padding-top: 5px;
-    font-size: 15px;
+  padding-top: 5px;
+  font-size: 15px;
 `;
-
 
 export default Info;

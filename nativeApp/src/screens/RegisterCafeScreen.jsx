@@ -11,7 +11,7 @@ const RegisterCafeScreen = ({ navigation }) => {
         // 카페 등록 로직
 
         navigation.goBack();
-    }
+    };
 
     return (
         <Wrapper>
@@ -19,8 +19,8 @@ const RegisterCafeScreen = ({ navigation }) => {
             <Input placeholder="주소를 입력해주세요." onChangeText={onChangeAddr} value={addr} editable maxLength={100} multiline={true} />
             <Button name="등록하기" onPress={registerCafe} />
         </Wrapper>
-    )
-}
+    );
+};
 
 const Wrapper = styled.View`
     width: 100%;

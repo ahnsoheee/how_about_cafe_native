@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/native'
+import styled from 'styled-components/native';
 import StarRating from 'react-native-star-rating';
 import Button from '../components/common/Button';
-import * as ImagePicker from "react-native-image-picker"
+import * as ImagePicker from "react-native-image-picker";
 import { Modal, Provider } from '@ant-design/react-native';
 import { View } from 'react-native';
 import ImageList from '../components/common/ImageList';
@@ -12,7 +12,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     const [text, onChangeText] = useState('');
     const [imageSrc, setImageSrc] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [num, setNum] = useState(0)
+    const [num, setNum] = useState(0);
 
     const footerButtons = [
         { text: '취소' },
@@ -24,26 +24,26 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
         // cafe_id: route.params.id
         navigation.goBack();
-    }
+    };
 
     const onPressCamera = (key) => {
         if (key) setVisible(true);
-        else onSelectImage()
-    }
+        else onSelectImage();
+    };
 
     const onSelectImage = () => {
         Modal.operation([
             { text: '사진 보관함', onPress: () => onSelectGallery() },
             { text: '카메라', onPress: () => onSelectCamera() },
             { text: '취소' }
-        ])
-    }
+        ]);
+    };
 
     const onSelectGallery = () => {
         ImagePicker.launchImageLibrary({}, (response) => {
-            setImageSrc([...imageSrc, response.assets[0].uri])
-        })
-    }
+            setImageSrc([...imageSrc, response.assets[0].uri]);
+        });
+    };
 
     const onSelectCamera = () => {
         ImagePicker.launchCamera({
@@ -51,9 +51,9 @@ const RegisterReviewScreen = ({ navigation, route }) => {
             mediaType: 'photo',
             includeBase64: false
         }, (response) => {
-            setImageSrc([...imageSrc, response.assets[0].uri])
-        })
-    }
+            setImageSrc([...imageSrc, response.assets[0].uri]);
+        });
+    };
 
     return (
         <>
@@ -92,8 +92,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                 </Modal>
             </Provider>
         </>
-    )
-}
+    );
+};
 
 const Wrapper = styled.View`
     width: 100%;

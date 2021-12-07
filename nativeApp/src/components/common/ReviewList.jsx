@@ -2,9 +2,8 @@ import React from 'react';
 import Review from './Review';
 
 const ReviewList = ({ reviews }) => {
-
     if (reviews) {
-        const reviewList = reviews.map((review) => {
+        const reviewList = reviews.map(review => {
             return (
                 <Review
                     key={review.id}
@@ -14,11 +13,11 @@ const ReviewList = ({ reviews }) => {
                     star={review.star}
                     path={review.path}
                 />
-            )
-        })
-        return <>{reviewList}</>
+            );
+        });
+        return <>{reviewList}</>;
     }
     return <></>;
-}
+};
 
 export default ReviewList;

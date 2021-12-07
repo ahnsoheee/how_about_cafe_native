@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components/native'
+import styled from 'styled-components/native';
 import { Picker } from '@react-native-picker/picker';
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
@@ -7,8 +7,8 @@ import InfoList from '../components/common/InfoList';
 
 const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation }) => {
 
-    const [topList, setTopList] = useState([])
-    const [searchedList, setSearchedList] = useState([])
+    const [topList, setTopList] = useState([]);
+    const [searchedList, setSearchedList] = useState([]);
 
     const [order, setOrder] = useState("star");
 
@@ -18,19 +18,19 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
         { id: 2, cafe_name: "에브리데이몬데이 카페", addr: "서울 송파구 송파대로48길 14 지하 1층", star: 4.87, review: 97 },
         { id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
         { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
-        ]
+        ];
         // Top 4 가져오는 로직
         setTopList(infoList);
-    }, [])
+    }, []);
 
     const onChangeText = (value) => {
         setSearchValue(value);
-    }
+    };
 
     const onSearch = () => {
         if (!searchValue) {
             if (Platform.OS === 'android') {
-                ToastAndroid.show('검색어를 입력해주세요', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.show('검색어를 입력해주세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
             }
             else {
                 AlertIOS.alert('검색어를 입력해주세요');
@@ -43,14 +43,14 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
             // example
             const list = [{ id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
             { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
-            ]
-            setSearchedList(list)
+            ];
+            setSearchedList(list);
         }
     };
     const onChangeOrder = (value) => {
-        setOrder(value)
-        onSearch()
-    }
+        setOrder(value);
+        onSearch();
+    };
     return (
         <>
             <Header search={search}>
@@ -79,8 +79,8 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
                 </Content>
             }
         </>
-    )
-}
+    );
+};
 
 const Header = styled.View`
     align-items: center;
@@ -117,4 +117,4 @@ const Content = styled.ScrollView`
 
 
 
-export default HomeScreen
+export default HomeScreen;

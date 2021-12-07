@@ -5,12 +5,12 @@ import { Text } from 'react-native';
 import Star from '../components/common/Star';
 import Pencil from '../components/common/Pencil';
 import ReviewList from '../components/common/ReviewList';
-import PhotoList from '../components/common/PhotoList'
+import PhotoList from '../components/common/PhotoList';
 
 const DetailScreen = ({ navigation, route }) => {
 
-    const [reviewList, setReviewList] = useState([])
-    const [photoList, setPhotoList] = useState([])
+    const [reviewList, setReviewList] = useState([]);
+    const [photoList, setPhotoList] = useState([]);
 
     // 리뷰 가져오는 로직
     useEffect(() => {
@@ -19,19 +19,19 @@ const DetailScreen = ({ navigation, route }) => {
             { id: 2, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
             { id: 3, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
             { id: 4, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
-            { id: 5, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" }]
+            { id: 5, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" }];
         // Top 4 가져오는 로직
         setReviewList(reviews);
 
         // 리뷰 이미지 가져오는 로직
-        const images = [{ id: 1, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 2, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 3, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 4, path: "https://reactnative.dev/img/tiny_logo.png" },]
+        const images = [{ id: 1, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 2, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 3, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 4, path: "https://reactnative.dev/img/tiny_logo.png" },];
         setPhotoList(images);
-    }, [])
+    }, []);
 
     const RegisterReview = () => {
         // 리뷰생성화면으로 이동
         navigation.navigate('Review', { id: route.params.id, navigation: navigation });
-    }
+    };
 
     return (
         <Wrapper>
@@ -52,8 +52,8 @@ const DetailScreen = ({ navigation, route }) => {
                 <ReviewList reviews={reviewList} />
             </ReviewWrapper>
         </Wrapper>
-    )
-}
+    );
+};
 
 const Wrapper = styled.ScrollView`
     width: 100%;

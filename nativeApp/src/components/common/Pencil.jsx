@@ -8,12 +8,11 @@ const Pencil = ({ review }) => {
             <Icon name="pencil" size={30} />
             <Value>{review}</Value>
         </>
-    )
-}
-
+    );
+};
 
 const Value = styled.Text`
-    font-size: 17px;
+  font-size: 17px;
 `;
 
 export default Pencil;

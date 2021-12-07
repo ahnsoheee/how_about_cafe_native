@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../components/common/Button'
+import Button from '../components/common/Button';
 import Input from '../components/sign/Input';
 import Wrapper from '../components/sign/Wrapper';
 import { Text } from 'react-native';
@@ -11,16 +11,16 @@ const SigninScreen = () => {
 
     const onChangeId = (text) => {
         setId(text);
-    }
+    };
 
     const onChangePw = (text) => {
         setPw(text);
-    }
+    };
 
     const onPress = () => {
         if (!id.length || !pw.length) {
             if (Platform.OS === 'android') {
-                ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER)
+                ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
             } else {
                 AlertIOS.alert('아이디와 비밀번호를 모두 입력하세요');
             }
@@ -28,7 +28,7 @@ const SigninScreen = () => {
 
             // 로그인 로직 추가
         }
-    }
+    };
     return (
 
         <Wrapper>
@@ -38,7 +38,7 @@ const SigninScreen = () => {
             <Text>{"\n"}</Text>
             <Button name="로그인" onPress={onPress} />
         </Wrapper>
-    )
-}
+    );
+};
 
 export default SigninScreen;

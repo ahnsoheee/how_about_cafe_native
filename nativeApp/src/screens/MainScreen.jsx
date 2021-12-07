@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import InitScreen from './InitScreen';
 import HomeScreen from './HomeScreen';
-import SettingScreen from './SettingScreen'
+import SettingScreen from './SettingScreen';
 import HomeIcon from '../components/icon/HomeIcon';
 import SettingIcon from '../components/icon/SettingIcon';
 
@@ -60,7 +60,7 @@ const MainScreen = ({ navigation }) => {
         </Tab.Navigator>
     ) : (
         <InitScreen navigation={navigation} />
-    )
-}
+    );
+};
 
 export default MainScreen;

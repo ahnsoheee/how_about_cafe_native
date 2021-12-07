@@ -8,8 +8,8 @@ const Star = ({ star }) => {
             <Icon name="star" color="orange" size={20} />
             <Value>&nbsp;{star}</Value>
         </Wrapper>
-    )
-}
+    );
+};
 
 const Wrapper = styled.View`
     flex-direction: row;
