@@ -16,7 +16,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
     const footerButtons = [
         { text: '취소' },
-        { text: '삭제', onPress: () => setImageSrc(imageSrc.splice(num - 1, 1)) },
+        { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
     ];
 
     const registerReview = () => {
@@ -26,7 +26,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
         navigation.goBack();
     };
 
-    const onPressCamera = (key) => {
+    const onPressImage = (key) => {
         if (key) setVisible(true);
         else onSelectImage();
     };
@@ -70,7 +70,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                     />
                 </StarWrapper>
                 <Input placeholder="리뷰는 솔직하게 작성해주세요." onChangeText={onChangeText} value={text} editable maxLength={400} multiline={true} />
-                <ImageList imageSrc={imageSrc} onPressCamera={onPressCamera} setNum={setNum} />
+                <ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />
                 <Button name="저장하기" onPress={registerReview} />
 
 
@@ -99,7 +99,7 @@ const Wrapper = styled.View`
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    padding: 30px 20px;
+    padding: 30px 15px;
     align-items: center;
 `;
 

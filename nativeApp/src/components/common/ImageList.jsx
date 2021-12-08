@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Entypo';
 
-const ImageList = ({ imageSrc, onPressCamera, setNum }) => {
-    const onPress = index => {
-        onPressCamera(index);
+const ImageList = ({ imageSrc, onPressImage, setNum }) => {
+    const onPress = (index) => {
+        onPressImage(index);
         setNum(index);
     };
 
@@ -39,21 +39,22 @@ const PhotoList = styled.View`
 `;
 
 const Wrapper = styled.TouchableOpacity`
-  width: 70px;
+  width: 20%;
   height: 70px;
-  margin: 0 1%;
+  padding: 0 1%;
 `;
 
 const Photo = styled.Image`
-  width: 70px;
-  height: 70px;
+  width: 100%;
+  height: 100%;
 `;
 
 const Camera = styled.View`
-  width: 70px;
-  height: 70px;
+  width: 100%;
+  height: 100%;
   background-color: #eeeeee;
   justify-content: center;
   align-items: center;
 `;
+
 export default ImageList;
