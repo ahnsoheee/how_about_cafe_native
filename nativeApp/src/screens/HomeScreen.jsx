@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
-import { Picker } from '@react-native-picker/picker';
+import ModalSelector from 'react-native-modal-selector';
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
 import InfoList from '../components/common/InfoList';
@@ -11,6 +11,7 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
     const [searchedList, setSearchedList] = useState([]);
 
     const [order, setOrder] = useState("star");
+    const [label, setLabel] = useState("별점순");
 
     useEffect(() => {
         // example
@@ -47,23 +48,32 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
             setSearchedList(list);
         }
     };
-    const onChangeOrder = (value) => {
-        setOrder(value);
+
+    const onChangeOrder = (option) => {
+        setOrder(option.key);
+        setLabel(option.label);
         onSearch();
     };
+
+    const selectorData = [
+        { key: 'star', label: '별점순' },
+        { key: 'review', label: '리뷰순' },
+        { key: 'name', label: '이름순' },
+    ];
     return (
         <>
             <Header search={search}>
                 <Search placeholder='검색' value={searchValue} onChangeText={onChangeText} onIconPress={onSearch} />
                 {search ?
                     <SelectBox>
-                        <Picker style={{ width: 150, textAlign: 'left' }}
-                            selectedValue={order}
-                            onValueChange={(value) => onChangeOrder(value)}>
-                            <Picker.Item label="별점순" value="star" />
-                            <Picker.Item label="리뷰순" value="review" />
-                            <Picker.Item label="이름순" value="name" />
-                        </Picker>
+                        <ModalSelector
+                            data={selectorData}
+                            initValue={label}
+                            initValueTextStyle={{ color: "black" }}
+                            selectStyle={{ borderColor: "black" }}
+                            selectTextStyle={{ color: "black" }}
+                            onChange={(option) => onChangeOrder(option)} >
+                        </ModalSelector>
                     </SelectBox>
                     : <Title>카페어때</Title>}
             </Header>
@@ -104,6 +114,8 @@ const Title = styled.Text`
 
 const SelectBox = styled.View`
     width: 100%;
+    padding-left: 20px;
+    padding-top: 10px;
     flex-direction: row-reverse;
 `;
 
@@ -114,7 +126,5 @@ const Content = styled.ScrollView`
     padding: 20px;
     background-color: #ffffff;
 `;
-
-
 
 export default HomeScreen;
