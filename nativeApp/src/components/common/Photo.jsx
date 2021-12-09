@@ -12,10 +12,10 @@ const Photo = ({ uri }) => {
 };
 
 const StyldImage = styled.Image`
-  width: 90px;
+  width: 24%;
   height: 90px;
   border-radius: 0;
-  margin: 1px;
+  margin: 2px;
 `;
 
 export default Photo;

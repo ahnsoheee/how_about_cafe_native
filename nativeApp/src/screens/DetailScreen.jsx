@@ -59,15 +59,13 @@ const Wrapper = styled.ScrollView`
     width: 100%;
     height: 100%;
     background-color: #ffffff;
-    padding-top: 30px;
+    padding: 30px 20px;
 `;
 
 const Button = styled.Text`
     width: 100%;
     padding-top: 20px;
-    padding-right: 20px;
     text-align: right;
-
 `;
 
 const Title = styled.Text`
@@ -79,6 +77,7 @@ const Title = styled.Text`
 
 const Addr = styled.Text`
     width: 100%;
+    height: 80px;
     padding: 20px;
     font-weight: bold;
     font-size: 18px;
@@ -94,13 +93,11 @@ const ValueView = styled.View`
 const PhotoWrapper = styled.View`
     width: 100%;
     flex-direction: row;
-    padding: 10px 0;
+    padding: 20px 0 30px 0;
     justify-content: center;
 `;
 
 const ReviewWrapper = styled.View`
-    flex-grow: 1;
-    margin: 10px;
     background-color: #ffffff;
 `;
 

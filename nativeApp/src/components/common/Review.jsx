@@ -27,7 +27,7 @@ const Wrapper = styled.View`
   border: 1px solid #dddddd;
   border-radius: 10px;
   flex-direction: row;
-  padding: 15px;
+  padding: 13px;
   margin-bottom: 15px;
   shadow-color: #000000;
   shadow-opacity: 0.1;
@@ -40,7 +40,6 @@ const LeftWrapper = styled.View`
 `;
 
 const RightWrapper = styled.View`
-  padding-left: 10px;
   flex-grow: 1;
 `;
 
@@ -52,6 +51,7 @@ const UserId = styled.Text`
 
 const Content = styled.Text`
   font-size: 15px;
+  padding-right: 5px;
 `;
 
 const PhotoWrapper = styled.View`
@@ -59,7 +59,7 @@ const PhotoWrapper = styled.View`
 `;
 
 const Photo = styled.Image`
-  width: 70px;
+  width: 100%;
   height: 70px;
 `;
 
