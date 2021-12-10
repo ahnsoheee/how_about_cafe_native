@@ -5,4 +5,8 @@
     <insert id="insertUser" parameterType="com.springboot.howaboutcafe.dto.UserDTO">
         INSERT INTO USER(user_id, pw, user_name) VALUES(#{user_id}, #{pw}, #{user_name})
     </insert>
+
+    <select id="findById" parameterType="String" resultType="int">
+        SELECT COUNT(user_id) from USER WHERE user_id=#{user_id}
+    </select>
 </mapper>

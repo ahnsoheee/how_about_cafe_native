@@ -20,8 +20,9 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/signup")
-    public int signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
-        int result = userService.createUser(user);
+    public String signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
+        String result = userService.createUser(user);
         return result;
     }
+
 }
