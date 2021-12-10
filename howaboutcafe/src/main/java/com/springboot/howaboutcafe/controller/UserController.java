@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.service.UserService;
 
@@ -19,10 +22,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @ResponseBody
     @PostMapping("/signup")
-    public String signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
+    public ResponseDTO signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
         String result = userService.createUser(user);
-        return result;
-    }
+        ResponseDTO responseDTO = new ResponseDTO(result);
 
+        return responseDTO;
+    }
 }
