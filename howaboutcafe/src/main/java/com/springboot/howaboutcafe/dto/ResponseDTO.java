@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ResponseDTO {
     boolean status;
-    String msg;
+    String result;
 
     public ResponseDTO() {
         this.status = false;
