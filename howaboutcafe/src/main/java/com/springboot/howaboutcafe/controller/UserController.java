@@ -25,9 +25,8 @@ public class UserController {
     @ResponseBody
     @PostMapping("/signup")
     public ResponseDTO signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
-        String result = userService.createUser(user);
-        ResponseDTO responseDTO = new ResponseDTO(result);
 
-        return responseDTO;
+        ResponseDTO result = userService.createUser(user);
+        return result;
     }
 }
