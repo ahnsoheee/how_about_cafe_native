@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     // private static final int SUCCESS = 1;
-    // private static final int ALREADY_EXIST = 2;
+    // private static final int ALREADY_EXIST_ID = 2;
     // private static final int ID_INVALID = 3;
     // private static final int ID_WRONG_LENGTH = 4;
     // private static final int PW_WRONG_LENGTH = 5;
@@ -54,10 +54,15 @@ public class UserService {
 
             user.setPw(encrypt(user.getPw()));
 
-            int isExist = isExistUser(user.getUser_id());
-            if (isExist == 1)
-                // return ALREADY_EXIST;
+            int isExistId = isExistUserId(user.getUser_id());
+            int isExistName = isExistUserName(user.getUser_name());
+
+            if (isExistId == 1)
+                // return ALREADY_EXIST_ID;
                 return "이미 존재하는 아이디입니다.";
+
+            if (isExistName == 1)
+                return "이미 존재하는 닉네임입니다.";
 
             int result = userMapper.insertUser(user);
             if (result == 1)
@@ -72,8 +77,12 @@ public class UserService {
         }
     }
 
-    public int isExistUser(String user_id) {
+    public int isExistUserId(String user_id) {
         return userMapper.findById(user_id);
+    }
+
+    public int isExistUserName(String user_name) {
+        return userMapper.findByName(user_name);
     }
 
     public String encrypt(String msg) throws Exception {

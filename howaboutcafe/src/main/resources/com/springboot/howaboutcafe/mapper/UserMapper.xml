@@ -9,4 +9,9 @@
     <select id="findById" parameterType="String" resultType="int">
         SELECT COUNT(user_id) from USER WHERE user_id=#{user_id}
     </select>
+
+    <select id="findByName" parameterType="String" resultType="int">
+        SELECT COUNT(user_name) from USER WHERE user_name=#{user_name}
+    </select>
+
 </mapper>
