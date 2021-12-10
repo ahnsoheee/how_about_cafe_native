@@ -1,6 +1,8 @@
+import Config from "react-native-config";
+
 class fetchAPI {
     post(uri, body) {
-        return fetch(uri, {
+        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
