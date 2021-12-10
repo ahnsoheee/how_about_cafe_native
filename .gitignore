@@ -36,3 +36,4 @@ build/
 *.properties
 *.yml
 howaboutcafe/src/test/java/com/springboot/howaboutcafe/*.java
+*.env
