@@ -9,7 +9,7 @@ import SettingIcon from '../components/icon/SettingIcon';
 const Tab = createBottomTabNavigator();
 
 const MainScreen = ({ navigation }) => {
-    const [auth, setAuth] = useState(true);
+    const [auth, setAuth] = useState(false);
     const [user_id, setUserId] = useState('');
     const [home, setHome] = useState(true);
     const [setting, setSetting] = useState(false);
