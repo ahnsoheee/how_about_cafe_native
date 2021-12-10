@@ -3,12 +3,15 @@ import Button from '../components/common/Button';
 import Input from '../components/sign/Input';
 import Wrapper from '../components/sign/Wrapper';
 import { Text } from 'react-native';
-import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
+import { ToastAndroid, Platform } from 'react-native';
+import Toast from 'react-native-simple-toast';
+import { API } from "../api/api";
 
-const SignupPage = () => {
+const SignupPage = ({ navigation }) => {
     const [id, setId] = useState('');
     const [pw1, setPw1] = useState('');
     const [pw2, setPw2] = useState('');
+    const [name, setName] = useState('');
 
     const onChangeId = (text) => {
         setId(text);
@@ -22,33 +25,51 @@ const SignupPage = () => {
         setPw2(text);
     };
 
-    const onPress = () => {
-        if (!id.length || !pw1.length || !pw2.length) {
+    const onChangeName = (text) => {
+        setName(text);
+    };
+
+    const onPress = async () => {
+        if (!id.length || !pw1.length || !pw2.length || !name.length) {
             if (Platform.OS === 'android') {
-                ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
+                ToastAndroid.show('아이디와 비밀번호, 닉네임을 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
             } else {
-                AlertIOS.alert('아이디와 비밀번호를 모두 입력하세요');
+                Toast.show('아이디와 비밀번호, 닉네임을 모두 입력하세요', Toast.SHORT);
             }
         } else {
             if (pw1 != pw2) {
                 if (Platform.OS === 'android') {
                     ToastAndroid.show('비밀번호가 일치하지 않습니다', ToastAndroid.SHORT, ToastAndroid.CENTER);
                 } else {
-                    AlertIOS.alert('비밀번호가 일치하지 않습니다');
+                    Toast.show('비밀번호가 일치하지 않습니다', Toast.SHORT);
                 }
             } else {
-                // 회원가입 로직 추가
+                result = await API.post("/signup", {
+                    "user_id": id,
+                    "pw": pw1,
+                    "user_name": name
+                });
+
+                if (Platform.OS === 'android') {
+                    ToastAndroid.show(result.msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+                } else {
+                    Toast.show(result.msg, Toast.SHORT);
+                }
+
+                if (result.status) navigation.navigate('Main');
             }
         }
     };
     return (
 
         <Wrapper>
-            <Input type="text" placeholder="아이디" value={id} onChange={(text) => onChangeId(text)} />
+            <Input type="text" placeholder="아이디를 입력해주세요." value={id} onChange={(text) => onChangeId(text)} />
             <Text>{"\n"}</Text>
-            <Input type="password" placeholder="비밀번호" value={pw1} onChange={(text) => onChangePw1(text)} />
+            <Input type="password" placeholder="비밀번호를 입력해주세요." value={pw1} onChange={(text) => onChangePw1(text)} />
             <Text>{"\n"}</Text>
             <Input type="password" placeholder="비밀번호 확인" value={pw2} onChange={(text) => onChangePw2(text)} />
+            <Text>{"\n"}</Text>
+            <Input type="text" placeholder="닉네임을 입력해주세요." value={name} onChange={(text) => onChangeName(text)} />
             <Text>{"\n"}</Text>
             <Button name="회원가입" onPress={onPress} />
         </Wrapper>
