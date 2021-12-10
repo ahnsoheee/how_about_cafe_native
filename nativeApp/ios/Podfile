@@ -12,6 +12,8 @@ target 'nativeApp' do
     :hermes_enabled => false
   )
   
+  pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
+
   target 'nativeAppTests' do
     inherit! :complete
     # Pods for testing
