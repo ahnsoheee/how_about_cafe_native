@@ -46,7 +46,7 @@ public class UserService {
 
             if (!Pattern.matches(name_regEx, name))
                 // return NAME_INVALID;
-                return "아이디는 영어, 한글, 숫자만 포함해주세요.";
+                return "닉네임은 영어, 한글, 숫자만 포함해주세요.";
 
             if (name.length() == 0 || name.length() > 20)
                 // return NAME_WRONG_LENGTH;
