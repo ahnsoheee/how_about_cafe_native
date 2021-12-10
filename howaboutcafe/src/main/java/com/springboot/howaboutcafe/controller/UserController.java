@@ -24,7 +24,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/signup")
-    public ResponseDTO signup(@RequestBody UserDTO user, HttpServletResponse response) throws Exception {
+    public ResponseDTO signup(@RequestBody UserDTO user) throws Exception {
 
         ResponseDTO result = userService.createUser(user);
         return result;
