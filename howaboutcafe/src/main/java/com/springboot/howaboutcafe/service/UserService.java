@@ -1,6 +1,8 @@
 package com.springboot.howaboutcafe.service;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import com.springboot.howaboutcafe.dto.ResponseDTO;
@@ -8,7 +10,11 @@ import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UserService {
@@ -26,7 +32,68 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public ResponseDTO createUser(UserDTO user) {
+    public ResponseDTO signin(UserDTO user) {
+
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        try {
+            user.setPw(encrypt(user.getPw()));
+            UserDTO result = userMapper.selectUser(user);
+
+            if (result != null) {
+                String token = generateToken(user);
+                responseDTO.setStatus(true);
+                responseDTO.setResult(token);
+            }
+
+            return responseDTO;
+
+        } catch (Exception ex) {
+            // 에러 처리
+            return responseDTO;
+        }
+    }
+
+    @Value("${JWT.SECRET_KEY}")
+    private String SECRET_KEY;
+
+    @Value("${JWT.DATA_KEY1}")
+    private String DATA_KEY1;
+
+    @Value("${JWT.DATA_KEY2}")
+    private String DATA_KEY2;
+
+    public String generateToken(UserDTO user) {
+
+        long currTime = System.currentTimeMillis();
+        String jwt = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                .setExpiration(new Date(currTime + 3600000))
+                .setIssuedAt(new Date(currTime))
+                .claim(DATA_KEY1, user.getUser_id())
+                .claim(DATA_KEY2, user.getUser_name())
+                .signWith(SignatureAlgorithm.HS256, generateKey())
+                .compact();
+
+        return jwt;
+    }
+
+    public byte[] generateKey() {
+        byte[] key = null;
+
+        try {
+            key = SECRET_KEY.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Decodeing failed");
+        }
+        return key;
+    }
+
+    public boolean validateToken(String token) {
+        return false;
+    }
+
+    public ResponseDTO signup(UserDTO user) {
 
         ResponseDTO responseDTO = new ResponseDTO();
 
@@ -38,42 +105,41 @@ public class UserService {
             String name_regEx = "^[0-9a-zA-Zㄱ-ㅎ가-힣]*$";
 
             if (id.length() < 4 || id.length() > 10) {
-                responseDTO.setMsg("아이디는 최소 4, 최대 10 글자로 작성해주세요.");
+                responseDTO.setResult("아이디는 최소 4, 최대 10 글자로 작성해주세요.");
                 return responseDTO;
             }
 
             if (!Pattern.matches(id_regEx, id)) {
-                responseDTO.setMsg("아이디는 영어, 숫자만 포함해주세요.");
+                responseDTO.setResult("아이디는 영어, 숫자만 포함해주세요.");
                 return responseDTO;
             }
 
             if (pw.length() < 8 || pw.length() > 64) {
-                responseDTO.setMsg("비밀번호는 최소 8, 최대 64 글자로 작성해주세요.");
+                responseDTO.setResult("비밀번호는 최소 8, 최대 64 글자로 작성해주세요.");
                 return responseDTO;
             }
 
             if (!Pattern.matches(name_regEx, name)) {
-                responseDTO.setMsg("닉네임은 영어, 한글, 숫자만 포함해주세요.");
+                responseDTO.setResult("닉네임은 영어, 한글, 숫자만 포함해주세요.");
                 return responseDTO;
             }
 
             if (name.length() == 0 || name.length() > 20) {
-                responseDTO.setMsg("이름은 최소 1, 최대 20 글자로 작성해주세요.");
+                responseDTO.setResult("이름은 최소 1, 최대 20 글자로 작성해주세요.");
                 return responseDTO;
             }
 
             user.setPw(encrypt(user.getPw()));
-
             int isExistId = isExistUserId(user.getUser_id());
             int isExistName = isExistUserName(user.getUser_name());
 
             if (isExistId == 1) {
-                responseDTO.setMsg("이미 존재하는 아이디입니다.");
+                responseDTO.setResult("이미 존재하는 아이디입니다.");
                 return responseDTO;
             }
 
             if (isExistName == 1) {
-                responseDTO.setMsg("이미 존재하는 닉네임입니다.");
+                responseDTO.setResult("이미 존재하는 닉네임입니다.");
                 return responseDTO;
             }
 
@@ -81,17 +147,17 @@ public class UserService {
 
             if (result == 1) {
                 responseDTO.setStatus(true);
-                responseDTO.setMsg("회원가입을 완료했습니다");
+                responseDTO.setResult("회원가입을 완료했습니다");
 
                 return responseDTO;
             }
 
-            responseDTO.setMsg("회원가입에 실패했습니다.");
+            responseDTO.setResult("회원가입에 실패했습니다.");
             return responseDTO;
 
         } catch (Exception ex) {
             // 에러 처리
-            throw new RuntimeException(ex);
+            return responseDTO;
         }
     }
 

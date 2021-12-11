@@ -22,11 +22,18 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @PostMapping("/signin")
+    public ResponseDTO signin(@RequestBody UserDTO user) {
+
+        ResponseDTO result = userService.signin(user);
+        return result;
+    }
+
     @ResponseBody
     @PostMapping("/signup")
     public ResponseDTO signup(@RequestBody UserDTO user) throws Exception {
 
-        ResponseDTO result = userService.createUser(user);
+        ResponseDTO result = userService.signup(user);
         return result;
     }
 }
