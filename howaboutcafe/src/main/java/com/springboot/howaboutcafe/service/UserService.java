@@ -44,8 +44,9 @@ public class UserService {
                 String token = generateToken(user);
                 responseDTO.setStatus(true);
                 responseDTO.setResult(token);
+            } else {
+                responseDTO.setResult("아이디 또는 비밀번호가 잘못 입력 되었습니다.");
             }
-
             return responseDTO;
 
         } catch (Exception ex) {
