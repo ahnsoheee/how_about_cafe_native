@@ -22,6 +22,12 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @PostMapping("/auth")
+    public ResponseDTO auth(@RequestBody String token) {
+        ResponseDTO result = userService.auth(token);
+        return result;
+    }
+
     @PostMapping("/signin")
     public ResponseDTO signin(@RequestBody UserDTO user) {
 
