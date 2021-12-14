@@ -1,6 +1,5 @@
 package com.springboot.howaboutcafe.service;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -13,24 +12,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UserService {
 
-    // private static final int SUCCESS = 1;
-    // private static final int ALREADY_EXIST_ID = 2;
-    // private static final int ID_INVALID = 3;
-    // private static final int ID_WRONG_LENGTH = 4;
-    // private static final int PW_WRONG_LENGTH = 5;
-    // private static final int NAME_INVALID = 6;
-    // private static final int NAME_WRONG_LENGTH = 7;
-
-    private static String alg = "SHA-256";
-
     @Autowired
     UserMapper userMapper;
+
+    public ResponseDTO auth(String token) {
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        if (token != null && validateToken(token)) {
+            Claims claims = getClaimFromToken(token);
+            String user_name = (String) claims.get(DATA_KEY2);
+            responseDTO.setStatus(true);
+            responseDTO.setResult(user_name);
+        }
+
+        return responseDTO;
+    }
 
     public ResponseDTO signin(UserDTO user) {
 
@@ -39,9 +43,8 @@ public class UserService {
         try {
             user.setPw(encrypt(user.getPw()));
             UserDTO result = userMapper.selectUser(user);
-
             if (result != null) {
-                String token = generateToken(user);
+                String token = generateToken(result);
                 responseDTO.setStatus(true);
                 responseDTO.setResult(token);
             } else {
@@ -53,45 +56,6 @@ public class UserService {
             // 에러 처리
             return responseDTO;
         }
-    }
-
-    @Value("${JWT.SECRET_KEY}")
-    private String SECRET_KEY;
-
-    @Value("${JWT.DATA_KEY1}")
-    private String DATA_KEY1;
-
-    @Value("${JWT.DATA_KEY2}")
-    private String DATA_KEY2;
-
-    public String generateToken(UserDTO user) {
-
-        long currTime = System.currentTimeMillis();
-        String jwt = Jwts.builder()
-                .setHeaderParam("typ", "JWT")
-                .setExpiration(new Date(currTime + 3600000))
-                .setIssuedAt(new Date(currTime))
-                .claim(DATA_KEY1, user.getUser_id())
-                .claim(DATA_KEY2, user.getUser_name())
-                .signWith(SignatureAlgorithm.HS256, generateKey())
-                .compact();
-
-        return jwt;
-    }
-
-    public byte[] generateKey() {
-        byte[] key = null;
-
-        try {
-            key = SECRET_KEY.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("Decodeing failed");
-        }
-        return key;
-    }
-
-    public boolean validateToken(String token) {
-        return false;
     }
 
     public ResponseDTO signup(UserDTO user) {
@@ -171,7 +135,7 @@ public class UserService {
     }
 
     public String encrypt(String msg) throws Exception {
-        MessageDigest md = MessageDigest.getInstance(alg);
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update(msg.getBytes());
 
         return bytesToHex(md.digest());
@@ -185,4 +149,50 @@ public class UserService {
         return builder.toString();
     }
 
+    @Value("${JWT.SECRET_KEY}")
+    private String SECRET_KEY;
+
+    @Value("${JWT.DATA_KEY1}")
+    private String DATA_KEY1;
+
+    @Value("${JWT.DATA_KEY2}")
+    private String DATA_KEY2;
+
+    public String generateToken(UserDTO user) {
+
+        long currTime = System.currentTimeMillis();
+        String jwt = Jwts.builder()
+                .setExpiration(new Date(currTime + 3600000))
+                .setIssuedAt(new Date(currTime))
+                .claim(DATA_KEY2, user.getUser_name())
+                .signWith(SignatureAlgorithm.HS256, generateKey())
+                .compact();
+
+        return jwt;
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            return getClaimFromToken(token)
+                    .getExpiration()
+                    .after(new Date());
+        } catch (ExpiredJwtException e) {
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public Claims getClaimFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(generateKey())
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public byte[] generateKey() {
+        return SECRET_KEY.getBytes();
+    }
 }
