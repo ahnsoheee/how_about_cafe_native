@@ -4,7 +4,7 @@ import UserIcon from '../components/icon/UserIcon';
 import { Text } from 'react-native';
 import SettingList from '../components/common/SettingList';
 
-const SettingScreen = ({ user_id, navigation }) => {
+const SettingScreen = ({ user_name, navigation }) => {
     const manageMyReview = () => {
         // 내가 작성한 리뷰 로직 
     };
@@ -22,7 +22,7 @@ const SettingScreen = ({ user_id, navigation }) => {
         <>
             <Header>
                 <UserIcon />
-                <UserId>&nbsp;&nbsp;{user_id}</UserId>
+                <UserId>&nbsp;&nbsp;{user_name}</UserId>
             </Header>
             <Text>{"\n"}</Text>
             <SettingList title="내가 작성한 리뷰" onPress={manageMyReview} />
@@ -34,7 +34,7 @@ const SettingScreen = ({ user_id, navigation }) => {
 
 const Header = styled.View`
     flex-direction: row;
-    padding:  60px 30px;
+    padding:  80px 30px 50px 30px;
     background-color: #FF8E26;
 `;
 
