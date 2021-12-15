@@ -26,13 +26,13 @@ public class UserService {
     public ResponseDTO auth(String token) {
         ResponseDTO responseDTO = new ResponseDTO();
 
+        token = token.replaceAll("\\\"", "");
         if (token != null && validateToken(token)) {
             Claims claims = getClaimFromToken(token);
             String user_name = (String) claims.get(DATA_KEY2);
             responseDTO.setStatus(true);
             responseDTO.setResult(user_name);
         }
-
         return responseDTO;
     }
 
