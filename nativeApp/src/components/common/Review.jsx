@@ -26,13 +26,11 @@ const Wrapper = styled.View`
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: visible;
   flex-direction: row;
   padding: 13px;
-  margin-bottom: 15px;
-  shadow-color: #000000;
-  shadow-opacity: 0.1;
-  shadow-radius: 10px;
+  margin-bottom: 15px;  
+  box-shadow: 5px 5px 5px #dddddd;
   elevation: 3;
 `;
 
