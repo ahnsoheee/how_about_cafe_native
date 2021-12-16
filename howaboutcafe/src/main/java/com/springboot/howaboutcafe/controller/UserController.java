@@ -30,7 +30,7 @@ public class UserController {
         return result;
     }
 
-    @GetMapping("/delete/{user_name}")
+    @PatchMapping("/delete/{user_name}")
     public ResponseDTO deleteUser(@PathVariable("user_name") String user_name) throws Exception {
         ResponseDTO result = userService.deleteUser(user_name);
         return result;
