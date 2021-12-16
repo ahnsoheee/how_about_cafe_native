@@ -4,9 +4,9 @@ import { API } from "../api/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 
-const DeleteUserScreen = ({ setAuth, navigation, route }) => {
+const DeleteUserScreen = ({ navigation, route }) => {
     const deleteUser = async () => {
-        const res = await API.get(`/user/delete?user_name=${route.params.user_name}`);
+        const res = await API.patch(`/user/delete/${route.params.user_name}`);
         if (res.status) {
             AsyncStorage.removeItem("token");
             navigation.navigate('Main');
