@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.springboot.howaboutcafe.mapper.UserMapper">
 
+    <update id="deleteUser" parameterType="String">
+        UPDATE USER SET isDeleted=1 WHERE user_name=#{user_name}
+    </update>
+
     <select id="selectUser" parameterType="com.springboot.howaboutcafe.dto.UserDTO" resultType="com.springboot.howaboutcafe.dto.UserDTO">
-        SELECT user_id, pw, user_name FROM USER WHERE user_id=#{user_id} AND pw=#{pw}
+        SELECT user_id, pw, user_name FROM USER WHERE user_id=#{user_id} AND pw=#{pw} AND isDeleted=0
     </select>
 
     <insert id="insertUser" parameterType="com.springboot.howaboutcafe.dto.UserDTO">

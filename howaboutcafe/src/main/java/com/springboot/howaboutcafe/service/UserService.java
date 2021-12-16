@@ -23,6 +23,17 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    public ResponseDTO deleteUser(String user_name) {
+        ResponseDTO responseDTO = new ResponseDTO();
+
+        int result = userMapper.deleteUser(user_name);
+        if (result == 1) {
+            responseDTO.setStatus(true);
+            responseDTO.setResult("회원탈퇴가 완료되었습니다.");
+        }
+        return responseDTO;
+    }
+
     public ResponseDTO auth(String token) {
         ResponseDTO responseDTO = new ResponseDTO();
 
