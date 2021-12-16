@@ -23,6 +23,14 @@ class fetchAPI {
             body: JSON.stringify(body),
         }).then((res) => res.json());
     }
+
+    patch(uri, body) {
+        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        }).then((res) => res.json());
+    }
 }
 
 const API = new fetchAPI();
