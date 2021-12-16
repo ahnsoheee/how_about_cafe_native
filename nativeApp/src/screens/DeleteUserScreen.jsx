@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { API } from "../api/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-simple-toast';
 
 const DeleteUserScreen = ({ setAuth, navigation, route }) => {
     const deleteUser = async () => {
@@ -40,9 +41,9 @@ const TextWrapper = styled.Text`
     width: 100%;
     padding: 50% 0;
     text-align: center;
-    color: red;
     font-size: 30px;
     font-weight: bold;
+    color: red;
 `;
 
 const ButtonWrapper = styled.View`
@@ -54,14 +55,14 @@ const ButtonWrapper = styled.View`
 const StyledButton = styled.Text`
     width: 40%;
     height: 45px;
+    line-height: 45px;
     margin: 10px;
-    padding-top: 13px;
-    background-color: #000000;
+    background-color: #FF8E26;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
     border-radius: 22px;
-    font-size: 17px;
+    font-size: 18px;
     align-items: center;
     overflow: hidden;
 `;
