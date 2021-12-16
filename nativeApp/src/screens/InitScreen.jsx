@@ -44,12 +44,13 @@ const StyledButton = styled.Text`
     height: 50px;
     line-height: 50px;
     color: #FF8E26;
-    font-size: 15px;
+    font-size: 18px;
     margin-top: 20px;
     text-align: center;
     justify-content: center;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 25px;
+    overflow: hidden;
     font-weight: bold;
 `;
 export default InitScreen;

@@ -16,10 +16,9 @@ const ButtonWrapper = styled.Text`
   justify-content: center;
   align-items: center;
   padding: 15px;
+  border-radius: 25px;
+  overflow: hidden;
   font-weight: bold;
-  shadow-color: #000000;
-  shadow-opacity: 0.1;
-  shadow-radius: 10px;
   elevation: 3;
 `;
 

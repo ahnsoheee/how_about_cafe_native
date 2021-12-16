@@ -121,6 +121,7 @@ const Input = styled.TextInput`
     font-size: 18px;
     border: 1px solid #d9d9d9;
     border-radius: 10px;
+    overflow: hidden;
     padding: 10px;
     text-align-vertical: top;
 `;

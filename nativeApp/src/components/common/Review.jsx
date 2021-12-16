@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Star from './Star';
 
 const Review = ({ user_id, content, star, path }) => {
@@ -26,6 +26,7 @@ const Wrapper = styled.View`
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 10px;
+  overflow: hidden;
   flex-direction: row;
   padding: 13px;
   margin-bottom: 15px;

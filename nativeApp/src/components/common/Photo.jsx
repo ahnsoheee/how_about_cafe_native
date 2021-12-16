@@ -15,6 +15,7 @@ const StyldImage = styled.Image`
   width: 24%;
   height: 90px;
   border-radius: 0;
+  overflow: hidden;
   margin: 2px;
 `;
 
