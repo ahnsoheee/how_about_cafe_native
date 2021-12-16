@@ -3,8 +3,9 @@ import styled from 'styled-components/native';
 import UserIcon from '../components/icon/UserIcon';
 import { Text } from 'react-native';
 import SettingList from '../components/common/SettingList';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SettingScreen = ({ user_name, navigation }) => {
+const SettingScreen = ({ setAuth, user_name, navigation }) => {
     const manageMyReview = () => {
         // 내가 작성한 리뷰 로직 
     };
@@ -14,8 +15,9 @@ const SettingScreen = ({ user_name, navigation }) => {
         navigation.navigate('Cafe', { navigation: navigation });
     };
 
-    const logout = () => {
-        // 로그아웃 로직
+    const logout = async () => {
+        AsyncStorage.removeItem("token");
+        setAuth(false);
     };
 
     return (
