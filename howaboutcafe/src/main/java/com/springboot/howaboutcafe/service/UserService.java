@@ -23,6 +23,29 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    public ResponseDTO editUserName(String user_name, String new_user_name) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        try {
+            int isExistName = userMapper.findByName(new_user_name);
+            if (isExistName == 1) {
+                responseDTO.setResult("이미 존재하는 닉네임입니다.");
+                return responseDTO;
+            }
+            int result = userMapper.editUserName(user_name, new_user_name);
+            if (result == 1) {
+                responseDTO.setStatus(true);
+                responseDTO.setResult("변경되었습니다.");
+            } else {
+                // 에러 처리
+                responseDTO.setResult("이미 존재하는 닉네임입니다.");
+            }
+            return responseDTO;
+        } catch (Exception e) {
+            // 에러 처리
+            return responseDTO;
+        }
+    }
+
     public ResponseDTO deleteUser(String user_name) {
         ResponseDTO responseDTO = new ResponseDTO();
 

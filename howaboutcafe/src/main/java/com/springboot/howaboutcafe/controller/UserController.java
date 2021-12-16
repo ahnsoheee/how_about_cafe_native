@@ -3,6 +3,8 @@ package com.springboot.howaboutcafe.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,8 +24,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/delete")
-    public ResponseDTO deleteUser(@RequestParam String user_name) throws Exception {
+    @PatchMapping("/edit/name/{user_name}")
+    public ResponseDTO editUserName(@PathVariable("user_name") String user_name, @RequestBody String new_user_name) {
+        ResponseDTO result = userService.editUserName(user_name, new_user_name);
+        return result;
+    }
+
+    @GetMapping("/delete/{user_name}")
+    public ResponseDTO deleteUser(@PathVariable("user_name") String user_name) throws Exception {
         ResponseDTO result = userService.deleteUser(user_name);
         return result;
     }

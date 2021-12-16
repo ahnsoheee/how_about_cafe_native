@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.springboot.howaboutcafe.mapper.UserMapper">
 
+    <update id="editUserName" parameterType="String">
+        UPDATE USER SET user_name=#{new_user_name} WHERE user_name=#{user_name}
+    </update>
+    
     <update id="deleteUser" parameterType="String">
         UPDATE USER SET isDeleted=1 WHERE user_name=#{user_name}
     </update>

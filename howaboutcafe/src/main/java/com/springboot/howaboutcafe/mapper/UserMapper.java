@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
+    int editUserName(String user_name, String new_user_name);
+
     int deleteUser(String user_name);
 
     UserDTO selectUser(UserDTO user);
