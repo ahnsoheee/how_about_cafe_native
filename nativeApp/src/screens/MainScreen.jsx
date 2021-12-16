@@ -7,31 +7,43 @@ import HomeIcon from '../components/icon/HomeIcon';
 import SettingIcon from '../components/icon/SettingIcon';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API } from '../api/api';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 const MainScreen = ({ navigation }) => {
     const [auth, setAuth] = useState(false);
+    const [token, setToken] = useState(null);
     const [user_name, setUserName] = useState('');
     const [home, setHome] = useState(true);
     const [setting, setSetting] = useState(false);
     const [search, setSearch] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
-    useEffect(() => {
 
-        const getAuth = async (token) => {
-            const res = await API.post("/auth", token);
-            setUserName(res.result);
-            setAuth(res.status);
-        };
+    useFocusEffect(
+        React.useCallback(() => {
+            const getToken = async () => {
+                const token = await AsyncStorage.getItem("token");
+                setToken(token);
+            };
 
-        AsyncStorage.getItem("token").then((token) => {
-            if (token) {
-                getAuth(token);
+            const getAuth = async () => {
+                const res = await API.post("/auth", token);
+                if (res.status) {
+                    setUserName(res.result);
+                    setAuth(true);
+                }
+            };
+            getToken();
+            if (token) getAuth();
+            else {
+                setUserName('');
+                setAuth(false);
             }
-        });
-    }, [auth, user_name]);
+        }, [token, auth, user_name])
+    );
 
     return auth ? (
         <Tab.Navigator
@@ -71,6 +83,7 @@ const MainScreen = ({ navigation }) => {
                 }}
             >
                 {() => <SettingScreen
+                    setAuth={setAuth}
                     user_name={user_name}
                     navigation={navigation} />}
             </Tab.Screen>
