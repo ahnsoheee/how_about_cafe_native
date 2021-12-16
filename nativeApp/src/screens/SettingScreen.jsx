@@ -20,6 +20,10 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
         setAuth(false);
     };
 
+    const deleteUser = async () => {
+        navigation.navigate('DeleteUser', { user_name: user_name });
+    };
+
     return (
         <>
             <Header>
@@ -30,6 +34,7 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
             <SettingList title="내가 작성한 리뷰" onPress={manageMyReview} />
             <SettingList title="카페 등록하기" onPress={registerCafe} navigation={navigation} />
             <SettingList title="로그아웃" onPress={logout} />
+            <SettingList title="회원탈퇴" onPress={deleteUser} />
         </>
     );
 };
