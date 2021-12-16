@@ -23,23 +23,34 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    // Main method
+
     public ResponseDTO editUserName(String user_name, String new_user_name) {
         ResponseDTO responseDTO = new ResponseDTO();
         try {
-            int isExistName = userMapper.findByName(new_user_name);
-            if (isExistName == 1) {
+            new_user_name = new_user_name.replaceAll("\\\"", "");
+            if (user_name.equals(new_user_name)) {
+                responseDTO.setResult("현재 닉네임입니다.");
+                return responseDTO;
+            }
+            if (!validateNameReg(new_user_name)) {
+                responseDTO.setResult("닉네임은 영어, 한글, 숫자만 포함해주세요.");
+                return responseDTO;
+            }
+            if (!validateNameLength(new_user_name)) {
+                responseDTO.setResult("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
+                return responseDTO;
+            }
+            if (userMapper.isExistUserName(new_user_name) == 1) {
                 responseDTO.setResult("이미 존재하는 닉네임입니다.");
                 return responseDTO;
             }
-            int result = userMapper.editUserName(user_name, new_user_name);
-            if (result == 1) {
+            if (userMapper.editUserName(user_name, new_user_name) == 1) {
                 responseDTO.setStatus(true);
                 responseDTO.setResult("변경되었습니다.");
-            } else {
-                // 에러 처리
-                responseDTO.setResult("이미 존재하는 닉네임입니다.");
             }
             return responseDTO;
+
         } catch (Exception e) {
             // 에러 처리
             return responseDTO;
@@ -63,9 +74,10 @@ public class UserService {
         token = token.replaceAll("\\\"", "");
         if (token != null && validateToken(token)) {
             Claims claims = getClaimFromToken(token);
-            String user_name = (String) claims.get(DATA_KEY2);
+            String user_id = (String) claims.get(DATA_KEY1);
+            UserDTO userDTO = userMapper.findById(user_id);
             responseDTO.setStatus(true);
-            responseDTO.setResult(user_name);
+            responseDTO.setResult(userDTO.getUser_name());
         }
         return responseDTO;
     }
@@ -101,7 +113,6 @@ public class UserService {
             String pw = user.getPw();
             String name = user.getUser_name();
             String id_regEx = "^[0-9a-zA-Z]*$";
-            String name_regEx = "^[0-9a-zA-Zㄱ-ㅎ가-힣]*$";
 
             if (id.length() < 4 || id.length() > 10) {
                 responseDTO.setResult("아이디는 최소 4, 최대 10 글자로 작성해주세요.");
@@ -117,14 +128,13 @@ public class UserService {
                 responseDTO.setResult("비밀번호는 최소 8, 최대 64 글자로 작성해주세요.");
                 return responseDTO;
             }
-
-            if (!Pattern.matches(name_regEx, name)) {
+            if (!validateNameReg(name)) {
                 responseDTO.setResult("닉네임은 영어, 한글, 숫자만 포함해주세요.");
                 return responseDTO;
             }
 
-            if (name.length() == 0 || name.length() > 20) {
-                responseDTO.setResult("이름은 최소 1, 최대 20 글자로 작성해주세요.");
+            if (!validateNameLength(name)) {
+                responseDTO.setResult("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
                 return responseDTO;
             }
 
@@ -160,13 +170,51 @@ public class UserService {
         }
     }
 
-    public int isExistUserId(String user_id) {
+    // Validation
+
+    public boolean validateNameReg(String name) {
+        String name_regEx = "^[0-9a-zA-Zㄱ-ㅎ가-힣]*$";
+        if (!Pattern.matches(name_regEx, name))
+            return false;
+        return true;
+    }
+
+    public boolean validateNameLength(String name) {
+        if (name.length() == 0 || name.length() > 20) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            return getClaimFromToken(token)
+                    .getExpiration()
+                    .after(new Date());
+        } catch (ExpiredJwtException e) {
+            return false;
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    // DB check
+
+    public UserDTO findById(String user_id) {
         return userMapper.findById(user_id);
     }
 
-    public int isExistUserName(String user_name) {
-        return userMapper.findByName(user_name);
+    public int isExistUserId(String user_id) {
+        return userMapper.isExistUserId(user_id);
     }
+
+    public int isExistUserName(String user_name) {
+        return userMapper.isExistUserName(user_name);
+    }
+
+    // 암호화
 
     public String encrypt(String msg) throws Exception {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -198,25 +246,11 @@ public class UserService {
         String jwt = Jwts.builder()
                 .setExpiration(new Date(currTime + 3600000))
                 .setIssuedAt(new Date(currTime))
-                .claim(DATA_KEY2, user.getUser_name())
+                .claim(DATA_KEY1, user.getUser_id())
                 .signWith(SignatureAlgorithm.HS256, generateKey())
                 .compact();
 
         return jwt;
-    }
-
-    public boolean validateToken(String token) {
-        try {
-            return getClaimFromToken(token)
-                    .getExpiration()
-                    .after(new Date());
-        } catch (ExpiredJwtException e) {
-            return false;
-
-        } catch (Exception e) {
-            return false;
-        }
-
     }
 
     public Claims getClaimFromToken(String token) {
