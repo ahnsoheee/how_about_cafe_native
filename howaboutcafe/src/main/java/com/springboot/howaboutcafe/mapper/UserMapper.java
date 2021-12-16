@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
+    UserDTO findById(String user_name);
 
     int editUserName(String user_name, String new_user_name);
 
@@ -15,8 +16,8 @@ public interface UserMapper {
 
     int insertUser(UserDTO user);
 
-    int findById(String user_id);
+    int isExistUserId(String user_id);
 
-    int findByName(String user_name);
+    int isExistUserName(String user_name);
 
 }
