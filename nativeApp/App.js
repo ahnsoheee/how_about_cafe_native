@@ -8,6 +8,7 @@ import DetailScreen from './src/screens/DetailScreen';
 import RegisterReviewScreen from './src/screens/RegisterReviewScreen';
 import RegisterCafeScreen from './src/screens/RegisterCafeScreen';
 import DeleteUserScreen from './src/screens/DeleteUserScreen';
+import EditUserInfo from './src/screens/EditUserInfo';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ class App extends React.Component {
                     <Stack.Screen name="Detail" component={DetailScreen} options={({ route }) => ({ title: route.params.name, headerShown: false })} />
                     <Stack.Screen name="Review" component={RegisterReviewScreen} options={{ title: '리뷰 등록' }} />
                     <Stack.Screen name="Cafe" component={RegisterCafeScreen} options={{ title: '카페 등록' }} />
+                    <Stack.Screen name="EditUserInfo" component={EditUserInfo} options={{ title: '회원정보 수정' }} />
                     <Stack.Screen name="DeleteUser" component={DeleteUserScreen} options={{ title: '회원 탈퇴' }} />
                 </Stack.Navigator>
             </NavigationContainer>

@@ -6,6 +6,10 @@ import SettingList from '../components/common/SettingList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SettingScreen = ({ setAuth, user_name, navigation }) => {
+    const editUserInfo = () => {
+        navigation.navigate('EditUserInfo', { navigation: navigation, user_name: user_name });
+    };
+
     const manageMyReview = () => {
         // 내가 작성한 리뷰 로직 
     };
@@ -31,8 +35,11 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
                 <UserId>&nbsp;&nbsp;{user_name}</UserId>
             </Header>
             <Text>{"\n"}</Text>
+            <SettingList title="회원정보 수정" onPress={editUserInfo} />
+            <P />
             <SettingList title="내가 작성한 리뷰" onPress={manageMyReview} />
             <SettingList title="카페 등록하기" onPress={registerCafe} navigation={navigation} />
+            <P />
             <SettingList title="로그아웃" onPress={logout} />
             <SettingList title="회원탈퇴" onPress={deleteUser} />
         </>
@@ -50,4 +57,9 @@ const UserId = styled.Text`
     font-size: 30px;
     padding-top: 3px;
 `;
+
+const P = styled.Text`
+    height: 7px;
+`;
+
 export default SettingScreen;
