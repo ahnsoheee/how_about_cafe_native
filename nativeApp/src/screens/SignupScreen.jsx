@@ -44,7 +44,7 @@ const SignupPage = ({ navigation }) => {
                     Toast.show('비밀번호가 일치하지 않습니다', Toast.SHORT);
                 }
             } else {
-                res = await API.post("/signup", {
+                res = await API.post("/user/signup", {
                     "user_id": id,
                     "pw": pw1,
                     "user_name": name

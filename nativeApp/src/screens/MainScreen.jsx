@@ -23,14 +23,14 @@ const MainScreen = ({ navigation }) => {
 
 
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             const getToken = async () => {
                 const token = await AsyncStorage.getItem("token");
                 setToken(token);
             };
 
             const getAuth = async () => {
-                const res = await API.post("/auth", token);
+                const res = await API.post("/user/auth", token);
                 if (res.status) {
                     setUserName(res.result);
                     setAuth(true);

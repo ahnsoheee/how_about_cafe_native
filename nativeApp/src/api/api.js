@@ -10,14 +10,14 @@ class fetchAPI {
     }
 
     get(uri) {
-        return fetch(uri, {
+        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         }).then((res) => res.json());
     }
 
     delete(uri, body) {
-        return fetch(uri, {
+        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),

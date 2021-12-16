@@ -33,7 +33,7 @@ const SigninScreen = ({ navigation }) => {
             }
         } else {
 
-            const res = await API.post('/signin', {
+            const res = await API.post('/user/signin', {
                 'user_id': id,
                 'pw': pw
             });
