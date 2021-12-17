@@ -16,7 +16,7 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
 
     const registerCafe = () => {
         // 카페 등록 로직
-        navigation.navigate('Cafe', { navigation: navigation });
+        navigation.navigate('RegisterCafe');
     };
 
     const logout = async () => {
