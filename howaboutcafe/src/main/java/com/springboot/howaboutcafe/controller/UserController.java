@@ -2,14 +2,12 @@ package com.springboot.howaboutcafe.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springboot.howaboutcafe.dto.ResponseDTO;
@@ -37,13 +35,13 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public ResponseDTO auth(@RequestBody String token) {
+    public ResponseDTO auth(@RequestBody String token) throws Exception {
         ResponseDTO result = userService.auth(token);
         return result;
     }
 
     @PostMapping("/signin")
-    public ResponseDTO signin(@RequestBody UserDTO user) {
+    public ResponseDTO signin(@RequestBody UserDTO user) throws Exception {
 
         ResponseDTO result = userService.signin(user);
         return result;
