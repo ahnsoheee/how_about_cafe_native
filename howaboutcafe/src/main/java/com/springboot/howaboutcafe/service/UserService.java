@@ -2,6 +2,7 @@ package com.springboot.howaboutcafe.service;
 
 import java.security.MessageDigest;
 import java.util.Date;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.springboot.howaboutcafe.dto.ResponseDTO;
@@ -112,22 +113,23 @@ public class UserService {
             String id = user.getUser_id();
             String pw = user.getPw();
             String name = user.getUser_name();
-            String id_regEx = "^[0-9a-zA-Z]*$";
 
             if (id.length() < 4 || id.length() > 10) {
                 responseDTO.setResult("아이디는 최소 4, 최대 10 글자로 작성해주세요.");
                 return responseDTO;
             }
 
-            if (!Pattern.matches(id_regEx, id)) {
+            if (!id.matches("^[0-9a-zA-Z]*$")) {
                 responseDTO.setResult("아이디는 영어, 숫자만 포함해주세요.");
                 return responseDTO;
             }
 
-            if (pw.length() < 8 || pw.length() > 64) {
-                responseDTO.setResult("비밀번호는 최소 8, 최대 64 글자로 작성해주세요.");
+            if (!Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z[0-9]!@#$%^&*]{8,64}$")
+                    .matcher(pw).find()) {
+                responseDTO.setResult("비밀번호는 숫자, 영어, 특수문자 !@#$%^&*를 포함해 최소 8, 최대 64 글자로 작성해주세요.");
                 return responseDTO;
             }
+
             if (!validateNameReg(name)) {
                 responseDTO.setResult("닉네임은 영어, 한글, 숫자만 포함해주세요.");
                 return responseDTO;
