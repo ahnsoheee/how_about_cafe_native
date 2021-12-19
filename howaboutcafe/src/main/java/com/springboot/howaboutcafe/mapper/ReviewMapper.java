@@ -13,4 +13,6 @@ public interface ReviewMapper {
     List<ReviewDTO> findByCafe(int cafe_id);
 
     int deleteReview(int review_id);
+
+    List<ReviewDTO> findByUser(String user_name);
 }
