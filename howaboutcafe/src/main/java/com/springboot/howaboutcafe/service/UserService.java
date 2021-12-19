@@ -2,7 +2,6 @@ package com.springboot.howaboutcafe.service;
 
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.springboot.howaboutcafe.dto.ResponseDTO;
@@ -69,18 +68,16 @@ public class UserService {
         return responseDTO;
     }
 
-    public ResponseDTO auth(String token) {
-        ResponseDTO responseDTO = new ResponseDTO();
+    public UserDTO auth(String token) {
+        UserDTO userDTO = new UserDTO();
 
         token = token.replaceAll("\\\"", "");
         if (token != null && validateToken(token)) {
             Claims claims = getClaimFromToken(token);
             String user_id = (String) claims.get(DATA_KEY1);
-            UserDTO userDTO = userMapper.findById(user_id);
-            responseDTO.setStatus(true);
-            responseDTO.setResult(userDTO.getUser_name());
+            userDTO = userMapper.findById(user_id);
         }
-        return responseDTO;
+        return userDTO;
     }
 
     public ResponseDTO signin(UserDTO user) {
@@ -203,11 +200,6 @@ public class UserService {
     }
 
     // DB check
-
-    public UserDTO findById(String user_id) {
-        return userMapper.findById(user_id);
-    }
-
     public int isExistUserId(String user_id) {
         return userMapper.isExistUserId(user_id);
     }

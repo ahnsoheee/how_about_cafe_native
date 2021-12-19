@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public ResponseDTO auth(@RequestBody String token) throws Exception {
-        ResponseDTO result = userService.auth(token);
+    public UserDTO auth(@RequestBody String token) throws Exception {
+        UserDTO result = userService.auth(token);
         return result;
     }
 
