@@ -54,8 +54,8 @@ public class ReviewService {
         }
     }
 
-    public List<ReviewDTO> getMyReview(String user_name) {
-        List<ReviewDTO> result = reviewMapper.findByUser(user_name);
+    public List<ReviewDTO> getMyReview(String user_id) {
+        List<ReviewDTO> result = reviewMapper.findByUser(user_id);
         return result;
     }
 }
