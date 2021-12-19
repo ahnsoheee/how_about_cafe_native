@@ -12,6 +12,8 @@ const ReviewList = ({ reviews }) => {
                     content={review.content}
                     star={review.star}
                     path={review.path}
+                    updated_at={review.updated_at}
+                    created_at={review.created_at}
                 />
             );
         });

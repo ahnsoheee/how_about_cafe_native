@@ -26,7 +26,7 @@ const DetailScreen = ({ navigation, route }) => {
             //    setPhotoList(images);
             //}, []);
             getReview();
-        }, [reviewList])
+        }, [])
 
     );
 

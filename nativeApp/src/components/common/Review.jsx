@@ -1,71 +1,91 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Star from './Star';
+import StarRating from "react-native-star-rating";
 
-const Review = ({ user_name, content, star, path }) => {
+const Review = ({ user_name, content, star, path, updated_at, created_at }) => {
+
     return (
         <Wrapper>
             <LeftWrapper>
                 <UserId>{user_name}</UserId>
+                <MiddleWrapper>
+                    <StarWrapper>
+                        <StarRating
+                            disabled={true}
+                            maxStars={5}
+                            starSize={13}
+                            fullStarColor={"#FF8E26"}
+                            emptyStarColor={"#FF8E26"}
+                            rating={star} />
+                    </StarWrapper>
+                    <Date>{created_at.substring(0, 10)}</Date>
+                </MiddleWrapper>
+
                 <Content>{content}</Content>
             </LeftWrapper>
             <RightWrapper>
                 <PhotoWrapper>
                     {path ? <Photo source={{ uri: path }} /> : <></>}
                 </PhotoWrapper>
-                <StarWrapper>
-                    <Star star={star} />
-                </StarWrapper>
             </RightWrapper>
         </Wrapper>
     );
 };
 
 const Wrapper = styled.View`
-  width: 100%;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  overflow: visible;
-  flex-direction: row;
-  padding: 13px;
-  margin-bottom: 15px;  
-  box-shadow: 5px 5px 5px #dddddd;
-  elevation: 3;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    overflow: visible;
+    flex-direction: row;
+    padding: 13px;
+    margin-bottom: 15px;  
+    box-shadow: 5px 5px 5px #dddddd;
+    elevation: 3;
 `;
 
 const LeftWrapper = styled.View`
-  width: 78%;
+    width: 78%;
+`;
+
+const MiddleWrapper = styled.View`
+    flex-direction: row;
+    margin-bottom: 5px;
 `;
 
 const RightWrapper = styled.View`
-  flex-grow: 1;
+    flex-grow: 1;
 `;
 
 const UserId = styled.Text`
-  font-weight: bold;
-  font-size: 20px;
-  padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+`;
+
+const StarWrapper = styled.View`
+    margin-bottom: 3px;
+    margin-right: 3px;
+`;
+
+const Date = styled.Text`
+    font-size: 12px;
+    color: #848484;
 `;
 
 const Content = styled.Text`
-  font-size: 15px;
-  padding-right: 5px;
+    font-size: 19px;
+    padding-right: 5px;
 `;
 
 const PhotoWrapper = styled.View`
-  flex-grow: 1;
+    flex-grow: 1;
 `;
 
 const Photo = styled.Image`
-  width: 80%;
-  height: 70px;
-`;
-
-const StarWrapper = styled.Text`
-  margin-top: 20px;
-  margin-left: 30px;
-  flex-grow: 1;
+    width: 80%;
+    height: 70px;
 `;
 
 export default Review;
