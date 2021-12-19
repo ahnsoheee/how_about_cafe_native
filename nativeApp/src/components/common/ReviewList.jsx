@@ -4,10 +4,10 @@ import Review from './Review';
 const ReviewList = ({ reviews }) => {
     if (reviews) {
         const reviewList = reviews.map(review => {
+            console.log(review.review_id);
             return (
                 <Review
-                    key={review.id}
-                    id={review.id}
+                    review_id={review.review_id}
                     user_name={review.user_name}
                     content={review.content}
                     star={review.star}

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components/native';
 import StarRating from "react-native-star-rating";
 
-const Review = ({ user_name, content, star, path, updated_at, created_at }) => {
+const Review = ({ review_id, user_name, content, star, path, updated_at, created_at }) => {
     return (
-        <Wrapper>
+        <Wrapper key={review_id}>
             <LeftWrapper>
                 <UserId>{user_name}</UserId>
                 <MiddleWrapper>
