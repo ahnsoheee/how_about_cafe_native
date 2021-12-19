@@ -68,7 +68,8 @@ const MainScreen = ({ navigation }) => {
                     setSearch={setSearch}
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
-                    navigation={navigation} />}
+                    navigation={navigation}
+                    user_name={user_name} />}
             </Tab.Screen>
             <Tab.Screen
                 name="Settings"

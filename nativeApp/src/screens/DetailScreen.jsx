@@ -8,7 +8,6 @@ import ReviewList from '../components/common/ReviewList';
 import PhotoList from '../components/common/PhotoList';
 
 const DetailScreen = ({ navigation, route }) => {
-
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
 
@@ -30,7 +29,7 @@ const DetailScreen = ({ navigation, route }) => {
 
     const RegisterReview = () => {
         // 리뷰생성화면으로 이동
-        navigation.navigate('Review', { id: route.params.id, navigation: navigation });
+        navigation.navigate('Review', { user_name: route.params.user_name, id: route.params.id, navigation: navigation });
     };
 
     return (

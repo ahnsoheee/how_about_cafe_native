@@ -6,6 +6,8 @@ import * as ImagePicker from "react-native-image-picker";
 import { Modal, Provider } from '@ant-design/react-native';
 import { View } from 'react-native';
 import ImageList from '../components/common/ImageList';
+import Toast from 'react-native-simple-toast';
+import { API } from "../api/api";
 
 const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0);
@@ -19,11 +21,17 @@ const RegisterReviewScreen = ({ navigation, route }) => {
         { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
     ];
 
-    const registerReview = () => {
-        // 리뷰 저장 로직
-
-        // cafe_id: route.params.id
-        navigation.goBack();
+    const registerReview = async () => {
+        const res = await API.post('/review', {
+            cafe_id: route.params.id,
+            user_name: route.params.user_name,
+            star: starCount,
+            content: text
+        });
+        Toast.show(res.result, Toast.SHORT);
+        if (res.status) {
+            navigation.goBack();
+        }
     };
 
     const onPressImage = (key) => {

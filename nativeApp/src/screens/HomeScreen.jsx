@@ -8,7 +8,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
 import { API } from "../api/api";
 
-const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation }) => {
+const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name, navigation }) => {
 
     const [topList, setTopList] = useState([]);
     const [searchedList, setSearchedList] = useState([]);
@@ -82,12 +82,12 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
             {search ?
                 <Content>
                     {/* 검색 목록 */}
-                    <InfoList infos={searchedList} navigation={navigation} />
+                    <InfoList user_name={user_name} infos={searchedList} navigation={navigation} />
                 </Content>
                 :
                 <Content>
                     {/* top4-list */}
-                    <InfoList infos={topList} navigation={navigation} />
+                    <InfoList user_name={user_name} infos={topList} navigation={navigation} />
                 </Content>
             }
         </>
