@@ -3,7 +3,7 @@
 <mapper namespace="com.springboot.howaboutcafe.mapper.UserMapper">
 
     <select id="findById" parameterType="String" resultType="com.springboot.howaboutcafe.dto.UserDTO">
-        SELECT user_id, pw, user_name FROM USER WHERE user_id=#{user_id}
+        SELECT user_id, user_name FROM USER WHERE user_id=#{user_id}
     </select>
 
     <update id="editUserName" parameterType="String">
@@ -11,7 +11,7 @@
     </update>
     
     <update id="deleteUser" parameterType="String">
-        UPDATE USER SET isDeleted=1 WHERE user_name=#{user_name}
+        UPDATE USER SET isDeleted=1 WHERE user_id=#{user_id}
     </update>
 
     <select id="selectUser" parameterType="com.springboot.howaboutcafe.dto.UserDTO" resultType="com.springboot.howaboutcafe.dto.UserDTO">
@@ -23,11 +23,11 @@
     </insert>
 
     <select id="isExistUserId" parameterType="String" resultType="int">
-        SELECT COUNT(user_id) from USER WHERE user_id=#{user_id}
+        SELECT COUNT(user_id) FROM USER WHERE user_id=#{user_id}
     </select>
 
     <select id="isExistUserName" parameterType="String" resultType="int">
-        SELECT COUNT(user_name) from USER WHERE user_name=#{user_name}
+        SELECT COUNT(user_name) FROM USER WHERE user_name=#{user_name}
     </select>
 
 </mapper>

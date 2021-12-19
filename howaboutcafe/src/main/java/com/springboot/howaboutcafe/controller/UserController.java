@@ -28,9 +28,9 @@ public class UserController {
         return result;
     }
 
-    @PatchMapping("/delete/{user_name}")
-    public ResponseDTO deleteUser(@PathVariable("user_name") String user_name) throws Exception {
-        ResponseDTO result = userService.deleteUser(user_name);
+    @PatchMapping("/{user_id}/delete")
+    public ResponseDTO deleteUser(@PathVariable("user_id") String user_id) throws Exception {
+        ResponseDTO result = userService.deleteUser(user_id);
         return result;
     }
 

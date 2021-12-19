@@ -57,10 +57,10 @@ public class UserService {
         }
     }
 
-    public ResponseDTO deleteUser(String user_name) {
+    public ResponseDTO deleteUser(String user_id) {
         ResponseDTO responseDTO = new ResponseDTO();
 
-        int result = userMapper.deleteUser(user_name);
+        int result = userMapper.deleteUser(user_id);
         if (result == 1) {
             responseDTO.setStatus(true);
             responseDTO.setResult("회원탈퇴가 완료되었습니다.");

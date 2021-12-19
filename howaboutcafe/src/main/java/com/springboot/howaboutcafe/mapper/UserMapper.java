@@ -10,7 +10,7 @@ public interface UserMapper {
 
     int editUserName(String user_name, String new_user_name);
 
-    int deleteUser(String user_name);
+    int deleteUser(String user_id);
 
     UserDTO selectUser(UserDTO user);
 
