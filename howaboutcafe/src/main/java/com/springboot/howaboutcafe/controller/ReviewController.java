@@ -1,14 +1,18 @@
 package com.springboot.howaboutcafe.controller;
 
+import java.util.List;
+
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.service.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -23,4 +27,11 @@ public class ReviewController {
         ResponseDTO result = reviewService.registerReview(review);
         return result;
     }
+
+    @GetMapping("")
+    public List<ReviewDTO> getReview(@RequestParam int cafe_id) throws Exception {
+        List<ReviewDTO> result = reviewService.getReview(cafe_id);
+        return result;
+    }
+
 }

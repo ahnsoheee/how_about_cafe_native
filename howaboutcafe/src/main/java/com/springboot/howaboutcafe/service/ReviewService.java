@@ -1,5 +1,7 @@
 package com.springboot.howaboutcafe.service;
 
+import java.util.List;
+
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.mapper.ReviewMapper;
@@ -29,5 +31,10 @@ public class ReviewService {
             return responseDTO;
         }
         return responseDTO;
+    }
+
+    public List<ReviewDTO> getReview(int cafe_id) {
+        List<ReviewDTO> result = reviewMapper.selectReview(cafe_id);
+        return result;
     }
 }
