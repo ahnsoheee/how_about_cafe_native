@@ -22,7 +22,8 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name,
                 if (result) setTop4Cafe(result);
             };
             getTop4Cafe();
-        }, [top4Cafe])
+        }, [])
+
     );
 
     const onChangeText = (value) => {
