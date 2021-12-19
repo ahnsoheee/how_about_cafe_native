@@ -1,29 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components/native';
 import ModalSelector from 'react-native-modal-selector';
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
 import InfoList from '../components/common/InfoList';
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
 import { API } from "../api/api";
 
 const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name, navigation }) => {
 
-    const [topList, setTopList] = useState([]);
-    const [searchedList, setSearchedList] = useState([]);
+    const [top4Cafe, setTop4Cafe] = useState([]);
+    const [searchedCafe, setSearchedCafe] = useState([]);
 
     const [order, setOrder] = useState("star");
     const [label, setLabel] = useState("별점순");
 
     useFocusEffect(
         useCallback(() => {
-            const infoList = async () => {
+            const getTop4Cafe = async () => {
                 const result = await API.get("/cafe");
-                if (result) setTopList(result);
+                if (result) setTop4Cafe(result);
             };
-            infoList();
-        }, [topList])
+            getTop4Cafe();
+        }, [top4Cafe])
     );
 
     const onChangeText = (value) => {
@@ -47,7 +46,7 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name,
             const list = [{ id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
             { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
             ];
-            setSearchedList(list);
+            setSearchedCafe(list);
         }
     };
 
@@ -82,12 +81,12 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name,
             {search ?
                 <Content>
                     {/* 검색 목록 */}
-                    <InfoList user_name={user_name} infos={searchedList} navigation={navigation} />
+                    <InfoList user_name={user_name} infos={searchedCafe} navigation={navigation} />
                 </Content>
                 :
                 <Content>
                     {/* top4-list */}
-                    <InfoList user_name={user_name} infos={topList} navigation={navigation} />
+                    <InfoList user_name={user_name} infos={top4Cafe} navigation={navigation} />
                 </Content>
             }
         </>
