@@ -10,6 +10,7 @@ import lombok.Setter;
 public class ReviewDTO {
     int review_id;
     int cafe_id;
+    String user_id;
     String user_name;
     int star;
     Date updated_at;
