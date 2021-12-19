@@ -31,8 +31,8 @@ public class ReviewController {
     }
 
     @GetMapping("")
-    public List<ReviewDTO> getReview(@RequestParam int cafe_id) throws Exception {
-        List<ReviewDTO> result = reviewService.getReview(cafe_id);
+    public List<ReviewDTO> getCafeReview(@RequestParam int cafe_id) throws Exception {
+        List<ReviewDTO> result = reviewService.getCafeReview(cafe_id);
         return result;
     }
 

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReviewMapper {
     int insertReview(ReviewDTO review);
 
-    List<ReviewDTO> selectReview(int cafe_id);
+    List<ReviewDTO> findByCafe(int cafe_id);
 
     int deleteReview(int review_id);
 }

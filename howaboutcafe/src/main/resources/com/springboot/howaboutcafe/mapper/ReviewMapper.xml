@@ -6,7 +6,7 @@
         INSERT INTO REVIEW(cafe_id, user_name, star, content) VALUES(#{cafe_id}, #{user_name}, #{star}, #{content}) 
     </insert>
 
-    <select id="selectReview" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
+    <select id="findByCafe" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
         SELECT review_id, cafe_id, user_name, star, content, updated_at, created_at FROM REVIEW WHERE cafe_id=#{cafe_id} AND isDeleted=0 ORDER BY created_at DESC;
     </select>
 

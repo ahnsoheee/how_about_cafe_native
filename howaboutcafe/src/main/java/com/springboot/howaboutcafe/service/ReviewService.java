@@ -33,8 +33,8 @@ public class ReviewService {
         }
     }
 
-    public List<ReviewDTO> getReview(int cafe_id) {
-        List<ReviewDTO> result = reviewMapper.selectReview(cafe_id);
+    public List<ReviewDTO> getCafeReview(int cafe_id) {
+        List<ReviewDTO> result = reviewMapper.findByCafe(cafe_id);
         return result;
     }
 
