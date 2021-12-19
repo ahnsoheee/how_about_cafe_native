@@ -9,6 +9,8 @@ import com.springboot.howaboutcafe.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,4 +36,9 @@ public class ReviewController {
         return result;
     }
 
+    @PatchMapping("/delete/{review_id}")
+    public ResponseDTO deleteReview(@PathVariable("review_id") int review_id) throws Exception {
+        ResponseDTO result = reviewService.deleteReview(review_id);
+        return result;
+    }
 }

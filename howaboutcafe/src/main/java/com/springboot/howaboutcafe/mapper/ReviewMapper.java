@@ -11,4 +11,6 @@ public interface ReviewMapper {
     int insertReview(ReviewDTO review);
 
     List<ReviewDTO> selectReview(int cafe_id);
+
+    int deleteReview(int review_id);
 }

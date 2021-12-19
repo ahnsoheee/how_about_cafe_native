@@ -27,14 +27,30 @@ public class ReviewService {
             } else {
                 responseDTO.setResult("리뷰 등록에 실패했습니다");
             }
+            return responseDTO;
         } catch (Exception e) {
             return responseDTO;
         }
-        return responseDTO;
     }
 
     public List<ReviewDTO> getReview(int cafe_id) {
         List<ReviewDTO> result = reviewMapper.selectReview(cafe_id);
         return result;
+    }
+
+    public ResponseDTO deleteReview(int review_id) {
+        ResponseDTO responseDTO = new ResponseDTO();
+        try {
+            int result = reviewMapper.deleteReview(review_id);
+            if (result == 1) {
+                responseDTO.setStatus(true);
+                responseDTO.setResult("삭제되었습니다.");
+            } else {
+                responseDTO.setResult("삭제되지 않았습니다.");
+            }
+            return responseDTO;
+        } catch (Exception e) {
+            return responseDTO;
+        }
     }
 }
