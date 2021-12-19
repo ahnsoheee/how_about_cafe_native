@@ -4,6 +4,9 @@ import ModalSelector from 'react-native-modal-selector';
 import { Searchbar } from 'react-native-paper';
 import { ToastAndroid, Platform, AlertIOS, } from 'react-native';
 import InfoList from '../components/common/InfoList';
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback } from "react";
+import { API } from "../api/api";
 
 const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation }) => {
 
@@ -13,16 +16,15 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, navigation
     const [order, setOrder] = useState("star");
     const [label, setLabel] = useState("별점순");
 
-    useEffect(() => {
-        // example
-        const infoList = [{ id: 7, cafe_name: "하이엔드라이", addr: "서울 성동구 광나루로 302", star: 4.97, review: 87 },
-        { id: 2, cafe_name: "에브리데이몬데이 카페", addr: "서울 송파구 송파대로48길 14 지하 1층", star: 4.87, review: 97 },
-        { id: 8, cafe_name: "까치화방 성수낙낙점", addr: "서울 성동구 아차산로17길 1층 R114호, 115호", star: 4.77, review: 67 },
-        { id: 4, cafe_name: "하프커피 성수점", addr: "서울특별시 성동구 서울숲4길 12 1층", star: 4.67, review: 68 },
-        ];
-        // Top 4 가져오는 로직
-        setTopList(infoList);
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            const infoList = async () => {
+                const result = await API.get("/cafe");
+                if (result) setTopList(result);
+            };
+            infoList();
+        }, [topList])
+    );
 
     const onChangeText = (value) => {
         setSearchValue(value);
