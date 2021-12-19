@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 import StarRating from "react-native-star-rating";
 
 const Review = ({ user_name, content, star, path, updated_at, created_at }) => {
-
     return (
         <Wrapper>
             <LeftWrapper>
@@ -20,14 +19,9 @@ const Review = ({ user_name, content, star, path, updated_at, created_at }) => {
                     </StarWrapper>
                     <Date>{created_at.substring(0, 10)}</Date>
                 </MiddleWrapper>
-
                 <Content>{content}</Content>
             </LeftWrapper>
-            <RightWrapper>
-                <PhotoWrapper>
-                    {path ? <Photo source={{ uri: path }} /> : <></>}
-                </PhotoWrapper>
-            </RightWrapper>
+            {path ? <Photo source={{ uri: path }} /> : <></>}
         </Wrapper>
     );
 };
@@ -38,7 +32,6 @@ const Wrapper = styled.View`
     border: 1px solid #dddddd;
     border-radius: 10px;
     overflow: visible;
-    flex-direction: row;
     padding: 13px;
     margin-bottom: 15px;  
     box-shadow: 5px 5px 5px #dddddd;
@@ -52,10 +45,6 @@ const LeftWrapper = styled.View`
 const MiddleWrapper = styled.View`
     flex-direction: row;
     margin-bottom: 5px;
-`;
-
-const RightWrapper = styled.View`
-    flex-grow: 1;
 `;
 
 const UserId = styled.Text`
@@ -76,16 +65,13 @@ const Date = styled.Text`
 
 const Content = styled.Text`
     font-size: 19px;
-    padding-right: 5px;
+    margin-bottom: 10px;
 `;
 
-const PhotoWrapper = styled.View`
-    flex-grow: 1;
-`;
 
 const Photo = styled.Image`
-    width: 80%;
-    height: 70px;
+    width: 100%;
+    height: 300px;
 `;
 
 export default Review;
