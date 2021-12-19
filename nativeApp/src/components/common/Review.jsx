@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components/native';
 import Star from './Star';
 
-const Review = ({ user_id, content, star, path }) => {
+const Review = ({ user_name, content, star, path }) => {
     return (
         <Wrapper>
             <LeftWrapper>
-                <UserId>{user_id}</UserId>
+                <UserId>{user_name}</UserId>
                 <Content>{content}</Content>
             </LeftWrapper>
             <RightWrapper>
@@ -58,7 +58,7 @@ const PhotoWrapper = styled.View`
 `;
 
 const Photo = styled.Image`
-  width: 100%;
+  width: 80%;
   height: 70px;
 `;
 

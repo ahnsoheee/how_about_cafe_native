@@ -8,7 +8,7 @@ const ReviewList = ({ reviews }) => {
                 <Review
                     key={review.id}
                     id={review.id}
-                    user_id={review.user_id}
+                    user_name={review.user_name}
                     content={review.content}
                     star={review.star}
                     path={review.path}

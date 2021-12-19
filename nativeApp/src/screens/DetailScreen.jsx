@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Entypo';
 import { Text } from 'react-native';
@@ -6,30 +6,33 @@ import Star from '../components/common/Star';
 import Pencil from '../components/common/Pencil';
 import ReviewList from '../components/common/ReviewList';
 import PhotoList from '../components/common/PhotoList';
+import { useFocusEffect } from "@react-navigation/native";
+import { API } from "../api/api";
 
 const DetailScreen = ({ navigation, route }) => {
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
+    const { addr, id, name, review, star, user_name } = route.params;
 
-    // 리뷰 가져오는 로직
-    useEffect(() => {
-        const reviews =
-            [{ id: 1, user_id: "test", content: "좋아요!", star: 5 },
-            { id: 2, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
-            { id: 3, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
-            { id: 4, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" },
-            { id: 5, user_id: "test", content: "시그니처메뉴인 버터크림라떼 꼭 드세요👍 진짜 맛있고 다들 이거 먹어여 도넛도 레몬크림 아주 상큼하고 당충전 제대로 넘 마시찌만 가격이 사악", star: 3, path: "https://reactnative.dev/img/tiny_logo.png" }];
-        // Top 4 가져오는 로직
-        setReviewList(reviews);
+    useFocusEffect(
+        useCallback(() => {
+            const getReview = async () => {
+                const result = await API.get(`/review?cafe_id=${id}`);
+                if (result) setReviewList(result);
+            };
 
-        // 리뷰 이미지 가져오는 로직
-        const images = [{ id: 1, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 2, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 3, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 4, path: "https://reactnative.dev/img/tiny_logo.png" },];
-        setPhotoList(images);
-    }, []);
+            //    // 리뷰 이미지 가져오는 로직
+            //    const images = [{ id: 1, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 2, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 3, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 4, path: "https://reactnative.dev/img/tiny_logo.png" },];
+            //    setPhotoList(images);
+            //}, []);
+            getReview();
+        }, [reviewList])
+
+    );
 
     const RegisterReview = () => {
         // 리뷰생성화면으로 이동
-        navigation.navigate('Review', { user_name: route.params.user_name, id: route.params.id, navigation: navigation });
+        navigation.navigate('Review', { user_name: user_name, id: id, navigation: navigation });
     };
 
     return (
@@ -37,12 +40,12 @@ const DetailScreen = ({ navigation, route }) => {
             <Button onPress={RegisterReview}>
                 <Icon name="plus" size={25} color="#FF8E26" />
             </Button>
-            <Title>{route.params.name}</Title>
-            <Addr>{route.params.addr}</Addr>
+            <Title>{name}</Title>
+            <Addr>{addr}</Addr>
             <ValueView>
-                <Star star={route.params.star} />
+                <Star star={star} />
                 <Text>&nbsp;&nbsp;</Text>
-                <Pencil review={route.params.review} />
+                <Pencil review={review} />
             </ValueView>
             <PhotoWrapper>
                 <PhotoList photos={photoList} />
