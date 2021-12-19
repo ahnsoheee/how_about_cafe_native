@@ -17,6 +17,7 @@ const Wrapper = styled.View`
 
 const Value = styled.Text`
     font-size: 17px;
+    width: 40px;
 `;
 
 export default Star;
