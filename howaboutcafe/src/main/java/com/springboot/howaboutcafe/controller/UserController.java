@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PatchMapping("/edit/name/{user_name}")
+    @PatchMapping("/{user_name}/edit/name")
     public ResponseDTO editUserName(@PathVariable("user_name") String user_name, @RequestBody String new_user_name) {
         ResponseDTO result = userService.editUserName(user_name, new_user_name);
         return result;
