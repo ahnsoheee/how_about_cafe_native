@@ -30,12 +30,6 @@ public class ReviewController {
         return result;
     }
 
-    @GetMapping("")
-    public List<ReviewDTO> getCafeReview(@RequestParam int cafe_id) throws Exception {
-        List<ReviewDTO> result = reviewService.getCafeReview(cafe_id);
-        return result;
-    }
-
     @PatchMapping("/delete/{review_id}")
     public ResponseDTO deleteReview(@PathVariable("review_id") int review_id) throws Exception {
         ResponseDTO result = reviewService.deleteReview(review_id);
