@@ -17,8 +17,6 @@ public class ReviewService {
 
     public ResponseDTO registerReview(ReviewDTO review) {
         ResponseDTO responseDTO = new ResponseDTO();
-        if (review.getPath().length() == 0)
-            review.setPath(null);
         try {
             int result = reviewMapper.insertReview(review);
             if (result == 1) {
