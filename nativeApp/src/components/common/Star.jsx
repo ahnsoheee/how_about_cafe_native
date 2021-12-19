@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 const Star = ({ star }) => {
     return (
         <Wrapper>
-            <Icon name="star" color="orange" size={20} />
+            <Icon name="star" color="#FF8E26" size={20} />
             <Value>&nbsp;{star}</Value>
         </Wrapper>
     );
