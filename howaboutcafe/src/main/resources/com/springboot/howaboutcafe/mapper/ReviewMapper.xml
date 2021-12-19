@@ -3,7 +3,7 @@
 <mapper namespace="com.springboot.howaboutcafe.mapper.ReviewMapper">
 
     <insert id="insertReview" parameterType="com.springboot.howaboutcafe.dto.ReviewDTO">
-        INSERT INTO REVIEW(cafe_id, user_name, star, content) VALUES(#{cafe_id}, #{user_name}, #{star}, #{content}) 
+        INSERT INTO REVIEW(cafe_id, user_id, star, content) VALUES(#{cafe_id}, #{user_id}, #{star}, #{content}) 
     </insert>
 
     <select id="findByCafe" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
