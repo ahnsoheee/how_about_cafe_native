@@ -1,5 +1,7 @@
 package com.springboot.howaboutcafe.service;
 
+import java.util.List;
+
 import com.springboot.howaboutcafe.dto.CafeDTO;
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.mapper.CafeMapper;
@@ -29,14 +31,18 @@ public class CafeService {
             if (result == 1) {
                 responseDTO.setStatus(true);
                 responseDTO.setResult("카페 등록이 완료되었습니다.");
-                return responseDTO;
+            } else {
+                responseDTO.setResult("카페 등록에 실패했습니다.");
             }
-            responseDTO.setResult("카페 등록에 실패했습니다.");
-            return responseDTO;
         } catch (Exception e) {
             // 에러 처리
             return responseDTO;
         }
+        return responseDTO;
     }
 
+    public List<CafeDTO> getTop4Cafe() {
+        List<CafeDTO> result = cafeMapper.getTop4Cafe();
+        return result;
+    }
 }

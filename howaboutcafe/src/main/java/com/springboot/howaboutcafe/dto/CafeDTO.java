@@ -11,4 +11,6 @@ public class CafeDTO {
     int cafe_id;
     String cafe_name;
     String addr;
+    double star;
+    int review;
 }
