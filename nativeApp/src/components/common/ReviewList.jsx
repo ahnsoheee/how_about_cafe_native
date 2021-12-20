@@ -5,28 +5,23 @@ import Review from './Review';
 const ReviewList = ({ reviews }) => {
     if (reviews) {
         const reviewList = reviews.map(review => {
+            console.log(review);
             const { review_id, user_name, content, star, path, updated_at, created_at } = review;
             return (
-                <Wrapper>
-                    <Review
-                        review_id={review_id}
-                        user_name={user_name}
-                        content={content}
-                        star={star}
-                        path={path}
-                        updated_at={updated_at}
-                        created_at={created_at}
-                    />
-                </Wrapper>
+                <Review
+                    review_id={review_id}
+                    user_name={user_name}
+                    content={content}
+                    star={star}
+                    path={path}
+                    updated_at={updated_at}
+                    created_at={created_at}
+                />
             );
         });
         return <>{reviewList}</>;
     }
     return <></>;
 };
-
-const Wrapper = styled.View`
-    height: 100%;
-`;
 
 export default ReviewList;
