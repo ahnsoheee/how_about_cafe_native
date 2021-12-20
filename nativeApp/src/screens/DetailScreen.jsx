@@ -13,17 +13,13 @@ const DetailScreen = ({ navigation, route }) => {
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
     const { user_id, addr, id, name, review, star } = route.params;
+
     useFocusEffect(
         useCallback(() => {
             const getReview = async () => {
                 const result = await API.get(`/cafe/${id}/review`);
                 if (result) setReviewList(result);
             };
-
-            //    // 리뷰 이미지 가져오는 로직
-            //    const images = [{ id: 1, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 2, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 3, path: "https://reactnative.dev/img/tiny_logo.png" }, { id: 4, path: "https://reactnative.dev/img/tiny_logo.png" },];
-            //    setPhotoList(images);
-            //}, []);
             getReview();
         }, [])
     );
