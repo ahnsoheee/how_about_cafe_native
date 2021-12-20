@@ -27,7 +27,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
             cafe_id: id,
             user_id: user_id,
             star: starCount,
-            content: text
+            content: text,
+            image: imageSrc
         });
 
         SimpleToast.show(res.result, SimpleToast.SHORT);
@@ -51,7 +52,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
     const onSelectGallery = () => {
         ImagePicker.launchImageLibrary({}, (response) => {
-            setImageSrc([...imageSrc, response.assets[0].uri]);
+            setImageSrc([...imageSrc, response.assets[0].uri.replace("file:", "")]);
         });
     };
 
