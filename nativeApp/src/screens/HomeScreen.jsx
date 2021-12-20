@@ -7,7 +7,7 @@ import InfoList from '../components/common/InfoList';
 import { useFocusEffect } from "@react-navigation/native";
 import { API } from "../api/api";
 
-const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name, navigation }) => {
+const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_id, navigation }) => {
 
     const [top4Cafe, setTop4Cafe] = useState([]);
     const [searchedCafe, setSearchedCafe] = useState([]);
@@ -62,6 +62,7 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name,
         { key: 'review', label: '리뷰순' },
         { key: 'name', label: '이름순' },
     ];
+
     return (
         <>
             <Header search={search}>
@@ -82,12 +83,12 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_name,
             {search ?
                 <Content>
                     {/* 검색 목록 */}
-                    <InfoList user_name={user_name} infos={searchedCafe} navigation={navigation} />
+                    <InfoList user_id={user_id} infos={searchedCafe} navigation={navigation} />
                 </Content>
                 :
                 <Content>
                     {/* top4-list */}
-                    <InfoList user_name={user_name} infos={top4Cafe} navigation={navigation} />
+                    <InfoList user_id={user_id} infos={top4Cafe} navigation={navigation} />
                 </Content>
             }
         </>
