@@ -4,11 +4,11 @@ import { Text } from 'react-native';
 import Star from './Star';
 import Pencil from './Pencil';
 
-const Info = ({ user_name, id, name, addr, star, review, navigation }) => {
+const Info = ({ user_id, id, name, addr, star, review, navigation }) => {
     const onPress = () => {
         // 상세 정보 로직
         navigation.navigate('Detail', {
-            user_name: user_name,
+            user_id: user_id,
             id: id,
             name: name,
             addr: addr,
