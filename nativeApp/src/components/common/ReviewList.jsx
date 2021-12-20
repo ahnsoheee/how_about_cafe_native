@@ -8,7 +8,7 @@ const ReviewList = ({ reviews }) => {
             const { review_id, user_name, content, star, path, updated_at, created_at } = review;
             return (
                 <Wrapper>
-                    <Review key={review_id}
+                    <Review
                         review_id={review_id}
                         user_name={user_name}
                         content={content}
