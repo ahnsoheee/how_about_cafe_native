@@ -5,13 +5,14 @@ import { Text } from 'react-native';
 import SettingList from '../components/common/SettingList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SettingScreen = ({ setAuth, user_name, navigation }) => {
+const SettingScreen = ({ setAuth, user_name, user_id, navigation }) => {
     const editUserInfo = () => {
-        navigation.navigate('EditUserInfo', { navigation: navigation, user_name: user_name });
+        navigation.navigate('EditUserInfo', { user_name: user_name });
     };
 
     const manageMyReview = () => {
         // 내가 작성한 리뷰 로직 
+        navigation.navigate('MyReview', { user_id: user_id });
     };
 
     const registerCafe = () => {
@@ -25,7 +26,7 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
     };
 
     const deleteUser = async () => {
-        navigation.navigate('DeleteUser', { user_name: user_name });
+        navigation.navigate('DeleteUser', { user_id: user_id });
     };
 
     return (
@@ -37,8 +38,8 @@ const SettingScreen = ({ setAuth, user_name, navigation }) => {
             <Text>{"\n"}</Text>
             <SettingList title="회원정보 수정" onPress={editUserInfo} />
             <P />
-            <SettingList title="내가 작성한 리뷰" onPress={manageMyReview} />
-            <SettingList title="카페 등록하기" onPress={registerCafe} navigation={navigation} />
+            <SettingList title="리뷰 관리" onPress={manageMyReview} />
+            <SettingList title="카페 등록" onPress={registerCafe} navigation={navigation} />
             <P />
             <SettingList title="로그아웃" onPress={logout} />
             <SettingList title="회원탈퇴" onPress={deleteUser} />
