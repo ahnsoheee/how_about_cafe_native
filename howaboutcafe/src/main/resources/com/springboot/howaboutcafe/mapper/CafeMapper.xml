@@ -11,22 +11,22 @@
     </select>
 
     <select id="getTop4Cafe" resultType="com.springboot.howaboutcafe.dto.CafeDTO">
-        SELECT c.cafe_id, c.cafe_name, c.addr, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, COUNT(r.cafe_id) AS review 
-        FROM CAFE c, REVIEW r 
-        WHERE c.cafe_id = r.cafe_id AND r.isDeleted=0 
+        SELECT c.cafe_id, c.cafe_name, c.addr, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
+        FROM CAFE c LEFT OUTER JOIN REVIEW r 
+            ON r.cafe_id=c.cafe_id AND r.isDeleted=0 
         GROUP BY c.cafe_id, c.cafe_name, c.addr
         ORDER BY star DESC LIMIT 4;
     </select>
 
     <select id="getSearchedCafe" parameterType="String" resultType="com.springboot.howaboutcafe.dto.CafeDTO">
         SELECT c.cafe_id, c.cafe_name AS cafe_name, c.addr, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
-        FROM CAFE c, REVIEW r 
-        WHERE c.cafe_id = r.cafe_id AND r.isDeleted=0 
-            AND c.cafe_id IN (
-                SELECT cafe_id 
-                FROM CAFE 
-                WHERE addr LIKE '%${query}%' OR cafe_name LIKE '%${query}%'
-            )
+        FROM CAFE c LEFT OUTER JOIN REVIEW r 
+            ON r.cafe_id=c.cafe_id AND r.isDeleted=0 
+        WHERE c.cafe_id IN (
+                    SELECT cafe_id 
+                    FROM CAFE 
+                    WHERE addr LIKE '%${query}%' OR cafe_name LIKE '%${query}%'
+                )
         GROUP BY c.cafe_id, cafe_name, c.addr
         ORDER BY ${order}
     </select>
