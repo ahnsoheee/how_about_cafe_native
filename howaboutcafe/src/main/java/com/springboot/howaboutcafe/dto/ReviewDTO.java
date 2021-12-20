@@ -17,5 +17,5 @@ public class ReviewDTO {
     Date updated_at;
     Date created_at;
     String content;
-    List<String> image;
+    String image;
 }

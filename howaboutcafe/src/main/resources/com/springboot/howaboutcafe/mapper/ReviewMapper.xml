@@ -3,23 +3,33 @@
 <mapper namespace="com.springboot.howaboutcafe.mapper.ReviewMapper">
 
     <insert id="insertReview" parameterType="com.springboot.howaboutcafe.dto.ReviewDTO" useGeneratedKeys="true" keyProperty="review_id">
-        INSERT INTO REVIEW(cafe_id, user_id, star, content) VALUES(#{cafe_id}, #{user_id}, #{star}, #{content});
+        INSERT INTO REVIEW(cafe_id, user_id, star, content, image) VALUES(#{cafe_id}, #{user_id}, #{star}, #{content}, #{image});
     </insert>
 
     <select id="findByCafe" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
-        SELECT r.review_id, r.cafe_id, r.user_id, u.user_name, r.star, r.content, r.updated_at, r.created_at FROM REVIEW r, USER u WHERE r.user_id=u.user_id AND r.cafe_id=#{cafe_id} AND r.isDeleted=0 ORDER BY created_at DESC;
+        SELECT r.review_id, r.cafe_id, r.user_id, u.user_name, r.star, r.content, r.updated_at, r.created_at, r.image 
+        FROM REVIEW r, USER u 
+        WHERE r.user_id=u.user_id 
+            AND r.cafe_id=#{cafe_id} 
+            AND r.isDeleted=0 
+        ORDER BY created_at DESC;
+    </select>
+
+    <select id="findByUser" parameterType="String" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
+        SELECT r.review_id, r.cafe_id, r.user_id, u.user_name, r.star, r.content, r.updated_at, r.created_at, r.image 
+        FROM REVIEW r, USER u 
+        WHERE r.user_id=u.user_id 
+            AND u.user_id=#{user_id} 
+            AND r.isDeleted=0 
+        ORDER BY created_at DESC;
     </select>
 
     <update id="deleteReview" parameterType="int">
         UPDATE REVIEW SET isDeleted=1 WHERE review_id=#{review_id};
     </update>
-
-    <select id="findByUser" parameterType="String" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
-        SELECT r.review_id, r.cafe_id, r.user_id, u.user_name, r.star, r.content, r.updated_at, r.created_at FROM REVIEW r, USER u WHERE r.user_id=u.user_id AND u.user_id=#{user_id} AND r.isDeleted=0 ORDER BY created_at DESC;
-    </select>
     
-    <insert id="insertImage" parameterType="com.springboot.howaboutcafe.dto.ImageDTO">
+    <!--<insert id="insertImage" parameterType="com.springboot.howaboutcafe.dto.ImageDTO">
         INSERT INTO IMAGE(review_id, cafe_id, path) VALUES(#{review_id}, #{cafe_id}, #{path});
-    </insert>
+    </insert>-->
 
 </mapper>
