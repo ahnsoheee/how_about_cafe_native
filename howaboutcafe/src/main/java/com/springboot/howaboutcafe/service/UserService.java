@@ -110,14 +110,13 @@ public class UserService {
             String id = user.getUser_id();
             String pw = user.getPw();
             String name = user.getUser_name();
-
             if (id.length() < 4 || id.length() > 10) {
                 responseDTO.setResult("아이디는 최소 4, 최대 10 글자로 작성해주세요.");
                 return responseDTO;
             }
 
-            if (!id.matches("^[0-9a-zA-Z]*$")) {
-                responseDTO.setResult("아이디는 영어, 숫자만 포함해주세요.");
+            if (!id.matches("^[0-9a-z]*$")) {
+                responseDTO.setResult("아이디는 소문자 영어, 숫자만 포함해주세요.");
                 return responseDTO;
             }
 
