@@ -1,6 +1,7 @@
 package com.springboot.howaboutcafe.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,5 @@ public class ReviewDTO {
     Date updated_at;
     Date created_at;
     String content;
+    List<String> image;
 }

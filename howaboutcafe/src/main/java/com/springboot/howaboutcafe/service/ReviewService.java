@@ -2,6 +2,7 @@ package com.springboot.howaboutcafe.service;
 
 import java.util.List;
 
+import com.springboot.howaboutcafe.dto.ImageDTO;
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.mapper.ReviewMapper;
@@ -21,7 +22,22 @@ public class ReviewService {
         ResponseDTO responseDTO = new ResponseDTO();
         try {
             int result = reviewMapper.insertReview(review);
+            int review_id = review.getReview_id();
+            int cafe_id = review.getCafe_id();
+
             if (result == 1) {
+                if (review.getImage().size() != 0) {
+                    ImageDTO image = new ImageDTO();
+                    image.setReview_id(review_id);
+                    image.setCafe_id(cafe_id);
+
+                    for (String path : review.getImage()) {
+                        image.setPath(path);
+                        int tmp = reviewMapper.insertImage(image);
+                        System.out.println(tmp);
+                        System.out.println(path);
+                    }
+                }
                 responseDTO.setStatus(true);
                 responseDTO.setResult("리뷰 등록이 완료되었습니다.");
             } else {
@@ -29,6 +45,7 @@ public class ReviewService {
             }
             return responseDTO;
         } catch (Exception e) {
+            System.out.println(e);
             return responseDTO;
         }
     }

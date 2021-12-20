@@ -2,6 +2,7 @@ package com.springboot.howaboutcafe.mapper;
 
 import java.util.List;
 
+import com.springboot.howaboutcafe.dto.ImageDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,4 +16,6 @@ public interface ReviewMapper {
     int deleteReview(int review_id);
 
     List<ReviewDTO> findByUser(String user_name);
+
+    int insertImage(ImageDTO image);
 }
