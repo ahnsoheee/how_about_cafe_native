@@ -5,18 +5,16 @@ import { Text } from 'react-native';
 import SettingList from '../components/common/SettingList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SettingScreen = ({ setAuth, user_name, user_id, navigation }) => {
+const SettingScreen = ({ setAuth, user_name, user_id, setUserName, navigation }) => {
     const editUserInfo = () => {
-        navigation.navigate('EditUserInfo', { user_name: user_name });
+        navigation.navigate('EditUserInfo', { user_name: user_name, setUserName: setUserName });
     };
 
     const manageMyReview = () => {
-        // 내가 작성한 리뷰 로직 
         navigation.navigate('MyReview', { user_id: user_id });
     };
 
     const registerCafe = () => {
-        // 카페 등록 로직
         navigation.navigate('RegisterCafe');
     };
 

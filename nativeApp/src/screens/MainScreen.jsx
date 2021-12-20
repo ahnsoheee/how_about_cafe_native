@@ -79,7 +79,8 @@ const MainScreen = ({ navigation }) => {
                     setAuth={setAuth}
                     navigation={navigation}
                     user_name={user_name}
-                    user_id={user_id} />}
+                    user_id={user_id}
+                    setUserName={setUserName} />}
             </Tab.Screen>
         </Tab.Navigator>
     ) : (

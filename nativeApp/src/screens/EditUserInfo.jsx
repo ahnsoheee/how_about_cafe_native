@@ -6,6 +6,7 @@ import { API } from '../api/api';
 
 const EditUserInfo = ({ route }) => {
     const user_name = route.params.user_name;
+    const setUserName = route.params.setUserName;
     const [name, onChangeName] = useState(user_name);
 
     const editUserName = async () => {
@@ -15,6 +16,7 @@ const EditUserInfo = ({ route }) => {
             SimpleToast.show("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
         } else {
             const res = await API.patch(`/user/${user_name}/edit/name`, name);
+            if (res.status) setUserName(name);
             SimpleToast.show(res.result, SimpleToast.SHORT);
         }
     };
