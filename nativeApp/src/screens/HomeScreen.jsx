@@ -18,7 +18,7 @@ const HomeScreen = ({ search, setSearch, searchValue, setSearchValue, user_id, n
     useFocusEffect(
         useCallback(() => {
             const getTop4Cafe = async () => {
-                const result = await API.get("/cafe");
+                const result = await API.get("/cafe/top4");
                 if (result) setTop4Cafe(result);
             };
             getTop4Cafe();
