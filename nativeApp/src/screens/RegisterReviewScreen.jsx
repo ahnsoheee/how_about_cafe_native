@@ -22,7 +22,6 @@ const RegisterReviewScreen = ({ navigation, route }) => {
         { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
     ];
 
-    console.log(user_id);
     const registerReview = async () => {
         const res = await API.post('/review', {
             cafe_id: id,
