@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Button from '../components/common/Button';
-import Toast from 'react-native-simple-toast';
+import SimpleToast from 'react-native-simple-toast';
 import { API } from '../api/api';
 
 const RegisterCafeScreen = ({ navigation }) => {
@@ -18,14 +18,14 @@ const RegisterCafeScreen = ({ navigation }) => {
     const registerCafe = async () => {
         // 카페 등록 로직
         if (!name.length || !postcode.length) {
-            Toast.show("이름과 주소를 모두 입력해주세요.", Toast.SHORT);
+            SimpleToast.show("이름과 주소를 모두 입력해주세요.", SimpleToast.SHORT);
         } else {
             const res = await API.post("/cafe/register", {
                 "cafe_name": name.trim(),
                 "addr": addr.trim() + " " + extraAddr.trim(),
             });
 
-            Toast.show(res.result, Toast.SHORT);
+            SimpleToast.show(res.result, SimpleToast.SHORT);
             if (res.status) {
                 navigation.goBack();
             }

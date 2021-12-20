@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components/native';
-import Toast from 'react-native-simple-toast';
+import SimpleToast from 'react-native-simple-toast';
 import { API } from '../api/api';
 
 const EditUserInfo = ({ route }) => {
@@ -10,12 +10,12 @@ const EditUserInfo = ({ route }) => {
 
     const editUserName = async () => {
         if (name == user_name) {
-            Toast.show("현재 닉네임입니다.", Toast.SHORT);
+            SimpleToast.show("현재 닉네임입니다.", SimpleToast.SHORT);
         } else if (name.length < 1 || name.length > 20) {
-            Toast.show("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
+            SimpleToast.show("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
         } else {
-            const res = await API.patch(`/user/edit/name/${user_name}`, name);
-            Toast.show(res.result, Toast.SHORT);
+            const res = await API.patch(`/user/${user_name}/edit/name`, name);
+            SimpleToast.show(res.result, SimpleToast.SHORT);
         }
     };
 

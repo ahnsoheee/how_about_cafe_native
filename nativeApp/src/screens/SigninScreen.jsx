@@ -4,7 +4,7 @@ import Input from '../components/sign/Input';
 import Wrapper from '../components/sign/Wrapper';
 import { Text } from 'react-native';
 import { ToastAndroid, Platform } from 'react-native';
-import Toast from 'react-native-simple-toast';
+import SimpleToast from 'react-native-simple-toast';
 import { API } from "../api/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -29,7 +29,7 @@ const SigninScreen = ({ navigation }) => {
             if (Platform.OS === 'android') {
                 ToastAndroid.show('아이디와 비밀번호를 모두 입력하세요', ToastAndroid.SHORT, ToastAndroid.CENTER);
             } else {
-                Toast.show('아이디와 비밀번호를 모두 입력하세요', Toast.SHORT);
+                SimpleToast.show('아이디와 비밀번호를 모두 입력하세요', SimpleToast.SHORT);
             }
         } else {
 
@@ -49,7 +49,7 @@ const SigninScreen = ({ navigation }) => {
                 if (Platform.OS === 'android') {
                     ToastAndroid.show(res.result, ToastAndroid.SHORT, ToastAndroid.CENTER);
                 } else {
-                    Toast.show(res.result, Toast.SHORT);
+                    SimpleToast.show(res.result, SimpleToast.SHORT);
                 }
             }
         }

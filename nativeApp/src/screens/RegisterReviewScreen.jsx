@@ -6,7 +6,7 @@ import * as ImagePicker from "react-native-image-picker";
 import { Modal, Provider } from '@ant-design/react-native';
 import { View } from 'react-native';
 import ImageList from '../components/common/ImageList';
-import Toast from 'react-native-simple-toast';
+import SimpleToast from 'react-native-simple-toast';
 import { API } from "../api/api";
 
 const RegisterReviewScreen = ({ navigation, route }) => {
@@ -15,20 +15,23 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     const [imageSrc, setImageSrc] = useState([]);
     const [visible, setVisible] = useState(false);
     const [num, setNum] = useState(0);
+    const { user_id, id } = route.params;
 
     const footerButtons = [
         { text: '취소' },
         { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
     ];
 
+    console.log(user_id);
     const registerReview = async () => {
         const res = await API.post('/review', {
-            cafe_id: route.params.id,
-            user_name: route.params.user_name,
+            cafe_id: id,
+            user_id: user_id,
             star: starCount,
             content: text
         });
-        Toast.show(res.result, Toast.SHORT);
+
+        SimpleToast.show(res.result, SimpleToast.SHORT);
         if (res.status) {
             navigation.goBack();
         }
@@ -80,7 +83,6 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                 <Input placeholder="리뷰는 솔직하게 작성해주세요." onChangeText={onChangeText} value={text} editable maxLength={400} multiline={true} />
                 <ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />
                 <Button name="저장하기" onPress={registerReview} />
-
 
             </Wrapper>
             <Provider>
