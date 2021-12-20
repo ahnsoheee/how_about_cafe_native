@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { API } from "../api/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Toast from 'react-native-simple-toast';
+import SimpleToast from 'react-native-simple-toast';
 
 const DeleteUserScreen = ({ navigation, route }) => {
     const deleteUser = async () => {
-        const res = await API.patch(`/user/delete/${route.params.user_name}`);
+        const res = await API.patch(`/user/${route.params.user_id}/delete`);
         if (res.status) {
             AsyncStorage.removeItem("token");
             navigation.navigate('Main');
         }
-        else Toast.show(res.result, Toast.SHORT);
+        else SimpleToast.show(res.result, SimpleToast.SHORT);
     };
 
     const cancel = () => {
