@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import StarRating from "react-native-star-rating";
 
-const MyReview = ({ review_id, user_name, content, star, path, updated_at, created_at, setVisible, setPressedId }) => {
+const MyReview = ({ review_id, user_name, content, star, image, updated_at, created_at, setVisible, setPressedId }) => {
 
     const onPress = () => {
         setPressedId(review_id);
@@ -11,24 +11,26 @@ const MyReview = ({ review_id, user_name, content, star, path, updated_at, creat
 
     return (
         <Wrapper key={review_id}>
-            <LeftWrapper>
-                <UserId>{user_name}</UserId>
-                <MiddleWrapper>
-                    <StarWrapper>
-                        <StarRating
-                            disabled={true}
-                            maxStars={5}
-                            starSize={13}
-                            fullStarColor={"#FF8E26"}
-                            emptyStarColor={"#FF8E26"}
-                            rating={star} />
-                    </StarWrapper>
-                    <Date>{created_at.substring(0, 10)}</Date>
-                </MiddleWrapper>
-                <Content>{content}</Content>
-            </LeftWrapper>
-            <DeleteButton onPress={() => onPress()}>삭제</DeleteButton>
-            {path ? <Photo source={{ uri: path }} /> : <></>}
+            <TopWrapper>
+                <LeftWrapper>
+                    <UserId>{user_name}</UserId>
+                    <MiddleWrapper>
+                        <StarWrapper>
+                            <StarRating
+                                disabled={true}
+                                maxStars={5}
+                                starSize={13}
+                                fullStarColor={"#FF8E26"}
+                                emptyStarColor={"#FF8E26"}
+                                rating={star} />
+                        </StarWrapper>
+                        <Date>{created_at.substring(0, 10)}</Date>
+                    </MiddleWrapper>
+                </LeftWrapper>
+                <DeleteButton onPress={() => onPress()}>삭제</DeleteButton>
+            </TopWrapper>
+            <Content>{content}</Content>
+            {image ? <Photo source={{ uri: image }} /> : <></>}
         </Wrapper>
 
     );
@@ -37,7 +39,7 @@ const MyReview = ({ review_id, user_name, content, star, path, updated_at, creat
 const Wrapper = styled.View`
     width: 100%;
     height: auto;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 10px;
@@ -48,8 +50,13 @@ const Wrapper = styled.View`
     elevation: 3;
 `;
 
+const TopWrapper = styled.View`
+    width: 100%;
+    flex-direction: row;
+`;
+
 const LeftWrapper = styled.View`
-    width: 91%;
+    flex-grow: 9;
 `;
 
 const MiddleWrapper = styled.View`
@@ -58,7 +65,7 @@ const MiddleWrapper = styled.View`
 `;
 
 const DeleteButton = styled.Text`
-    width: 9%;
+    flex-direction: 1;
 `;
 
 const UserId = styled.Text`
