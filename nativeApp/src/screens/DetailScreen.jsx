@@ -12,12 +12,11 @@ import { API } from "../api/api";
 const DetailScreen = ({ navigation, route }) => {
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
-    const { addr, id, name, review, star, user_name } = route.params;
-
+    const { user_id, addr, id, name, review, star } = route.params;
     useFocusEffect(
         useCallback(() => {
             const getReview = async () => {
-                const result = await API.get(`/review?cafe_id=${id}`);
+                const result = await API.get(`/cafe/${id}/review`);
                 if (result) setReviewList(result);
             };
 
@@ -27,12 +26,11 @@ const DetailScreen = ({ navigation, route }) => {
             //}, []);
             getReview();
         }, [])
-
     );
 
     const RegisterReview = () => {
         // 리뷰생성화면으로 이동
-        navigation.navigate('Review', { user_name: user_name, id: id, navigation: navigation });
+        navigation.navigate('RegisterReview', { user_id: user_id, id: id });
     };
 
     return (
