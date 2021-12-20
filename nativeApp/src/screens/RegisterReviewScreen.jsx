@@ -5,22 +5,28 @@ import Button from '../components/common/Button';
 import * as ImagePicker from "react-native-image-picker";
 import { Modal, Provider } from '@ant-design/react-native';
 import { View } from 'react-native';
-import ImageList from '../components/common/ImageList';
+import Image from "../components/common/Image";
 import SimpleToast from 'react-native-simple-toast';
 import { API } from "../api/api";
 
 const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0);
     const [text, onChangeText] = useState('');
-    const [imageSrc, setImageSrc] = useState([]);
     const [visible, setVisible] = useState(false);
-    const [num, setNum] = useState(0);
     const { user_id, id } = route.params;
+    const [imageSrc, setImageSrc] = useState('');
+    //const [imageSrc, setImageSrc] = useState([]);
+    //const [num, setNum] = useState(0);
 
     const footerButtons = [
         { text: '취소' },
-        { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
+        { text: '삭제', onPress: () => setImageSrc('') },
     ];
+
+    //const footerButtons = [
+    //    { text: '취소' },
+    //    { text: '삭제', onPress: () => setImageSrc(imageSrc.filter((image, index) => index != num - 1)) },
+    //];
 
     const registerReview = async () => {
         const res = await API.post('/review', {
@@ -37,10 +43,15 @@ const RegisterReviewScreen = ({ navigation, route }) => {
         }
     };
 
-    const onPressImage = (key) => {
-        if (key) setVisible(true);
+    const onPressImage = () => {
+        if (imageSrc.length) setVisible(true);
         else onSelectImage();
     };
+
+    //const onPressImage = (key) => {
+    //    if (key) setVisible(true);
+    //    else onSelectImage();
+    //};
 
     const onSelectImage = () => {
         Modal.operation([
@@ -52,7 +63,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
     const onSelectGallery = () => {
         ImagePicker.launchImageLibrary({}, (response) => {
-            setImageSrc([...imageSrc, response.assets[0].uri.replace("file:", "")]);
+            setImageSrc(response.assets[0].uri.replace("file:", ""));
+            //setImageSrc([...imageSrc, response.assets[0].uri.replace("file:", "")]);
         });
     };
 
@@ -62,7 +74,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
             mediaType: 'photo',
             includeBase64: false
         }, (response) => {
-            setImageSrc([...imageSrc, response.assets[0].uri]);
+            setImageSrc(response.assets[0].uri);
+            //setImageSrc([...imageSrc, response.assets[0].uri]);
         });
     };
 
@@ -81,7 +94,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                     />
                 </StarWrapper>
                 <Input placeholder="리뷰는 솔직하게 작성해주세요." onChangeText={onChangeText} value={text} editable maxLength={400} multiline={true} />
-                <ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />
+                {/*<ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />*/}
+                <Image onPressImage={onPressImage} imageSrc={imageSrc} />
                 <Button name="저장하기" onPress={registerReview} />
 
             </Wrapper>
