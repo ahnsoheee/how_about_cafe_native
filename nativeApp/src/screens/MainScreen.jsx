@@ -19,9 +19,6 @@ const MainScreen = ({ navigation }) => {
     const [user_name, setUserName] = useState('');
     const [home, setHome] = useState(true);
     const [setting, setSetting] = useState(false);
-    const [search, setSearch] = useState(false);
-    const [searchValue, setSearchValue] = useState('');
-
 
     useFocusEffect(
         useCallback(() => {
@@ -61,16 +58,10 @@ const MainScreen = ({ navigation }) => {
                     tabPress: (e) => {
                         setHome(true);
                         setSetting(false);
-                        setSearchValue('');
-                        setSearch(false);
                     }
                 }}
             >
                 {() => <HomeScreen
-                    search={search}
-                    setSearch={setSearch}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
                     navigation={navigation}
                     user_id={user_id} />}
             </Tab.Screen>
@@ -81,8 +72,6 @@ const MainScreen = ({ navigation }) => {
                     tabPress: (e) => {
                         setHome(false);
                         setSetting(true);
-                        setSearchValue('');
-                        setSearch(false);
                     }
                 }}
             >

@@ -11,6 +11,7 @@ import DeleteUserScreen from './src/screens/DeleteUserScreen';
 import EditUserInfo from './src/screens/EditUserInfo';
 import PostScreen from "./src/screens/PostScreen";
 import MyReviewScreen from "./src/screens/MyReviewScreen";
+import SearchCafeScreen from "./src/screens/SearchCafeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ class App extends React.Component {
                     <Stack.Screen name="DeleteUser" component={DeleteUserScreen} options={{ title: '회원 탈퇴' }} />
                     <Stack.Screen name="Post" component={PostScreen} options={{ title: '주소 검색' }} />
                     <Stack.Screen name="MyReview" component={MyReviewScreen} options={{ title: '내가 쓴 리뷰' }} />
+                    <Stack.Screen name="SearchCafe" component={SearchCafeScreen} options={{ title: "검색", headerShown: false }} />
                 </Stack.Navigator>
             </NavigationContainer>
         );
