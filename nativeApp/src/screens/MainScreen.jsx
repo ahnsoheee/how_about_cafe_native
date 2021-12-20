@@ -15,6 +15,7 @@ const Tab = createBottomTabNavigator();
 const MainScreen = ({ navigation }) => {
     const [auth, setAuth] = useState(false);
     const [token, setToken] = useState(null);
+    const [user_id, setUserId] = useState('');
     const [user_name, setUserName] = useState('');
     const [home, setHome] = useState(true);
     const [setting, setSetting] = useState(false);
@@ -31,18 +32,20 @@ const MainScreen = ({ navigation }) => {
 
             const getAuth = async () => {
                 const res = await API.post("/user/auth", token);
-                if (res.status) {
-                    setUserName(res.result);
+                if (res.user_id) {
+                    setUserId(res.user_id);
+                    setUserName(res.user_name);
                     setAuth(true);
                 }
             };
             getToken();
             if (token) getAuth();
             else {
+                setUserId('');
                 setUserName('');
                 setAuth(false);
             }
-        }, [token, auth, user_name])
+        }, [token, auth, user_id, user_name])
     );
 
     return auth ? (
@@ -69,7 +72,7 @@ const MainScreen = ({ navigation }) => {
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
                     navigation={navigation}
-                    user_name={user_name} />}
+                    user_id={user_id} />}
             </Tab.Screen>
             <Tab.Screen
                 name="Settings"
@@ -85,8 +88,9 @@ const MainScreen = ({ navigation }) => {
             >
                 {() => <SettingScreen
                     setAuth={setAuth}
+                    navigation={navigation}
                     user_name={user_name}
-                    navigation={navigation} />}
+                    user_id={user_id} />}
             </Tab.Screen>
         </Tab.Navigator>
     ) : (
