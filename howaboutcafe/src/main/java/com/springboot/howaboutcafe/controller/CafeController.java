@@ -30,13 +30,20 @@ public class CafeController {
     @Autowired
     ReviewService reviewService;
 
+    @GetMapping("")
+    public List<CafeDTO> getSearchedCafe(@RequestParam("query") String query, @RequestParam("order") String order)
+            throws Exception {
+        List<CafeDTO> result = cafeService.getSearchedCafe(query, order);
+        return result;
+    }
+
     @PostMapping("")
     public ResponseDTO registerCafe(@RequestBody CafeDTO cafe) throws Exception {
         ResponseDTO result = cafeService.registerCafe(cafe);
         return result;
     }
 
-    @GetMapping("")
+    @GetMapping("/top4")
     public List<CafeDTO> getTop4Cafe() throws Exception {
         List<CafeDTO> result = cafeService.getTop4Cafe();
         return result;

@@ -12,4 +12,6 @@ public interface CafeMapper {
     int insertCafe(CafeDTO cafeDTO);
 
     List<CafeDTO> getTop4Cafe();
+
+    List<CafeDTO> getSearchedCafe(String query, String order);
 }

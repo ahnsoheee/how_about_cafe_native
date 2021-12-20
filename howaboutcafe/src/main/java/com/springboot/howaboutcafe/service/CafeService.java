@@ -17,6 +17,14 @@ public class CafeService {
 
     // Main method
 
+    public List<CafeDTO> getSearchedCafe(String query, String order) {
+        if (!order.equals("cafe_name"))
+            order += " DESC";
+        System.out.println(order);
+        List<CafeDTO> result = cafeMapper.getSearchedCafe(query, order);
+        return result;
+    }
+
     public ResponseDTO registerCafe(CafeDTO cafe) {
         ResponseDTO responseDTO = new ResponseDTO();
         cafe.setCafe_name(cafe.getCafe_name().trim());
