@@ -3,10 +3,10 @@ import { useState, useCallback } from 'react';
 import styled from 'styled-components/native';
 import { API } from '../api/api';
 import MyReviewList from '../components/common/MyReviewList';
-import { useFocusEffect } from "@react-navigation/native";
 import { View, Text } from 'react-native';
 import { Modal, Provider } from '@ant-design/react-native';
 import SimpleToast from "react-native-simple-toast";
+import { useEffect } from "react";
 
 const MyReviewScreen = ({ navigation, route }) => {
     const user_id = route.params.user_id;
@@ -19,20 +19,23 @@ const MyReviewScreen = ({ navigation, route }) => {
         { text: '삭제', onPress: () => deleteReview() }
     ];
 
+    useEffect(() => {
+        getMyReviews();
+    }, []);
+
+
+    const getMyReviews = useCallback(async () => {
+        const result = await API.get(`/review?user_id=${user_id}`);
+        if (result) setReviews(result);
+        getMyReviews();
+    }, []);
+
     const deleteReview = async () => {
         const res = await API.patch(`/review/${pressedId}/delete`);
         SimpleToast.show(res.result, SimpleToast.SHORT);
+        pressedId(0);
+        getMyReviews();
     };
-
-    useFocusEffect(
-        useCallback(() => {
-            const getMyReviews = async () => {
-                const result = await API.get(`/review?user_id=${user_id}`);
-                if (result) setReviews(result);
-            };
-            getMyReviews();
-        }, [])
-    );
 
     return (
         <Wrapper>
