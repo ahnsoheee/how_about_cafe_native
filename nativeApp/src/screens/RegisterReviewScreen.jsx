@@ -29,17 +29,23 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     //];
 
     const registerReview = async () => {
-        const res = await API.post('/review', {
-            cafe_id: cafe_id,
-            user_id: user_id,
-            star: starCount,
-            content: text,
-            image: imageSrc
-        });
+        if (starCount == 0) {
+            SimpleToast.show('별점을 선택해 주세요', SimpleToast.SHORT);
+        } else if (!text) {
+            SimpleToast.show('리뷰를 작성해 주세요', SimpleToast.SHORT);
+        } else {
+            const res = await API.post('/review', {
+                cafe_id: cafe_id,
+                user_id: user_id,
+                star: starCount,
+                content: text,
+                image: imageSrc
+            });
 
-        SimpleToast.show(res.result, SimpleToast.SHORT);
-        if (res.status) {
-            navigation.goBack();
+            SimpleToast.show(res.result, SimpleToast.SHORT);
+            if (res.status) {
+                navigation.goBack();
+            }
         }
     };
 
