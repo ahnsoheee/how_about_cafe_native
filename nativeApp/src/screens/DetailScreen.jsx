@@ -14,17 +14,18 @@ const DetailScreen = ({ navigation, route }) => {
     const [photoList, setPhotoList] = useState([]);
     const { user_id, addr, cafe_id, cafe_name, review, star } = route.params;
 
+    const getReview = useCallback(async () => {
+        const result = await API.get(`/cafe/${cafe_id}/review`);
+        if (result) setReviewList(result);
+    }, [reviewList]);
+
+    const getImage = useCallback(async () => {
+        const result = await API.get(`/cafe/${cafe_id}/image`);
+        if (result) setPhotoList(result);
+    }, [photoList]);
+
     useFocusEffect(
         useCallback(() => {
-            const getReview = async () => {
-                const result = await API.get(`/cafe/${cafe_id}/review`);
-                if (result) setReviewList(result);
-            };
-
-            const getImage = async () => {
-                const result = await API.get(`/cafe/${cafe_id}/image`);
-                if (result) setPhotoList(result);
-            };
             getReview();
             getImage();
         }, [])
