@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components/native';
 import StarRating from "react-native-star-rating";
 
-const MyReview = ({ review_id, user_name, content, star, image, updated_at, created_at, setVisible, setPressedId }) => {
+const MyReview = ({ review_id, cafe_name, user_name, content, star, image, updated_at, created_at, setVisible, setPressedId }) => {
 
     const onPress = () => {
         setPressedId(review_id);
         setVisible(true);
     };
 
+    useEffect(() => {
+        return () => {
+            setVisible(false);
+            setPressedId(0);
+        };
+    }, []);
+
     return (
         <Wrapper key={review_id}>
             <TopWrapper>
                 <LeftWrapper>
-                    <UserId>{user_name}</UserId>
+                    <CafeName>{cafe_name}</CafeName>
                     <MiddleWrapper>
                         <StarWrapper>
                             <StarRating
@@ -65,10 +72,9 @@ const MiddleWrapper = styled.View`
 `;
 
 const DeleteButton = styled.Text`
-    flex-direction: 1;
 `;
 
-const UserId = styled.Text`
+const CafeName = styled.Text`
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 5px;
