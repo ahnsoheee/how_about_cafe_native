@@ -37,7 +37,8 @@
         FROM REVIEW
         WHERE cafe_id=cafe_id 
             AND image IS NOT NULL 
-            AND isDeleted=0;
+            AND isDeleted=0
+        ORDER BY created_at DESC;
     </select>
 
 </mapper>
