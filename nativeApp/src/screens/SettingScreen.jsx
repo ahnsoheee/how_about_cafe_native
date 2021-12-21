@@ -47,7 +47,7 @@ const SettingScreen = ({ setAuth, user_name, user_id, setUserName, navigation })
 
 const Header = styled.View`
     flex-direction: row;
-    padding:  80px 30px 50px 30px;
+    padding:  90px 30px 40px 30px;
     background-color: #FF8E26;
 `;
 
@@ -55,6 +55,7 @@ const UserId = styled.Text`
     color: #ffffff;
     font-size: 30px;
     padding-top: 3px;
+    font-weight: bold;
 `;
 
 const P = styled.Text`
