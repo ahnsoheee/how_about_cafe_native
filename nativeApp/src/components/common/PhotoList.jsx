@@ -24,7 +24,7 @@ const PhotoList = ({ photos, cafe_name, navigation }) => {
         const photoList = [];
         for (let i = 0; i < 4; i++) {
             if (photos[i]) photoList.push(<Photo key={photos[i].review_id} uri={photos[i].image} />);
-            else { photoList.push(<Nothing />); }
+            else { photoList.push(<Nothing key={i} />); }
         }
 
         return <>{photoList}</>;
