@@ -16,6 +16,7 @@ const PhotoList = ({ photos, cafe_name, navigation }) => {
                     cnt={photos.length - 3}
                     cafe_name={cafe_name}
                     navigation={navigation}
+                    photos={photos}
                 />
             </>
         );
