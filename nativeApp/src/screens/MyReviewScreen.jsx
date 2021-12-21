@@ -21,20 +21,18 @@ const MyReviewScreen = ({ navigation, route }) => {
 
     useEffect(() => {
         getMyReviews();
-    }, []);
+    }, [pressedId]);
 
 
     const getMyReviews = useCallback(async () => {
         const result = await API.get(`/review?user_id=${user_id}`);
         if (result) setReviews(result);
-        getMyReviews();
-    }, []);
+    }, [reviews]);
 
     const deleteReview = async () => {
         const res = await API.patch(`/review/${pressedId}/delete`);
         SimpleToast.show(res.result, SimpleToast.SHORT);
-        pressedId(0);
-        getMyReviews();
+        setPressedId(0);
     };
 
     return (
