@@ -20,6 +20,8 @@ public class ReviewService {
 
     public ResponseDTO registerReview(ReviewDTO review) {
         ResponseDTO responseDTO = new ResponseDTO();
+        if (review.getImage().equals(""))
+            review.setImage(null);
         try {
             int result = reviewMapper.insertReview(review);
             if (result == 1) {
