@@ -18,4 +18,6 @@ public interface ReviewMapper {
     List<ReviewDTO> findByUser(String user_name);
 
     int insertImage(ImageDTO image);
+
+    List<ImageDTO> getImage(int cafe_id);
 }

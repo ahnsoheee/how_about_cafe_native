@@ -32,4 +32,12 @@
         INSERT INTO IMAGE(review_id, cafe_id, path) VALUES(#{review_id}, #{cafe_id}, #{path});
     </insert>-->
 
+    <select id="getImage" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ImageDTO">
+        SELECT review_id, cafe_id, image
+        FROM REVIEW
+        WHERE cafe_id=cafe_id 
+            AND image IS NOT NULL 
+            AND isDeleted=0;
+    </select>
+
 </mapper>

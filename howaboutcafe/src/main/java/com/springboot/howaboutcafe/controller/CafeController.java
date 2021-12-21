@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.springboot.howaboutcafe.dto.CafeDTO;
+import com.springboot.howaboutcafe.dto.ImageDTO;
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.service.CafeService;
@@ -52,6 +53,12 @@ public class CafeController {
     @GetMapping("/{cafe_id}/review")
     public List<ReviewDTO> getCafeReview(@PathVariable int cafe_id) throws Exception {
         List<ReviewDTO> result = reviewService.getCafeReview(cafe_id);
+        return result;
+    }
+
+    @GetMapping("/{cafe_id}/image")
+    public List<ImageDTO> getImage(@PathVariable int cafe_id) throws Exception {
+        List<ImageDTO> result = reviewService.getImage(cafe_id);
         return result;
     }
 }
