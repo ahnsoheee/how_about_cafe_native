@@ -31,7 +31,7 @@ const MyReviewScreen = ({ navigation, route }) => {
                 if (result) setReviews(result);
             };
             getMyReviews();
-        })
+        }, [])
     );
 
     return (
