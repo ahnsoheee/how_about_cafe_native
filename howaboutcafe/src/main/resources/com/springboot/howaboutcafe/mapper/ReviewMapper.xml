@@ -16,12 +16,13 @@
     </select>
 
     <select id="findByUser" parameterType="String" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
-        SELECT r.review_id, r.cafe_id, r.user_id, u.user_name, r.star, r.content, r.updated_at, r.created_at, r.image 
-        FROM REVIEW r, USER u 
-        WHERE r.user_id=u.user_id 
-            AND u.user_id=#{user_id} 
-            AND r.isDeleted=0 
-        ORDER BY created_at DESC;
+        SELECT r.review_id, r.cafe_id, u.user_name, r.star, r.content, r.updated_at, r.created_at, r.image, c.cafe_name
+        FROM REVIEW r 
+            LEFT OUTER JOIN USER u
+                ON r.user_id = u.user_id AND u.user_id = #{user_id}
+            LEFT OUTER JOIN CAFE c ON r.cafe_id = c.cafe_id
+        WHERE r.isDeleted = 0
+        ORDER BY r.created_at DESC
     </select>
 
     <update id="deleteReview" parameterType="int">
@@ -35,7 +36,7 @@
     <select id="getImage" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ImageDTO">
         SELECT review_id, cafe_id, image
         FROM REVIEW
-        WHERE cafe_id=cafe_id 
+        WHERE cafe_id=#{cafe_id} 
             AND image IS NOT NULL 
             AND isDeleted=0
         ORDER BY created_at DESC;
