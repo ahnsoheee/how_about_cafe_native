@@ -20,15 +20,21 @@ public class ReviewService {
 
     public ResponseDTO registerReview(ReviewDTO review) {
         ResponseDTO responseDTO = new ResponseDTO();
-        if (review.getImage().equals(""))
-            review.setImage(null);
         try {
-            int result = reviewMapper.insertReview(review);
-            if (result == 1) {
-                responseDTO.setStatus(true);
-                responseDTO.setResult("리뷰 등록이 완료되었습니다.");
+            if (review.getStar() == 0) {
+                responseDTO.setResult("별점을 선택해 주세요");
+            } else if (review.getContent().equals("")) {
+                responseDTO.setResult("리뷰를 입력해 주세요");
             } else {
-                responseDTO.setResult("리뷰 등록에 실패했습니다");
+                if (review.getImage().equals(""))
+                    review.setImage(null);
+                int result = reviewMapper.insertReview(review);
+                if (result == 1) {
+                    responseDTO.setStatus(true);
+                    responseDTO.setResult("리뷰 등록이 완료되었습니다.");
+                } else {
+                    responseDTO.setResult("리뷰 등록에 실패했습니다");
+                }
             }
             return responseDTO;
         } catch (Exception e) {
