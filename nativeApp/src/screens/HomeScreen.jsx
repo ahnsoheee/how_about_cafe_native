@@ -29,7 +29,6 @@ const HomeScreen = ({ user_id, navigation }) => {
                 <Title>카페어때</Title>
             </Header>
             <Content>
-                {/* top4-list */}
                 <InfoList user_id={user_id} infos={top4Cafe} navigation={navigation} />
             </Content>
         </>
