@@ -8,8 +8,8 @@ const InfoList = ({ user_id, infos, navigation }) => {
                 <Info
                     user_id={user_id}
                     key={info.cafe_id}
-                    id={info.cafe_id}
-                    name={info.cafe_name}
+                    cafe_id={info.cafe_id}
+                    cafe_name={info.cafe_name}
                     addr={info.addr}
                     star={info.star}
                     review={info.review}

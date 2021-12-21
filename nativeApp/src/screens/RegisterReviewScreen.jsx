@@ -13,7 +13,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0);
     const [text, onChangeText] = useState('');
     const [visible, setVisible] = useState(false);
-    const { user_id, id } = route.params;
+    const { user_id, cafe_id } = route.params;
     const [imageSrc, setImageSrc] = useState('');
     //const [imageSrc, setImageSrc] = useState([]);
     //const [num, setNum] = useState(0);
@@ -30,7 +30,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
     const registerReview = async () => {
         const res = await API.post('/review', {
-            cafe_id: id,
+            cafe_id: cafe_id,
             user_id: user_id,
             star: starCount,
             content: text,

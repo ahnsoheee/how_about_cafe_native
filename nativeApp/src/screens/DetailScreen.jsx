@@ -12,21 +12,26 @@ import { API } from "../api/api";
 const DetailScreen = ({ navigation, route }) => {
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
-    const { user_id, addr, id, name, review, star } = route.params;
+    const { user_id, addr, cafe_id, cafe_name, review, star } = route.params;
 
     useFocusEffect(
         useCallback(() => {
             const getReview = async () => {
-                const result = await API.get(`/cafe/${id}/review`);
+                const result = await API.get(`/cafe/${cafe_id}/review`);
                 if (result) setReviewList(result);
             };
+
+            const getImage = async () => {
+                const result = await API.get(`/cafe/${cafe_id}/image`);
+                if (result) setPhotoList(result);
+            };
             getReview();
+            getImage();
         }, [])
     );
 
     const RegisterReview = () => {
-        // 리뷰생성화면으로 이동
-        navigation.navigate('RegisterReview', { user_id: user_id, id: id });
+        navigation.navigate('RegisterReview', { user_id: user_id, cafe_id: cafe_id });
     };
 
     return (
@@ -34,7 +39,7 @@ const DetailScreen = ({ navigation, route }) => {
             <Button onPress={RegisterReview}>
                 <Icon name="plus" size={25} color="#FF8E26" />
             </Button>
-            <Title>{name}</Title>
+            <Title>{cafe_name}</Title>
             <Addr>{addr}</Addr>
             <ValueView>
                 <Star star={star} />
@@ -42,7 +47,7 @@ const DetailScreen = ({ navigation, route }) => {
                 <Pencil review={review} />
             </ValueView>
             <PhotoWrapper>
-                <PhotoList photos={photoList} />
+                <PhotoList photos={photoList} navigation={navigation} cafe_name={cafe_name} />
             </PhotoWrapper>
             <ReviewWrapper>
                 <ReviewList reviews={reviewList} />
