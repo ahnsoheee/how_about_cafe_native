@@ -10,7 +10,8 @@ import lombok.ToString;
 public class CafeDTO {
     int cafe_id;
     String cafe_name;
-    String addr;
+    String addr_road;
+    String addr_jibun;
     double star;
     int review;
 }

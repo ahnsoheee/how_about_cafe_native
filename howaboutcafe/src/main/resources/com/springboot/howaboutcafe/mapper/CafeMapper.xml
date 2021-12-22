@@ -3,31 +3,33 @@
 <mapper namespace="com.springboot.howaboutcafe.mapper.CafeMapper">
 
     <insert id="insertCafe" parameterType="com.springboot.howaboutcafe.dto.CafeDTO">
-        INSERT CAFE(cafe_name, addr) VALUES(#{cafe_name}, #{addr})
+        INSERT CAFE(cafe_name, addr_road, addr_jibun) VALUES(#{cafe_name}, #{addr_road}, #{addr_jibun})
     </insert>
 
     <select id="isExistCafe" parameterType="String" resultType="int">
-        SELECT COUNT(cafe_id) FROM CAFE WHERE addr=#{addr} AND isDeleted=0
+        SELECT COUNT(cafe_id) FROM CAFE WHERE addr_road=#{addr_road} AND isDeleted=0
     </select>
 
     <select id="getTop4Cafe" resultType="com.springboot.howaboutcafe.dto.CafeDTO">
-        SELECT c.cafe_id, c.cafe_name, c.addr, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
+        SELECT c.cafe_id, c.cafe_name, c.addr_road, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
         FROM CAFE c LEFT OUTER JOIN REVIEW r 
             ON r.cafe_id=c.cafe_id AND r.isDeleted=0 
-        GROUP BY c.cafe_id, c.cafe_name, c.addr
+        GROUP BY c.cafe_id, c.cafe_name, c.addr_road
         ORDER BY star DESC LIMIT 4;
     </select>
 
     <select id="getSearchedCafe" parameterType="String" resultType="com.springboot.howaboutcafe.dto.CafeDTO">
-        SELECT c.cafe_id, c.cafe_name AS cafe_name, c.addr, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
+        SELECT c.cafe_id, c.cafe_name AS cafe_name, c.addr_road, IFNULL(ROUND(SUM(r.star)/count(1), 2), 0) AS star, IFNULL(COUNT(r.cafe_id), 0) AS review 
         FROM CAFE c LEFT OUTER JOIN REVIEW r 
             ON r.cafe_id=c.cafe_id AND r.isDeleted=0 
         WHERE c.cafe_id IN (
-                    SELECT cafe_id 
+                    SELECT cafe_id  
                     FROM CAFE 
-                    WHERE addr LIKE '%${query}%' OR cafe_name LIKE '%${query}%'
+                    WHERE addr_road LIKE '%${query}%' 
+                        OR addr_jibun LIKE '${query}%'
+                        OR cafe_name LIKE '%${query}%'
                 )
-        GROUP BY c.cafe_id, cafe_name, c.addr
+        GROUP BY c.cafe_id, cafe_name, c.addr_road
         ORDER BY ${order}
     </select>
 

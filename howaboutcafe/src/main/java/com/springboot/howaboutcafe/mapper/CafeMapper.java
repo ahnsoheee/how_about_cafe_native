@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface CafeMapper {
-    int isExistCafe(String addr);
+    int isExistCafe(String addr_road);
 
     int insertCafe(CafeDTO cafeDTO);
 

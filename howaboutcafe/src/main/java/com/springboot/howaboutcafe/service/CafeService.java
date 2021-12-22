@@ -20,7 +20,6 @@ public class CafeService {
     public List<CafeDTO> getSearchedCafe(String query, String order) {
         if (!order.equals("cafe_name"))
             order += " DESC";
-        System.out.println(order);
         List<CafeDTO> result = cafeMapper.getSearchedCafe(query, order);
         return result;
     }
@@ -28,9 +27,10 @@ public class CafeService {
     public ResponseDTO registerCafe(CafeDTO cafe) {
         ResponseDTO responseDTO = new ResponseDTO();
         cafe.setCafe_name(cafe.getCafe_name().trim());
-        cafe.setAddr(cafe.getAddr().trim().toUpperCase());
+        cafe.setAddr_road(cafe.getAddr_road().trim().toUpperCase());
+        cafe.setAddr_jibun(cafe.getAddr_jibun().trim().toUpperCase());
         try {
-            int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr());
+            int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr_road());
             if (isExistCafe == 1) {
                 responseDTO.setResult("이미 존재하는 카페입니다.");
                 return responseDTO;
