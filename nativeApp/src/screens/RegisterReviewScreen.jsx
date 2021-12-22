@@ -69,7 +69,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
 
     const onSelectGallery = () => {
         ImagePicker.launchImageLibrary({}, (response) => {
-            setImageSrc(response.assets[0].uri.replace("file:", ""));
+            if (!response.didCancel) setImageSrc(response.assets[0].uri.replace("file:", ""));
             //setImageSrc([...imageSrc, response.assets[0].uri.replace("file:", "")]);
         });
     };
