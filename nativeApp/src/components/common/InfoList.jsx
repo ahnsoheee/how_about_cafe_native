@@ -10,7 +10,7 @@ const InfoList = ({ user_id, infos, navigation }) => {
                     key={info.cafe_id}
                     cafe_id={info.cafe_id}
                     cafe_name={info.cafe_name}
-                    addr={info.addr}
+                    addr_road={info.addr_road}
                     star={info.star}
                     review={info.review}
                     navigation={navigation}

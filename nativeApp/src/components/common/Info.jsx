@@ -4,14 +4,14 @@ import { Text } from 'react-native';
 import Star from './Star';
 import Pencil from './Pencil';
 
-const Info = ({ user_id, cafe_id, cafe_name, addr, star, review, navigation }) => {
+const Info = ({ user_id, cafe_id, cafe_name, addr_road, star, review, navigation }) => {
     const onPress = () => {
         // 상세 정보 로직
         navigation.navigate('Detail', {
             user_id: user_id,
             cafe_id: cafe_id,
             cafe_name: cafe_name,
-            addr: addr,
+            addr_road: addr_road,
             star: star,
             review: review
         });
@@ -27,7 +27,7 @@ const Info = ({ user_id, cafe_id, cafe_name, addr, star, review, navigation }) =
                     <Pencil review={review} />
                 </ValueView>
             </StyledView>
-            <Addr>{addr}</Addr>
+            <Addr>{addr_road}</Addr>
         </Wrapper>
     );
 };

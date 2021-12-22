@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import Postcode from '@actbase/react-daum-postcode';
-
+import { LogBox } from "react-native";
 const PostScreen = ({ navigation, route }) => {
-    const setAddr = route.params.setAddr;
+    const setSelectAddr = route.params.setSelectAddr;
+    const setAddr_road = route.params.setAddr_road;
+    const setAddr_jibun = route.params.setAddr_jibun;
     const setPostcode = route.params.setPostcode;
-
+    LogBox.ignoreAllLogs();
     return (
         <Post
             jsOptions={{ animated: false, hideMapBtn: true }}
@@ -13,11 +15,13 @@ const PostScreen = ({ navigation, route }) => {
                 setPostcode(data.zonecode);
                 if (data.userSelectedType === 'R') {
                     // 도로명 주소 선택
-                    setAddr(data.roadAddress);
+                    setSelectAddr(data.roadAddress);
                 } else {
                     // 지번 주소 선택
-                    setAddr(data.jibunAddress);
+                    setSelectAddr(data.jibunAddress);
                 }
+                setAddr_road(data.roadAddress);
+                setAddr_jibun(data.jibunAddress);
                 navigation.goBack();
             }}
         />

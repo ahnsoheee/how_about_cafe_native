@@ -12,7 +12,7 @@ import { API } from "../api/api";
 const DetailScreen = ({ navigation, route }) => {
     const [reviewList, setReviewList] = useState([]);
     const [photoList, setPhotoList] = useState([]);
-    const { user_id, addr, cafe_id, cafe_name, review, star } = route.params;
+    const { user_id, addr_road, cafe_id, cafe_name, review, star } = route.params;
 
     const getReview = useCallback(async () => {
         const result = await API.get(`/cafe/${cafe_id}/review`);
@@ -41,7 +41,7 @@ const DetailScreen = ({ navigation, route }) => {
                 <Icon name="plus" size={25} color="#FF8E26" />
             </Button>
             <Title>{cafe_name}</Title>
-            <Addr>{addr}</Addr>
+            <Addr>{addr_road}</Addr>
             <ValueView>
                 <Star star={star} />
                 <Text>&nbsp;&nbsp;</Text>
