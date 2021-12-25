@@ -26,7 +26,7 @@
                     SELECT cafe_id  
                     FROM CAFE 
                     WHERE addr_road LIKE '%${query}%' 
-                        OR addr_jibun LIKE '${query}%'
+                        OR addr_jibun LIKE '%${query}%'
                         OR cafe_name LIKE '%${query}%'
                 )
         GROUP BY c.cafe_id, cafe_name, c.addr_road
