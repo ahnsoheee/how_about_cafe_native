@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { Modal } from 'react-native';
+
 const ImageScreen = ({ route }) => {
     const photos = route.params.photos;
     const [visible, setVisible] = useState(false);
@@ -49,10 +50,11 @@ const List = styled.FlatList`
 
 const Photo = styled.TouchableOpacity`
     margin: 2px;
-    flex-grow: 1;
+    width: 32.3%;
 `;
 
 const Image = styled.ImageBackground`
+    width: 100%;
     height: 125px;
 `;
 
