@@ -1,4 +1,4 @@
-# 카페 어때
+# 카페어때
 
 <div style="display: flex">
 <img src="https://user-images.githubusercontent.com/61968474/147572081-92abd29d-e844-4f07-8029-b88cc4464dce.png" width="200" height="420"  />
