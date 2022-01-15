@@ -8,10 +8,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ResponseDTO {
-    boolean status;
-    String result;
+    private boolean status;
+    private String result;
 
-    public ResponseDTO() {
-        this.status = false;
+    ResponseDTO(String result) {
+        this.status = true;
+        this.result = result;
     }
 }
