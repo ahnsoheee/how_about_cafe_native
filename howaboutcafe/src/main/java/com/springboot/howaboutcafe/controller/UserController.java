@@ -1,6 +1,7 @@
 package com.springboot.howaboutcafe.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.service.UserService;
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -23,35 +24,29 @@ public class UserController {
     UserService userService;
 
     @PatchMapping("/{user_name}/edit/name")
-    public ResponseDTO editUserName(@PathVariable("user_name") String user_name, @RequestBody String new_user_name) {
-        ResponseDTO result = userService.editUserName(user_name, new_user_name);
-        return result;
+    public ResponseEntity<ResponseDTO> editUserName(@PathVariable("user_name") String user_name,
+            @RequestBody String new_user_name) {
+        return userService.editUserName(user_name, new_user_name);
     }
 
     @PatchMapping("/{user_id}/delete")
-    public ResponseDTO deleteUser(@PathVariable("user_id") String user_id) throws Exception {
-        ResponseDTO result = userService.deleteUser(user_id);
-        return result;
+    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable("user_id") String user_id) throws Exception {
+        return userService.deleteUser(user_id);
     }
 
     @PostMapping("/auth")
-    public UserDTO auth(@RequestBody String token) throws Exception {
-        UserDTO result = userService.auth(token);
-        return result;
+    public ResponseEntity<?> auth(@RequestBody String token) throws Exception {
+        return userService.auth(token);
     }
 
     @PostMapping("/signin")
-    public ResponseDTO signin(@RequestBody UserDTO user) throws Exception {
-
-        ResponseDTO result = userService.signin(user);
-        return result;
+    public ResponseEntity<ResponseDTO> signin(@RequestBody UserDTO user) throws Exception {
+        return userService.signin(user);
     }
 
     @ResponseBody
     @PostMapping("/signup")
-    public ResponseDTO signup(@RequestBody UserDTO user) throws Exception {
-
-        ResponseDTO result = userService.signup(user);
-        return result;
+    public ResponseEntity<ResponseDTO> signup(@RequestBody UserDTO user) throws Exception {
+        return userService.signup(user);
     }
 }

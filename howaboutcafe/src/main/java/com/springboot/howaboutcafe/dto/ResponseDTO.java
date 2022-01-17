@@ -11,8 +11,8 @@ public class ResponseDTO {
     private boolean status;
     private String result;
 
-    ResponseDTO(String result) {
-        this.status = true;
+    public ResponseDTO(boolean status, String result) {
+        this.status = status;
         this.result = result;
     }
 }

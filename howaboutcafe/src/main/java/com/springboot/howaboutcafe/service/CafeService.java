@@ -7,6 +7,8 @@ import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.mapper.CafeMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,29 +26,23 @@ public class CafeService {
         return result;
     }
 
-    public ResponseDTO registerCafe(CafeDTO cafe) {
-        ResponseDTO responseDTO = new ResponseDTO();
+    public ResponseEntity<ResponseDTO> registerCafe(CafeDTO cafe) {
         cafe.setCafe_name(cafe.getCafe_name().trim());
         cafe.setAddr_road(cafe.getAddr_road().trim().toUpperCase());
         cafe.setAddr_jibun(cafe.getAddr_jibun().trim().toUpperCase());
         try {
             int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr_road());
             if (isExistCafe == 1) {
-                responseDTO.setResult("이미 존재하는 카페입니다.");
-                return responseDTO;
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "이미 존재하는 카페입니다."));
             }
             int result = cafeMapper.insertCafe(cafe);
             if (result == 1) {
-                responseDTO.setStatus(true);
-                responseDTO.setResult("카페 등록이 완료되었습니다.");
-            } else {
-                responseDTO.setResult("카페 등록에 실패했습니다.");
+                return ResponseEntity.ok().body(new ResponseDTO(true, "카페 등록이 완료되었습니다."));
             }
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "카페 등록에 실패했습니다."));
         } catch (Exception e) {
-            // 에러 처리
-            return responseDTO;
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "카페 등록에 실패했습니다."));
         }
-        return responseDTO;
     }
 
     public List<CafeDTO> getTop4Cafe() {

@@ -7,6 +7,7 @@ import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.service.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,20 +26,17 @@ public class ReviewController {
     ReviewService reviewService;
 
     @PostMapping("")
-    public ResponseDTO registerReview(@RequestBody ReviewDTO review) throws Exception {
-        ResponseDTO result = reviewService.registerReview(review);
-        return result;
+    public ResponseEntity<ResponseDTO> registerReview(@RequestBody ReviewDTO review) throws Exception {
+        return reviewService.registerReview(review);
     }
 
     @PatchMapping("/{review_id}/delete")
-    public ResponseDTO deleteReview(@PathVariable("review_id") int review_id) throws Exception {
-        ResponseDTO result = reviewService.deleteReview(review_id);
-        return result;
+    public ResponseEntity<ResponseDTO> deleteReview(@PathVariable("review_id") int review_id) throws Exception {
+        return reviewService.deleteReview(review_id);
     }
 
     @GetMapping("")
     public List<ReviewDTO> getMyReview(@RequestParam String user_id) throws Exception {
-        List<ReviewDTO> result = reviewService.getMyReview(user_id);
-        return result;
+        return reviewService.getMyReview(user_id);
     }
 }

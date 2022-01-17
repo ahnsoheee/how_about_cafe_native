@@ -14,6 +14,7 @@ import com.springboot.howaboutcafe.service.CafeService;
 import com.springboot.howaboutcafe.service.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,31 +35,26 @@ public class CafeController {
     @GetMapping("")
     public List<CafeDTO> getSearchedCafe(@RequestParam("query") String query, @RequestParam("order") String order)
             throws Exception {
-        List<CafeDTO> result = cafeService.getSearchedCafe(query, order);
-        return result;
+        return cafeService.getSearchedCafe(query, order);
     }
 
     @PostMapping("")
-    public ResponseDTO registerCafe(@RequestBody CafeDTO cafe) throws Exception {
-        ResponseDTO result = cafeService.registerCafe(cafe);
-        return result;
+    public ResponseEntity<ResponseDTO> registerCafe(@RequestBody CafeDTO cafe) throws Exception {
+        return cafeService.registerCafe(cafe);
     }
 
     @GetMapping("/top4")
     public List<CafeDTO> getTop4Cafe() throws Exception {
-        List<CafeDTO> result = cafeService.getTop4Cafe();
-        return result;
+        return cafeService.getTop4Cafe();
     }
 
     @GetMapping("/{cafe_id}/review")
     public List<ReviewDTO> getCafeReview(@PathVariable int cafe_id) throws Exception {
-        List<ReviewDTO> result = reviewService.getCafeReview(cafe_id);
-        return result;
+        return reviewService.getCafeReview(cafe_id);
     }
 
     @GetMapping("/{cafe_id}/image")
     public List<ImageDTO> getImage(@PathVariable int cafe_id) throws Exception {
-        List<ImageDTO> result = reviewService.getImage(cafe_id);
-        return result;
+        return reviewService.getImage(cafe_id);
     }
 }
