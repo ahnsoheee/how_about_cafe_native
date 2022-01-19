@@ -11,7 +11,7 @@
     </update>
     
     <update id="deleteUser" parameterType="String">
-        UPDATE USER SET isDeleted=1 WHERE user_id=#{user_id}
+        UPDATE USER SET isDeleted=1 WHERE user_id=#{user_id} AND isDeleted=0
     </update>
 
     <select id="selectUser" parameterType="com.springboot.howaboutcafe.dto.UserDTO" resultType="com.springboot.howaboutcafe.dto.UserDTO">
