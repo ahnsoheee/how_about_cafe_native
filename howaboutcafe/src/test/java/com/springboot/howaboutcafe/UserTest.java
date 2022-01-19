@@ -1,6 +1,5 @@
 package com.springboot.howaboutcafe;
 
-import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.service.UserService;
 
@@ -21,13 +20,13 @@ public class UserTest {
     public void signupTest() throws Exception {
 
         UserDTO user = new UserDTO();
-        user.setUser_id("test12");
+        user.setUser_id("test3");
         user.setPw("test1234!");
-        user.setUser_name("test12");
+        user.setUser_name("test3");
 
-        ResponseEntity<ResponseDTO> result = userService.signup(user);
+        ResponseEntity<String> result = userService.signup(user);
 
-        assertEquals(true, result.getBody().isStatus());
+        assertEquals(200, result.getStatusCodeValue());
     }
 
     @Test
@@ -41,17 +40,17 @@ public class UserTest {
         user.setPw(pw);
 
         // When
-        ResponseEntity<ResponseDTO> result = userService.signin(user);
+        ResponseEntity<String> result = userService.signin(user);
 
         // Then
-        assertEquals(true, result.getBody().isStatus());
+        assertEquals(200, result.getStatusCodeValue());
     }
 
     @Test
     public void editNameTest() {
         // When
-        ResponseEntity<ResponseDTO> result = userService.editUserName("test12", "editTest");
+        ResponseEntity<String> result = userService.editUserName("test3", "editTest3");
         // Then
-        assertEquals(true, result.getBody().isStatus());
+        assertEquals(200, result.getStatusCodeValue());
     }
 }
