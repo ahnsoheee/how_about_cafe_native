@@ -3,11 +3,12 @@ package com.springboot.howaboutcafe.service;
 import java.util.List;
 
 import com.springboot.howaboutcafe.dto.CafeDTO;
-import com.springboot.howaboutcafe.dto.ResponseDTO;
+import com.springboot.howaboutcafe.exception.DuplicateException;
+import com.springboot.howaboutcafe.exception.InternalServerException;
+import com.springboot.howaboutcafe.exception.InvalidException;
 import com.springboot.howaboutcafe.mapper.CafeMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,23 +27,23 @@ public class CafeService {
         return result;
     }
 
-    public ResponseEntity<ResponseDTO> registerCafe(CafeDTO cafe) {
+    public ResponseEntity<String> registerCafe(CafeDTO cafe) {
+        if (cafe.getCafe_name() == null || cafe.getAddr_road() == null || cafe.getAddr_jibun() == null)
+            throw new InvalidException("이름과 주소를 모두 입력해주세요.");
+
         cafe.setCafe_name(cafe.getCafe_name().trim());
         cafe.setAddr_road(cafe.getAddr_road().trim().toUpperCase());
         cafe.setAddr_jibun(cafe.getAddr_jibun().trim().toUpperCase());
-        try {
-            int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr_road());
-            if (isExistCafe == 1) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "이미 존재하는 카페입니다."));
-            }
-            int result = cafeMapper.insertCafe(cafe);
-            if (result == 1) {
-                return ResponseEntity.ok().body(new ResponseDTO(true, "카페 등록이 완료되었습니다."));
-            }
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "카페 등록에 실패했습니다."));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseDTO(false, "카페 등록에 실패했습니다."));
-        }
+
+        int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr_road());
+        if (isExistCafe == 1)
+            throw new DuplicateException("이미 존재하는 카페입니다.");
+
+        int result = cafeMapper.insertCafe(cafe);
+        if (result == 1)
+            return ResponseEntity.ok().body("카페 등록이 완료되었습니다.");
+
+        throw new InternalServerException("카페 등록에 실패했습니다.");
     }
 
     public List<CafeDTO> getTop4Cafe() {
