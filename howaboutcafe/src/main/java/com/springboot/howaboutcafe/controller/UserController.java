@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.service.UserService;
-import com.springboot.howaboutcafe.dto.ResponseDTO;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -24,29 +23,29 @@ public class UserController {
     UserService userService;
 
     @PatchMapping("/{user_name}/edit/name")
-    public ResponseEntity<ResponseDTO> editUserName(@PathVariable("user_name") String user_name,
+    public ResponseEntity<String> editUserName(@PathVariable("user_name") String user_name,
             @RequestBody String new_user_name) {
         return userService.editUserName(user_name, new_user_name);
     }
 
     @PatchMapping("/{user_id}/delete")
-    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable("user_id") String user_id) throws Exception {
+    public ResponseEntity<String> deleteUser(@PathVariable("user_id") String user_id) throws Exception {
         return userService.deleteUser(user_id);
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<?> auth(@RequestBody String token) throws Exception {
+    public ResponseEntity<UserDTO> auth(@RequestBody String token) throws Exception {
         return userService.auth(token);
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<ResponseDTO> signin(@RequestBody UserDTO user) throws Exception {
+    public ResponseEntity<String> signin(@RequestBody UserDTO user) throws Exception {
         return userService.signin(user);
     }
 
     @ResponseBody
     @PostMapping("/signup")
-    public ResponseEntity<ResponseDTO> signup(@RequestBody UserDTO user) throws Exception {
+    public ResponseEntity<String> signup(@RequestBody UserDTO user) throws Exception {
         return userService.signup(user);
     }
 }
