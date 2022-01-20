@@ -10,8 +10,9 @@ public class ErrorResponse {
     private String message;
     private String code;
 
-    public ErrorResponse(ErrorCode errorCode) {
+    public ErrorResponse(ErrorCode errorCode, String message) {
         this.status = errorCode.getStatus();
         this.code = errorCode.getErrorCode();
+        this.message = message;
     }
 }
