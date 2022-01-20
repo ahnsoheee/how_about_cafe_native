@@ -2,6 +2,7 @@ package com.springboot.howaboutcafe.controller;
 
 import java.util.List;
 
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.service.ReviewService;
 
@@ -25,12 +26,12 @@ public class ReviewController {
     ReviewService reviewService;
 
     @PostMapping("")
-    public ResponseEntity<String> registerReview(@RequestBody ReviewDTO review) throws Exception {
+    public ResponseEntity<ResponseDTO> registerReview(@RequestBody ReviewDTO review) throws Exception {
         return reviewService.registerReview(review);
     }
 
     @PatchMapping("/{review_id}/delete")
-    public ResponseEntity<String> deleteReview(@PathVariable("review_id") int review_id) throws Exception {
+    public ResponseEntity<ResponseDTO> deleteReview(@PathVariable("review_id") int review_id) throws Exception {
         return reviewService.deleteReview(review_id);
     }
 

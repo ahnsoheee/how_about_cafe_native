@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.UserDTO;
 import com.springboot.howaboutcafe.exception.DuplicateException;
 import com.springboot.howaboutcafe.exception.InternalServerException;
@@ -30,7 +31,7 @@ public class UserService {
 
     // Main method
 
-    public ResponseEntity<String> editUserName(String user_name, String new_user_name) {
+    public ResponseEntity<ResponseDTO> editUserName(String user_name, String new_user_name) {
         new_user_name = new_user_name.replaceAll("\\\"", "");
         if (user_name == null || new_user_name == null)
             throw new InvalidException("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
@@ -50,18 +51,18 @@ public class UserService {
             throw new DuplicateException("이미 존재하는 닉네임입니다.");
 
         if (userMapper.editUserName(user_name, new_user_name) == 1) {
-            return ResponseEntity.ok().body("변경되었습니다.");
+            return ResponseEntity.ok().body(new ResponseDTO("변경되었습니다."));
         }
         throw new InternalServerException("닉네임 변경 실패했습니다.");
     }
 
-    public ResponseEntity<String> deleteUser(String user_id) {
+    public ResponseEntity<ResponseDTO> deleteUser(String user_id) {
         if (user_id == null)
             throw new InvalidException("회원탈퇴에 실패했습니다.");
 
         int result = userMapper.deleteUser(user_id);
         if (result == 1) {
-            return ResponseEntity.ok().body("회원탈퇴가 완료되었습니다.");
+            return ResponseEntity.ok().body(new ResponseDTO("회원탈퇴가 완료되었습니다."));
         }
         throw new NotFoundException("존재하지 않는 아이디입니다.");
     }
@@ -76,7 +77,7 @@ public class UserService {
         throw new UnauthorizedException("인증 실패");
     }
 
-    public ResponseEntity<String> signin(UserDTO user) {
+    public ResponseEntity<ResponseDTO> signin(UserDTO user) {
         if (user.getUser_id() == null || user.getPw() == null)
             throw new InvalidException("아이디와 비밀번호를 입력해주세요.");
         user.setPw(encrypt(user.getPw()));
@@ -85,10 +86,10 @@ public class UserService {
             throw new NotFoundException("아이디 또는 비밀번호가 잘못 입력 되었습니다.");
         }
         String token = generateToken(result);
-        return ResponseEntity.ok().body(token);
+        return ResponseEntity.ok().body(new ResponseDTO(token));
     }
 
-    public ResponseEntity<String> signup(UserDTO user) {
+    public ResponseEntity<ResponseDTO> signup(UserDTO user) {
         if (user.getUser_id() == null || user.getPw() == null || user.getUser_name() == null)
             throw new InvalidException("아이디, 비밀번호, 닉네임을 모두 입력해주세요.");
 
@@ -119,7 +120,7 @@ public class UserService {
             throw new DuplicateException("이미 존재하는 닉네임입니다.");
 
         if (userMapper.insertUser(user) == 1)
-            return ResponseEntity.ok().body("회원가입을 완료했습니다");
+            return ResponseEntity.ok().body(new ResponseDTO("회원가입을 완료했습니다"));
 
         throw new InternalServerException("회원가입에 실패했습니다.");
     }

@@ -3,6 +3,7 @@ package com.springboot.howaboutcafe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.exception.InvalidException;
 import com.springboot.howaboutcafe.service.ReviewService;
@@ -28,7 +29,7 @@ public class ReviewTest {
         review.setImage(
                 "https://pcmap.place.naver.com/restaurant/1321337563/photo?entry=pll&from=map&fromNxList=true&fromPanelNum=2&ts=1642609797172&filterType=%EC%97%85%EC%B2%B4%EC%82%AC%EC%A7%84#");
         review.setContent("도넛 맛있어요!!");
-        ResponseEntity<String> result = reviewService.registerReview(review);
+        ResponseEntity<ResponseDTO> result = reviewService.registerReview(review);
         assertEquals(200, result.getStatusCodeValue());
     }
 
@@ -45,7 +46,7 @@ public class ReviewTest {
                 "https://pcmap.place.naver.com/restaurant/1321337563/photo?entry=pll&from=map&fromNxList=true&fromPanelNum=2&ts=1642609797172&filterType=%EC%97%85%EC%B2%B4%EC%82%AC%EC%A7%84#");
         review.setContent("도넛 맛있어요!!");
         try {
-            ResponseEntity<String> res = reviewService.registerReview(review);
+            reviewService.registerReview(review);
         } catch (InvalidException e) {
             result = true;
         }

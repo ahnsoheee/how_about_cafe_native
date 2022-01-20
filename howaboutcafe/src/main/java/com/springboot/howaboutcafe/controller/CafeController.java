@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.springboot.howaboutcafe.dto.CafeDTO;
 import com.springboot.howaboutcafe.dto.ImageDTO;
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.service.CafeService;
 import com.springboot.howaboutcafe.service.ReviewService;
@@ -38,7 +39,7 @@ public class CafeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> registerCafe(@RequestBody CafeDTO cafe) throws Exception {
+    public ResponseEntity<ResponseDTO> registerCafe(@RequestBody CafeDTO cafe) throws Exception {
         return cafeService.registerCafe(cafe);
     }
 

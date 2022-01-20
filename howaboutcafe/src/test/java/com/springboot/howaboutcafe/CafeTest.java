@@ -3,6 +3,7 @@ package com.springboot.howaboutcafe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.springboot.howaboutcafe.dto.CafeDTO;
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.service.CafeService;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ public class CafeTest {
         cafe.setCafe_name("하프커피");
         cafe.setAddr_road("서울 성동구 서울숲4길 12 1층");
         cafe.setAddr_jibun("서울 성동구 성수동1가 668-88 1층");
-        ResponseEntity<String> result = cafeService.registerCafe(cafe);
+        ResponseEntity<ResponseDTO> result = cafeService.registerCafe(cafe);
 
         assertEquals(200, result.getStatusCodeValue());
     }

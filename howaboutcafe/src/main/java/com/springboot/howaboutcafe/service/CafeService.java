@@ -3,6 +3,7 @@ package com.springboot.howaboutcafe.service;
 import java.util.List;
 
 import com.springboot.howaboutcafe.dto.CafeDTO;
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.exception.DuplicateException;
 import com.springboot.howaboutcafe.exception.InternalServerException;
 import com.springboot.howaboutcafe.exception.InvalidException;
@@ -27,7 +28,7 @@ public class CafeService {
         return result;
     }
 
-    public ResponseEntity<String> registerCafe(CafeDTO cafe) {
+    public ResponseEntity<ResponseDTO> registerCafe(CafeDTO cafe) {
         if (cafe.getCafe_name() == null || cafe.getAddr_road() == null || cafe.getAddr_jibun() == null)
             throw new InvalidException("이름과 주소를 모두 입력해주세요.");
 
@@ -41,7 +42,7 @@ public class CafeService {
 
         int result = cafeMapper.insertCafe(cafe);
         if (result == 1)
-            return ResponseEntity.ok().body("카페 등록이 완료되었습니다.");
+            return ResponseEntity.ok().body(new ResponseDTO("카페 등록이 완료되었습니다."));
 
         throw new InternalServerException("카페 등록에 실패했습니다.");
     }

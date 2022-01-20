@@ -3,6 +3,7 @@ package com.springboot.howaboutcafe.service;
 import java.util.List;
 
 import com.springboot.howaboutcafe.dto.ImageDTO;
+import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
 import com.springboot.howaboutcafe.exception.InternalServerException;
 import com.springboot.howaboutcafe.exception.InvalidException;
@@ -20,7 +21,7 @@ public class ReviewService {
 
     // Main method
 
-    public ResponseEntity<String> registerReview(ReviewDTO review) {
+    public ResponseEntity<ResponseDTO> registerReview(ReviewDTO review) {
         if (review.getStar() == 0)
             throw new InvalidException("별점을 선택해 주세요.");
 
@@ -32,7 +33,7 @@ public class ReviewService {
 
         int result = reviewMapper.insertReview(review);
         if (result == 1)
-            return ResponseEntity.ok().body("리뷰 등록이 완료되었습니다.");
+            return ResponseEntity.ok().body(new ResponseDTO("리뷰 등록이 완료되었습니다."));
 
         throw new InternalServerException("리뷰 등록에 실패했습니다.");
     }
@@ -47,10 +48,10 @@ public class ReviewService {
         return result;
     }
 
-    public ResponseEntity<String> deleteReview(int review_id) {
+    public ResponseEntity<ResponseDTO> deleteReview(int review_id) {
         int result = reviewMapper.deleteReview(review_id);
         if (result == 1) {
-            return ResponseEntity.ok().body("삭제되었습니다");
+            return ResponseEntity.ok().body(new ResponseDTO("삭제되었습니다"));
         }
         throw new InternalServerException("삭제되지 않았습니다.");
 
