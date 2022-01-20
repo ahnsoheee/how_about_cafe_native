@@ -1,35 +1,39 @@
 import Config from "react-native-config";
 
 class fetchAPI {
-    post(uri, body) {
-        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
+    async post(uri, body) {
+        const res = await fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
-        }).then((res) => res.json());
+        });
+        return await res.json();
     }
 
-    get(uri) {
-        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
+    async get(uri) {
+        const res = await fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-        }).then((res) => res.json());
+        });
+        return await res.json();
     }
 
-    delete(uri, body) {
-        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
+    async delete(uri, body) {
+        const res = await fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
-        }).then((res) => res.json());
+        });
+        return await res.json();
     }
 
-    patch(uri, body) {
-        return fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
+    async patch(uri, body) {
+        const res = await fetch(`${Config.SERVER_URL}:${Config.PORT}${uri}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
-        }).then((res) => res.json());
+        });
+        return await res.json();
     }
 }
 
