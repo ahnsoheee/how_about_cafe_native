@@ -39,7 +39,7 @@ const MyReviewScreen = ({ navigation, route }) => {
 
     const deleteReview = async () => {
         const res = await API.patch(`/review/${pressedId}/delete`);
-        SimpleToast.show(res.result, SimpleToast.SHORT);
+        SimpleToast.show(res.message, SimpleToast.SHORT);
         getMyReviews();
     };
 

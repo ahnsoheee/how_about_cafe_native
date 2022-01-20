@@ -44,19 +44,19 @@ const SignupPage = ({ navigation }) => {
                     SimpleToast.show('비밀번호가 일치하지 않습니다', SimpleToast.SHORT);
                 }
             } else {
-                res = await API.post("/user/signup", {
+                const res = await API.post("/user/signup", {
                     "user_id": id,
                     "pw": pw1,
                     "user_name": name
                 });
-
                 if (Platform.OS === 'android') {
-                    ToastAndroid.show(result.msg, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+                    ToastAndroid.show(res.message, ToastAndroid.SHORT, ToastAndroid.BOTTOM);
                 } else {
-                    SimpleToast.show(res.result, SimpleToast.SHORT);
+                    SimpleToast.show(res.message, SimpleToast.SHORT);
                 }
 
-                if (res.status) navigation.navigate('Main');
+                if (res.status == 200)
+                    navigation.navigate('Main');
             }
         }
     };

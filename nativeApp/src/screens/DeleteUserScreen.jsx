@@ -7,11 +7,11 @@ import SimpleToast from 'react-native-simple-toast';
 const DeleteUserScreen = ({ navigation, route }) => {
     const deleteUser = async () => {
         const res = await API.patch(`/user/${route.params.user_id}/delete`);
-        if (res.status) {
+        if (res.status == 200) {
             AsyncStorage.removeItem("token");
             navigation.navigate('Main');
         }
-        else SimpleToast.show(res.result, SimpleToast.SHORT);
+        else SimpleToast.show(res.message, SimpleToast.SHORT);
     };
 
     const cancel = () => {

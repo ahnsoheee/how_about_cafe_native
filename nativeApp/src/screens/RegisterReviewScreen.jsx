@@ -42,8 +42,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                 image: imageSrc
             });
 
-            SimpleToast.show(res.result, SimpleToast.SHORT);
-            if (res.status) {
+            SimpleToast.show(res.meessage, SimpleToast.SHORT);
+            if (res.status == 200) {
                 navigation.goBack();
             }
         }

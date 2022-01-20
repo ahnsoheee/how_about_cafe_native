@@ -32,25 +32,20 @@ const SigninScreen = ({ navigation }) => {
                 SimpleToast.show('아이디와 비밀번호를 모두 입력하세요', SimpleToast.SHORT);
             }
         } else {
-
             const res = await API.post('/user/signin', {
                 'user_id': id,
                 'pw': pw
             });
 
-            if (res.status) {
-                try {
-                    storeData('token', res.result);
-                    navigation.navigate('Main');
-                } catch (e) {
-                    // 에러 처리
+            if (res.status > 200) {
+                if (Platform.OS === 'android') {
+                    ToastAndroid.show(res.message, ToastAndroid.SHORT, ToastAndroid.CENTER);
+                } else {
+                    SimpleToast.show(res.message, SimpleToast.SHORT);
                 }
             } else {
-                if (Platform.OS === 'android') {
-                    ToastAndroid.show(res.result, ToastAndroid.SHORT, ToastAndroid.CENTER);
-                } else {
-                    SimpleToast.show(res.result, SimpleToast.SHORT);
-                }
+                storeData('token', res.message);
+                navigation.navigate('Main');
             }
         }
     };

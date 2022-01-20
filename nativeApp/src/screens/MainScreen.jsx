@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ToastAndroid, Platform } from 'react-native';
+import SimpleToast from 'react-native-simple-toast';
 import InitScreen from './InitScreen';
 import HomeScreen from './HomeScreen';
 import SettingScreen from './SettingScreen';
@@ -29,7 +31,15 @@ const MainScreen = ({ navigation }) => {
 
             const getAuth = async () => {
                 const res = await API.post("/user/auth", token);
-                if (res.user_id) {
+                if (res.status > 200) {
+                    if (Platform.OS === 'android') {
+                        ToastAndroid.show(res.message, ToastAndroid.SHORT, ToastAndroid.CENTER);
+                    } else {
+                        SimpleToast.show(res.message, SimpleToast.SHORT);
+                    }
+                    setAuth(false);
+                }
+                else {
                     setUserId(res.user_id);
                     setUserName(res.user_name);
                     setAuth(true);

@@ -16,8 +16,8 @@ const EditUserInfo = ({ route }) => {
             SimpleToast.show("닉네임은 최소 1, 최대 20 글자로 작성해주세요.");
         } else {
             const res = await API.patch(`/user/${user_name}/edit/name`, name);
-            if (res.status) setUserName(name);
-            SimpleToast.show(res.result, SimpleToast.SHORT);
+            if (res.status == 200) setUserName(name);
+            SimpleToast.show(res.message, SimpleToast.SHORT);
         }
     };
 

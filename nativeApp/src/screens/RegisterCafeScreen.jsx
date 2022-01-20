@@ -29,8 +29,8 @@ const RegisterCafeScreen = ({ navigation }) => {
                 "addr_road": addr_road.trim() + " " + extraAddr.trim(),
                 "addr_jibun": addr_jibun.trim() + " " + extraAddr.trim()
             });
-            SimpleToast.show(res.result, SimpleToast.SHORT);
-            if (res.status) {
+            SimpleToast.show(res.message, SimpleToast.SHORT);
+            if (res.status == 200) {
                 navigation.goBack();
             }
         }
