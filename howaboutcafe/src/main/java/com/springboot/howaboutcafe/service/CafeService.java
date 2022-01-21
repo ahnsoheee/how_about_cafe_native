@@ -29,12 +29,14 @@ public class CafeService {
     }
 
     public ResponseEntity<ResponseDTO> registerCafe(CafeDTO cafe) {
-        if (cafe.getCafe_name() == null || cafe.getAddr_road() == null || cafe.getAddr_jibun() == null)
+        if (cafe == null)
             throw new InvalidException("이름과 주소를 모두 입력해주세요.");
 
         cafe.setCafe_name(cafe.getCafe_name().trim());
         cafe.setAddr_road(cafe.getAddr_road().trim().toUpperCase());
         cafe.setAddr_jibun(cafe.getAddr_jibun().trim().toUpperCase());
+        if (cafe.getCafe_name().equals("") || cafe.getAddr_jibun().equals("") || cafe.getAddr_road().equals(""))
+            throw new InvalidException("이름과 주소를 모두 입력해주세요.");
 
         int isExistCafe = cafeMapper.isExistCafe(cafe.getAddr_road());
         if (isExistCafe == 1)
