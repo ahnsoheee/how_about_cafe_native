@@ -22,6 +22,9 @@ public class ReviewService {
     // Main method
 
     public ResponseEntity<ResponseDTO> registerReview(ReviewDTO review) {
+        if (review == null)
+            throw new InvalidException("별점과 리뷰를 입력해주세요.");
+
         if (review.getStar() == 0)
             throw new InvalidException("별점을 선택해 주세요.");
 
