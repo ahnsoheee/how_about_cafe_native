@@ -78,8 +78,9 @@ public class UserService {
     }
 
     public ResponseEntity<ResponseDTO> signin(UserDTO user) {
-        if (user.getUser_id() == null || user.getPw() == null)
-            throw new InvalidException("아이디와 비밀번호를 입력해주세요.");
+        if (user == null || user.getUser_id().equals("") || user.getPw().equals(""))
+            throw new InvalidException("아이디와 비밀번호를 모두 입력해주세요.");
+
         user.setPw(encrypt(user.getPw()));
         UserDTO result = userMapper.selectUser(user);
         if (result == null) {
@@ -90,7 +91,7 @@ public class UserService {
     }
 
     public ResponseEntity<ResponseDTO> signup(UserDTO user) {
-        if (user.getUser_id() == null || user.getPw() == null || user.getUser_name() == null)
+        if (user == null || user.getUser_id().equals("") || user.getPw().equals("") || user.getUser_name().equals(""))
             throw new InvalidException("아이디, 비밀번호, 닉네임을 모두 입력해주세요.");
 
         String id = user.getUser_id();
