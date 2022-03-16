@@ -35,3 +35,7 @@
 ### 🔍  카페 등록
 
 - 찾는 카페가 없다면 새로운 카페를 등록할 수 있습니다.
+
+### ⚙️ 기술 스택
+- Backend: Spring boot, Maven, MySQL, MyBatis, AWS
+- Frontend: React Native, Styled-component
