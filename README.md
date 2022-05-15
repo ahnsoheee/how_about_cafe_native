@@ -41,3 +41,6 @@
 ### ⚙️ 기술 스택
 - Backend: Spring boot, Maven, MySQL, MyBatis, AWS
 - Frontend: React Native, Styled-component
+
+-------
+### [📚 Wiki](https://github.com/ahnsoheee/how_about_cafe_native/wiki)
