@@ -35,11 +35,11 @@ const RegisterReviewScreen = ({ navigation, route }) => {
             SimpleToast.show('리뷰를 작성해 주세요', SimpleToast.SHORT);
         } else {
             const res = await API.post('/review', {
-                cafe_id: cafe_id,
-                user_id: user_id,
-                star: starCount,
-                content: text,
-                image: imageSrc
+                "cafe_id": cafe_id,
+                "user_id": user_id,
+                "star": starCount,
+                "content": text,
+                "image": imageSrc
             });
 
             SimpleToast.show(res.meessage, SimpleToast.SHORT);
