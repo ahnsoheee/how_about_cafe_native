@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState, useCallback } from 'react';
+import { useFocusEffect } from "@react-navigation/native";
 import styled from 'styled-components/native';
 import { API } from '../api/api';
 import { View, Text } from 'react-native';
@@ -18,16 +19,28 @@ const MyReviewScreen = ({ navigation, route }) => {
         { text: '삭제', onPress: () => deleteReview() }
     ];
 
-    useEffect(() => {
-        getMyReviews();
-        return () => {
-            setVisible(false);
-            setPressedId(review_id);
-        };
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            getMyReviews();
+            return () => {
+                setVisible(false);
+                setPressedId(0);
+            };
+        }, [])
+    );
 
+    const getReview = useCallback(async (pressedId) => {
+        setPressedId(pressedId);
+        const { review_id, star, content, image } = await API.get(`/review/${pressedId}`);
+        if (review_id)
+            navigation.navigate('RegisterReview', { review_id: pressedId, star: star, content: content, image: image });
+    });
 
-    const onPress = (review_id) => {
+    const onEdit = async (pressedId) => {
+        getReview(pressedId);
+    };
+
+    const onDelete = (review_id) => {
         setPressedId(review_id);
         setVisible(true);
     };
@@ -61,11 +74,13 @@ const MyReviewScreen = ({ navigation, route }) => {
                         <Date>{item.created_at.substring(0, 10)}</Date>
                     </MiddleWrapper>
                 </LeftWrapper>
-                <DeleteButton onPress={() => onPress(item.review_id)}>삭제</DeleteButton>
+                <Button onPress={() => onEdit(item.review_id)}>수정</Button>
+                <Button onPress={() => onDelete(item.review_id)}>삭제</Button>
             </TopWrapper>
             <Content>{item.content}</Content>
             {item.image ? <Photo source={{ uri: item.image }} /> : <></>}
         </Review>
+
     );
 
     return (
@@ -125,7 +140,8 @@ const MiddleWrapper = styled.View`
     margin-bottom: 5px;
 `;
 
-const DeleteButton = styled.Text`
+const Button = styled.Text`
+    margin-left: 7px;
 `;
 
 const CafeName = styled.Text`

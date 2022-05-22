@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import StarRating from 'react-native-star-rating';
 import Button from '../components/common/Button';
@@ -13,10 +13,18 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0);
     const [text, onChangeText] = useState('');
     const [visible, setVisible] = useState(false);
-    const { user_id, cafe_id } = route.params;
+    const { user_id, cafe_id, review_id, star, content, image } = route.params;
     const [imageSrc, setImageSrc] = useState('');
     //const [imageSrc, setImageSrc] = useState([]);
     //const [num, setNum] = useState(0);
+
+    useEffect(() => {
+        if (review_id) {
+            setStarCount(star);
+            onChangeText(content);
+            setImageSrc(image);
+        }
+    }, []);
 
     const footerButtons = [
         { text: '취소' },
@@ -29,23 +37,34 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     //];
 
     const registerReview = async () => {
-        if (starCount == 0) {
-            SimpleToast.show('별점을 선택해 주세요', SimpleToast.SHORT);
-        } else if (!text) {
-            SimpleToast.show('리뷰를 작성해 주세요', SimpleToast.SHORT);
-        } else {
-            const res = await API.post('/review', {
-                "cafe_id": cafe_id,
-                "user_id": user_id,
+        let res = '';
+        if (review_id) {
+            res = await API.patch(`/review/edit`, {
+                "review_id": review_id,
                 "star": starCount,
                 "content": text,
                 "image": imageSrc
             });
 
-            SimpleToast.show(res.meessage, SimpleToast.SHORT);
-            if (res.status == 200) {
-                navigation.goBack();
+        } else {
+            if (starCount == 0) {
+                SimpleToast.show('별점을 선택해 주세요', SimpleToast.SHORT);
+            } else if (!text) {
+                SimpleToast.show('리뷰를 작성해 주세요', SimpleToast.SHORT);
+            } else {
+                res = await API.post('/review', {
+                    "cafe_id": cafe_id,
+                    "user_id": user_id,
+                    "star": starCount,
+                    "content": text,
+                    "image": imageSrc
+                });
             }
+        }
+
+        SimpleToast.show(res.meessage, SimpleToast.SHORT);
+        if (res.status == 200) {
+            navigation.goBack();
         }
     };
 
