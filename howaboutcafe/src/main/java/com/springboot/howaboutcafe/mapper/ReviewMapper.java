@@ -15,6 +15,10 @@ public interface ReviewMapper {
 
     int deleteReview(int review_id);
 
+    int editReview(ReviewDTO review);
+
+    int validateDate(int review_id);
+
     List<ReviewDTO> findByUser(String user_name);
 
     int insertImage(ImageDTO image);

@@ -35,6 +35,11 @@ public class ReviewController {
         return reviewService.deleteReview(review_id);
     }
 
+    @PatchMapping("/edit")
+    public ResponseEntity<ResponseDTO> editReview(@RequestBody ReviewDTO review) throws Exception {
+        return reviewService.editReview(review);
+    }
+
     @GetMapping("")
     public List<ReviewDTO> getMyReview(@RequestParam String user_id) throws Exception {
         return reviewService.getMyReview(user_id);

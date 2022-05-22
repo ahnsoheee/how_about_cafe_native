@@ -32,6 +32,18 @@
         INSERT INTO IMAGE(review_id, cafe_id, path) VALUES(#{review_id}, #{cafe_id}, #{path});
     </insert>-->
 
+    <update id="editReview" parameterType="com.springboot.howaboutcafe.dto.ReviewDTO">
+        UPDATE REVIEW 
+        SET star=#{star}, content=#{content}, image=#{image}
+        WHERE review_id=#{review_id}
+    </update>
+
+    <select id="validateDate" parameterType="int" resultType="int">
+        SELECT count(review_id)
+        FROM REVIEW
+        WHERE review_id=#{review_id} AND updated_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);
+    </select>
+
     <select id="getImage" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ImageDTO">
         SELECT review_id, cafe_id, image
         FROM REVIEW

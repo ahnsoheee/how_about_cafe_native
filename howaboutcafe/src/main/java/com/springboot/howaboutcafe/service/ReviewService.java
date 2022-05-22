@@ -5,6 +5,7 @@ import java.util.List;
 import com.springboot.howaboutcafe.dto.ImageDTO;
 import com.springboot.howaboutcafe.dto.ResponseDTO;
 import com.springboot.howaboutcafe.dto.ReviewDTO;
+import com.springboot.howaboutcafe.exception.ForbiddenException;
 import com.springboot.howaboutcafe.exception.InternalServerException;
 import com.springboot.howaboutcafe.exception.InvalidException;
 import com.springboot.howaboutcafe.mapper.ReviewMapper;
@@ -53,11 +54,22 @@ public class ReviewService {
 
     public ResponseEntity<ResponseDTO> deleteReview(int review_id) {
         int result = reviewMapper.deleteReview(review_id);
-        if (result == 1) {
+        if (result == 1)
             return ResponseEntity.ok().body(new ResponseDTO("삭제되었습니다"));
-        }
+
         throw new InternalServerException("삭제되지 않았습니다.");
 
+    }
+
+    public ResponseEntity<ResponseDTO> editReview(ReviewDTO review) {
+        int isPossibleEdit = reviewMapper.validateDate(review.getReview_id());
+        if (isPossibleEdit == 1) {
+            int result = reviewMapper.editReview(review);
+            if (result == 1)
+                return ResponseEntity.ok().body(new ResponseDTO("수정되었습니다"));
+            throw new InternalServerException("7일 이내 작성한 리뷰만 가능합니다.");
+        }
+        throw new ForbiddenException("7일 이내 작성한 리뷰만 가능합니다.");
     }
 
     public List<ReviewDTO> getMyReview(String user_id) {
