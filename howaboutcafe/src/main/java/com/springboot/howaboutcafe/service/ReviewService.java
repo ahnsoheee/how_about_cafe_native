@@ -72,6 +72,10 @@ public class ReviewService {
         throw new ForbiddenException("7일 이내 작성한 리뷰만 가능합니다.");
     }
 
+    public ReviewDTO getReview(int review_id) {
+        return reviewMapper.findByReviewId(review_id);
+    }
+
     public List<ReviewDTO> getMyReview(String user_id) {
         List<ReviewDTO> result = reviewMapper.findByUser(user_id);
         return result;

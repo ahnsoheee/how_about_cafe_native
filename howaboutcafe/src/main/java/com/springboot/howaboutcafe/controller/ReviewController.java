@@ -40,6 +40,11 @@ public class ReviewController {
         return reviewService.editReview(review);
     }
 
+    @GetMapping("/{review_id}")
+    public ReviewDTO getReview(@PathVariable("review_id") int review_id) throws Exception {
+        return reviewService.getReview(review_id);
+    }
+
     @GetMapping("")
     public List<ReviewDTO> getMyReview(@RequestParam String user_id) throws Exception {
         return reviewService.getMyReview(user_id);

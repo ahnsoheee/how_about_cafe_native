@@ -23,5 +23,7 @@ public interface ReviewMapper {
 
     int insertImage(ImageDTO image);
 
+    ReviewDTO findByReviewId(int review_id);
+
     List<ImageDTO> getImage(int cafe_id);
 }

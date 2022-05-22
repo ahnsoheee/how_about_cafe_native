@@ -24,6 +24,12 @@
         ORDER BY r.created_at DESC
     </select>
 
+    <select id="findByReviewId" parameterType="int" resultType="com.springboot.howaboutcafe.dto.ReviewDTO">
+        SELECT review_id, content, star, image
+        FROM REVIEW
+        WHERE review_id=#{review_id};
+    </select>
+
     <update id="deleteReview" parameterType="int">
         UPDATE REVIEW SET isDeleted=1 WHERE review_id=#{review_id};
     </update>
