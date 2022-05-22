@@ -49,6 +49,8 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                 SimpleToast.show('별점을 선택해 주세요', SimpleToast.SHORT);
             } else if (!text) {
                 SimpleToast.show('리뷰를 작성해 주세요', SimpleToast.SHORT);
+            } else if (text.length < 5) {
+                SimpleToast.show('리뷰는 5자 이상 작성해 주세요', SimpleToast.SHORT);
             } else {
                 res = await API.post('/review', {
                     "cafe_id": cafe_id,
@@ -58,7 +60,7 @@ const RegisterReviewScreen = ({ navigation, route }) => {
                     "image": imageSrc
                 });
             }
-        }
+        };
 
         SimpleToast.show(res.meessage, SimpleToast.SHORT);
         if (res.status == 200) {
