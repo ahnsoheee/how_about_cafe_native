@@ -3,8 +3,7 @@ import styled from 'styled-components/native';
 import StarRating from 'react-native-star-rating';
 import Button from '../components/common/Button';
 import * as ImagePicker from "react-native-image-picker";
-import { Modal, Provider } from '@ant-design/react-native';
-import { View } from 'react-native';
+import { Modal } from '@ant-design/react-native';
 import Image from "../components/common/Image";
 import SimpleToast from 'react-native-simple-toast';
 import { API } from "../api/api";
@@ -12,7 +11,6 @@ import { API } from "../api/api";
 const RegisterReviewScreen = ({ navigation, route }) => {
     const [starCount, setStarCount] = useState(0);
     const [text, onChangeText] = useState('');
-    const [visible, setVisible] = useState(false);
     const { user_id, cafe_id, review_id, star, content, image } = route.params;
     const [imageSrc, setImageSrc] = useState('');
     //const [imageSrc, setImageSrc] = useState([]);
@@ -105,42 +103,23 @@ const RegisterReviewScreen = ({ navigation, route }) => {
     };
 
     return (
-        <>
-            <Wrapper>
-                <Text>만족하셨나요 ?</Text>
-                <StarWrapper>
-                    <StarRating
-                        disabled={false}
-                        maxStars={5}
-                        rating={starCount}
-                        selectedStar={(rating) => setStarCount(rating)}
-                        fullStarColor={"#FF8E26"}
-                        emptyStarColor={"#FF8E26"}
-                    />
-                </StarWrapper>
-                <Input placeholder="리뷰는 솔직하게 작성해주세요." onChangeText={onChangeText} value={text} editable maxLength={400} multiline={true} />
-                {/*<ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />*/}
-                <Image onPressImage={onPressImage} imageSrc={imageSrc} />
-                <Button name="저장하기" onPress={registerReview} />
-
-            </Wrapper>
-            <Provider>
-                <Modal
-                    transparent
-                    onClose={() => setVisible(false)}
-                    maskClosable
-                    visible={visible}
-                    closable
-                    footer={footerButtons}
-                >
-                    <View style={{ paddingVertical: 20 }}>
-                        <Text />
-                        <Text style={{ textAlign: 'center', fontSize: 20 }}>삭제할까요?</Text>
-                        <Text />
-                    </View>
-                </Modal>
-            </Provider>
-        </>
+        <Wrapper>
+            <Text>만족하셨나요 ?</Text>
+            <StarWrapper>
+                <StarRating
+                    disabled={false}
+                    maxStars={5}
+                    rating={starCount}
+                    selectedStar={(rating) => setStarCount(rating)}
+                    fullStarColor={"#FF8E26"}
+                    emptyStarColor={"#FF8E26"}
+                />
+            </StarWrapper>
+            <Input placeholder="리뷰는 솔직하게 작성해주세요." onChangeText={onChangeText} value={text} editable maxLength={400} multiline={true} />
+            {/*<ImageList imageSrc={imageSrc} onPressImage={onPressImage} setNum={setNum} />*/}
+            <Image onPressImage={onPressImage} imageSrc={imageSrc} />
+            <Button name="저장하기" onPress={registerReview} />
+        </Wrapper>
     );
 };
 
